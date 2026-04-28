@@ -20,6 +20,7 @@
 
 ## 📁 03_Entities/ (활성화된 객체 데이터)
 - `/Survivors/Gavin_Jackson.md`: 가빈 잭슨 (ENTJ) 상세 프로필 및 스탯
+- `/Survivors/Rachel_Lopez.md` : 레이첼 로페즈(ESTP) 상세 프로필 및 스탯
 - (추가 예정) 세력 및 팩션 리더 데이터 등
 
 ## 📁 05_Events/ (생성된 인게임 이벤트 DB)
