@@ -8,6 +8,9 @@
 - `Survivor_Template.md`: 생존자 프로필, 6모자 기법, 스탯 생성 양식
 - `EVT_Notification.md`: 통보형 이벤트(Track A) 생성 양식 및 태그 규격
 - `EVT_Interactive.md`: 개입형 TRPG 이벤트(Track B) 생성 양식 및 주사위 판정 규격
+- `Bot_Personality_Template.md`
+- `Bot_Universal_Template.md`
+
 
 ## 📁 01_Mechanics/ (게임 핵심 규칙 및 로직)
 - `Time_System.md`: 하루 5페이즈(새벽~밤) 사이클 및 턴제 흐름 규칙
