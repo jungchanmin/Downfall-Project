@@ -9,6 +9,11 @@
 - `EVT_Interactive.md`: 개입형 이벤트(Track B) 생성 양식
 - `Bot_Universal_Template.md`: 캐릭터의 외면부터 심연의 결핍, 상황별 말투까지 집대성한 궁극의 캐릭터 해부용 마스터 템플릿.
 
+- `01_AI_Event_Pipeline_Roadmap.md` : 위키 빌드 오더 (8단계 Phase)
+- `02_Event_QA_Protocol.md` : 4중 게이트 검수 프로토콜
+- `03_Downfall_PRD.md` : 게임 구현용 PRD
+- `04_Solo_Dev_AI_Tools_Tutorial.md` : NovelAI/Claude Code/AI 작곡 통합 가이드
+
 
 ## 📁 01_Mechanics/ (게임 핵심 규칙 및 로직)
 - `Mental_Ailments.md`: 001~045번까지의 기벽, 상태이상, 정신병 데이터베이스
