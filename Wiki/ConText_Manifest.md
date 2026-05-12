@@ -1,3 +1,16 @@
+---
+id: SYS_Manifest
+title: Downfall Project Context Manifest
+type: system
+status: complete
+summary: 프로젝트의 핵심 아키텍처·디자인 필러·라이팅 지침·태그 스키마를 정의한 헌법 문서.
+tags: [system, core, rules]
+keywords: [필러, 셜리잭슨, 태그, 리더권한]
+depends_on: []
+emits: []
+last_updated: 2026-05-12
+---
+
 # 🌑 Downfall Project Context Manifest (v2.1)
 
 *이 문서는 프로젝트의 핵심 아키텍처, 내러티브 지침, 그리고 개발 파이프라인을 집대성한 마스터 가이드입니다.*
