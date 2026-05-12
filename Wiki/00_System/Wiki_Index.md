@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-12T14:14:04*  
-*Total entries: 4*  
+*Auto-generated on 2026-05-12T14:46:56*  
+*Total entries: 5*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -23,6 +23,13 @@
 - **Summary:** 2~3 선택지를 가진 이벤트의 표준 양식. 트리거·서사·선택지·결과 효과·메모리 플래그 필드를 포함.
 - **Keywords:** 이벤트, Track B, 개입형, 선택지
 - **Depends on:** `SYS_Manifest`, `EVT_Conveyor_Belt`
+
+### ⚪ `EVT_Template_v2_Spec.md`
+- **Title:** 범용 이벤트 템플릿 v2 사양 — 4대 문제 해결안
+- **ID:** `SYS_EVT_Template_v2_Spec` | **Type:** `system`
+- **Summary:** EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양.
+- **Keywords:** 이벤트, 템플릿, 필터링, 조사, 판정, DC
+- **Depends on:** `SYS_Manifest`, `TMPL_EVT_Notification`, `TMPL_EVT_Interactive`
 
 
 ## 📁 `01_Mechanics/`
