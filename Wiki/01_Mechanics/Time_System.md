@@ -1,3 +1,15 @@
+---
+id: MECH_Time_System
+title: 5페이즈 시간 시스템
+type: mechanic
+status: complete
+summary: 새벽·아침·점심·저녁·밤의 5단계 페이즈 정의와 각 페이즈의 가능 행동·금기 행동·종료 조건.
+tags: [mechanic, time, phase]
+keywords: [페이즈, 새벽, 아침, 점심, 저녁, 밤, 턴]
+depends_on: []
+emits: []
+last_updated: 2026-05-12
+---
 # ⏳ 시간 및 하루 사이클 시스템 (Time & Day Cycle Mechanics)
 
 ## 📋 1. 시스템 메타데이터

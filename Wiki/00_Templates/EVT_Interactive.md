@@ -1,3 +1,15 @@
+---
+id: TMPL_EVT_Interactive
+title: 개입형 이벤트 (Track B) 생성 양식
+type: template
+status: complete
+summary: 2~3 선택지를 가진 이벤트의 표준 양식. 트리거·서사·선택지·결과 효과·메모리 플래그 필드를 포함.
+tags: [template, event, track_b]
+keywords: [이벤트, Track B, 개입형, 선택지]
+depends_on: [SYS_Manifest, EVT_Conveyor_Belt]
+emits: []
+last_updated: 2026-05-12
+---
 
 # 🎲 개입형 이벤트 템플릿 (Track B: Interactive TRPG Event) V2
 

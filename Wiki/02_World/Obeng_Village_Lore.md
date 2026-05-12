@@ -1,3 +1,15 @@
+---
+id: LORE_LOC_Oebeng
+title: 오뱅마을 15구역 로어
+type: lore_world
+status: wip
+summary: 오뱅마을 15개 구역(성당·상점가·폐가 등)의 분위기·위험도·고유 이벤트 시드.
+tags: [lore, world, location, oebeng]
+keywords: [오뱅마을, 성당, 상점가, 폐가]
+depends_on: [SYS_Manifest]
+emits: []
+last_updated: 2026-05-12
+---
 # 🗺️ 오뱅마을 구역 및 세력 설정 (Oebeng Village Locations & Factions)
 
 ## 📋 개요
