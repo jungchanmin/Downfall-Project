@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-12T14:46:56*  
-*Total entries: 5*  
+*Auto-generated on 2026-05-13T12:53:37*  
+*Total entries: 7*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -17,12 +17,26 @@
 
 ## 📁 `00_Templates/`
 
+### ✅ `EVT_Conveyor_Belt_Master_Prompt.md`
+- **Title:** Downfall 이벤트 컨베이어 벨트 마스터 프롬프트 v2.2
+- **ID:** `EVT_Conveyor_Belt` | **Type:** `template`
+- **Summary:** 이벤트 생성 5단계 프로세스. v2 스키마(패밀리·Trigger DSL·조사 슬롯·Resolution Mode) 반영.
+- **Keywords:** 이벤트 생성, 컨베이어 벨트, 프로세스, 작가 모드
+- **Depends on:** `SYS_Manifest`, `SYS_EVT_Template_v2_Spec`, `TMPL_EVT_Notification`, `TMPL_EVT_Interactive`
+
 ### ✅ `EVT_Interactive.md`
-- **Title:** 개입형 이벤트 (Track B) 생성 양식
+- **Title:** 개입형 이벤트 (Track B) 생성 양식 v2
 - **ID:** `TMPL_EVT_Interactive` | **Type:** `template`
-- **Summary:** 2~3 선택지를 가진 이벤트의 표준 양식. 트리거·서사·선택지·결과 효과·메모리 플래그 필드를 포함.
-- **Keywords:** 이벤트, Track B, 개입형, 선택지
-- **Depends on:** `SYS_Manifest`, `EVT_Conveyor_Belt`
+- **Summary:** 2~3 선택지를 가진 개입형 이벤트의 v2 표준 양식. 내러티브 모듈 분리 + Trigger DSL + 조사 슬롯 + 선택지 내부 stat_check.
+- **Keywords:** 이벤트, Track B, 개입형, 선택지, 판정
+- **Depends on:** `SYS_Manifest`, `SYS_EVT_Template_v2_Spec`, `EVT_Conveyor_Belt`
+
+### ✅ `EVT_Notification.md`
+- **Title:** 통보형 이벤트 (Track A) 생성 양식 v2
+- **ID:** `TMPL_EVT_Notification` | **Type:** `template`
+- **Summary:** 선택지 없는 단일 결과 이벤트의 v2 표준 양식. 셜리 잭슨 작법 유지 + Trigger DSL + 조사 슬롯 + Resolution Mode.
+- **Keywords:** 이벤트, Track A, 통보형, 셜리잭슨
+- **Depends on:** `SYS_Manifest`, `SYS_EVT_Template_v2_Spec`, `EVT_Conveyor_Belt`
 
 ### ⚪ `EVT_Template_v2_Spec.md`
 - **Title:** 범용 이벤트 템플릿 v2 사양 — 4대 문제 해결안
