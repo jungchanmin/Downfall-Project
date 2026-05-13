@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-13T13:15:27*  
-*Total entries: 7*  
+*Auto-generated on 2026-05-13T13:55:46*  
+*Total entries: 10*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -16,6 +16,12 @@
 
 
 ## 📁 `00_Templates/`
+
+### ✅ `Bot_Universal_Template.md`
+- **Title:** 보편적 생존자 가이드 봇 템플릿
+- **ID:** `TMPL_Universal_Survivor_Guide_Bot` | **Type:** `template`
+- **Summary:** 캐릭터 로어 바이블 작성을 위한 11개 섹션 표준 양식. Declared/Believed/Actual/Lack 의 4층 내면 구조와 상황별 말투 10종을 포함.
+- **Keywords:** 캐릭터 양식, 로어 바이블, 내면 구조, 상황별 말투, Identity, Personality, Voice, Relationships
 
 ### ✅ `EVT_Conveyor_Belt_Master_Prompt.md`
 - **Title:** Downfall 이벤트 컨베이어 벨트 마스터 프롬프트 v2.2
@@ -63,4 +69,23 @@
 - **Summary:** 오뱅마을 15개 구역(성당·상점가·폐가 등)의 분위기·위험도·고유 이벤트 시드.
 - **Keywords:** 오뱅마을, 성당, 상점가, 폐가
 - **Depends on:** `SYS_Manifest`
+
+
+## 📁 `03_Entities/Survivors/`
+
+### ✅ `Guide_Gavin_Jackson.md`
+- **Title:** 보편적 생존자 가이드 — 레이첼 로페즈
+- **ID:** `LORE_CHAR_Rachel_Lopez` | **Type:** `lore_char`
+- **Summary:** 과거 '은빛 칼날' 펜싱 국가대표였으나 동료의 사보타주로 발목이 부서져 몰락. 현재는 아지트의 '사냥개'로서 리더의 명령에 맹목적으로 종속된 전투원.
+- **Keywords:** 레이첼, Rachel, Lopez, 사냥개, 은빛 칼날, 펜싱, 피스트, 동적_자기파멸욕, 리더, 가빈
+- **Depends on:** `TMPL_Universal_Survivor_Guide_Bot`, `MECH_Mental_Ailments`
+- **Emits:** `Trait_비정상적_침착함`, `Trait_펜싱_룰`, `Trait_동적_자기파멸욕`, `Trait_부상_왼쪽발목`, `Flag_Past_Rachel_Career_Broken`, `Flag_Past_Rachel_Betrayed_By_Peer`, `Rel_Rachel_Leader_Blind_Devotion`
+
+### ✅ `Guide_Rachel_Lopez.md`
+- **Title:** 보편적 생존자 가이드 — 레이첼 로페즈
+- **ID:** `LORE_CHAR_Rachel_Lopez` | **Type:** `lore_char`
+- **Summary:** 과거 '은빛 칼날' 펜싱 국가대표였으나 동료의 사보타주로 발목이 부서져 몰락. 현재는 아지트의 '사냥개'로서 리더의 명령에 맹목적으로 종속된 전투원.
+- **Keywords:** 레이첼, Rachel, Lopez, 사냥개, 은빛 칼날, 펜싱, 피스트, 동적_자기파멸욕, 리더, 가빈
+- **Depends on:** `TMPL_Universal_Survivor_Guide_Bot`, `MECH_Mental_Ailments`
+- **Emits:** `Trait_비정상적_침착함`, `Trait_펜싱_룰`, `Trait_동적_자기파멸욕`, `Trait_부상_왼쪽발목`, `Flag_Past_Rachel_Career_Broken`, `Flag_Past_Rachel_Betrayed_By_Peer`, `Rel_Rachel_Leader_Blind_Devotion`
 
