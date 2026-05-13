@@ -1,6 +1,6 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-13T12:53:37*  
+*Auto-generated on 2026-05-13T13:15:27*  
 *Total entries: 7*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
