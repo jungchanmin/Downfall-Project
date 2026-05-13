@@ -1,3 +1,17 @@
+---
+id: TMPL_Universal_Survivor_Guide_Bot
+title: 보편적 생존자 가이드 봇 템플릿
+type: template
+status: complete
+summary: 캐릭터 로어 바이블 작성을 위한 11개 섹션 표준 양식.
+  Declared/Believed/Actual/Lack 의 4층 내면 구조와 상황별 말투 10종을 포함.
+tags: [template, character, bot, guide]
+keywords: [캐릭터 양식, 로어 바이블, 내면 구조, 상황별 말투,
+           Identity, Personality, Voice, Relationships]
+depends_on: []
+emits: []
+last_updated: 2026-05-13
+---
 
 # 📖 보편적 생존자 가이드 봇 (Universal Survivor Guide Bot)
 

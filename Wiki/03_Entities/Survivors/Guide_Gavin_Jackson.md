@@ -1,4 +1,26 @@
-
+---
+id: LORE_CHAR_Rachel_Lopez
+title: 보편적 생존자 가이드 — 레이첼 로페즈
+type: lore_char
+status: complete
+summary: 과거 '은빛 칼날' 펜싱 국가대표였으나 동료의 사보타주로 발목이 부서져
+  몰락. 현재는 아지트의 '사냥개'로서 리더의 명령에 맹목적으로 종속된 전투원.
+tags: [lore, character, survivor, leader_candidate]
+keywords: [레이첼, Rachel, Lopez, 사냥개, 은빛 칼날, 펜싱,
+           피스트, 동적_자기파멸욕, 리더, 가빈]
+depends_on:
+  - TMPL_Universal_Survivor_Guide_Bot
+  - MECH_Mental_Ailments
+emits:
+  - Trait_비정상적_침착함
+  - Trait_펜싱_룰
+  - Trait_동적_자기파멸욕
+  - Trait_부상_왼쪽발목
+  - Flag_Past_Rachel_Career_Broken
+  - Flag_Past_Rachel_Betrayed_By_Peer
+  - Rel_Rachel_Leader_Blind_Devotion
+last_updated: 2026-05-13
+---
 ### 📖 보편적 생존자 가이드: 가빈 잭슨 (01. Identity 확정본)
 
 ## 👤 01. Identity — 기본 정보
