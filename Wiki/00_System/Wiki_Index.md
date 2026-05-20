@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-19T14:09:36*  
-*Total entries: 10*  
+*Auto-generated on 2026-05-20T14:57:56*  
+*Total entries: 12*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -88,4 +88,23 @@
 - **Keywords:** 레이첼, Rachel, Lopez, 사냥개, 은빛 칼날, 펜싱, 피스트, 동적_자기파멸욕, 리더, 가빈
 - **Depends on:** `TMPL_Universal_Survivor_Guide_Bot`, `MECH_Mental_Ailments`
 - **Emits:** `Trait_비정상적_침착함`, `Trait_펜싱_룰`, `Trait_동적_자기파멸욕`, `Trait_부상_왼쪽발목`, `Flag_Past_Rachel_Career_Broken`, `Flag_Past_Rachel_Betrayed_By_Peer`, `Rel_Rachel_Leader_Blind_Devotion`
+
+
+## 📁 `05_Events/by_day/Day_any/`
+
+### ✅ `EVT_A001_RibbonAnomaly.md`
+- **Title:** 아침의 리본
+- **ID:** `EVT_A001_RibbonAnomaly` | **Type:** `event`
+- **Summary:** 레이첼이 아침 검 점검 루틴 중 보관함의 금메달 리본 색조가 어제와 미세하게 어긋난 것을 포착하고, 꺼진 TV 브라운관의 반사상과의 불일치를 목격하는 아지트 거실 단독 돌발 이벤트.
+- **Keywords:** 거실, 레이첼, 금메달_리본, 브라운관_반사, 색조_불일치
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_RibbonAnomaly`, `Flag_Trace_Rachel_RibbonDoubt`, `Flag_Trace_Rachel_HandTremor_Morning`
+
+### ✅ `EVT_Boo1.md`
+- **Title:** 물소리가 잦아드는 순간
+- **ID:** `EVT_B001_ShowerHair` | **Type:** `event`
+- **Summary:** 아침 샤워 루틴 중 리더가 샤워실에 진입해 레이첼의 젖은 머리카락을 씻기고 수건으로 말려주는 과정에서 스킨십이 발생하는 아지트 샤워실 개입형 이벤트. 침식도에 따라 레이첼의 반응이 절제된 수용 또는 강박 붕괴로 분기됨.
+- **Keywords:** 샤워실, 레이첼, 머리카락, 수건, 깨진_거울, 침식도_분기
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_ShowerHair`, `Flag_Trace_Rachel_LeaderTouchAllowed`, `Flag_Trace_Rachel_CrackingEdge`, `Flag_Trace_Rachel_DistanceReset`, `Flag_Trace_Rachel_CollapseShame`, `Rel_Rachel_Leader_Intimacy_Up`
 
