@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-21T13:28:35*  
-*Total entries: 12*  
+*Auto-generated on 2026-05-21T13:41:47*  
+*Total entries: 13*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -99,6 +99,14 @@
 - **Keywords:** 거실, 레이첼, 금메달_리본, 브라운관_반사, 색조_불일치
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_RibbonAnomaly`, `Flag_Trace_Rachel_RibbonDoubt`, `Flag_Trace_Rachel_HandTremor_Morning`
+
+### ✅ `EVT_A002_FleshEaterMark.md`
+- **Title:** 놈은 아침을 알았다
+- **ID:** `EVT_A002_FleshEaterMark` | **Type:** `event`
+- **Summary:** 아침 훈련 루틴 중 레이첼이 자신의 보폭과 정확히 일치하는 간격으로 훈련 동선 위에 새겨진 U.H-028의 표식을 발견하고, 사냥감으로 지목되었음을 인지하는 아지트 수영장 인근 단독 돌발 이벤트. 정신 판정에 따라 투지 발현 또는 강박 균열로 분기.
+- **Keywords:** 수영장, 레이첼, 표식, 살점포식자, UH028, 선공권, 훈련동선
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`, `BESTIARY_UH028`
+- **Emits:** `Flag_Memory_Rachel_FleshEaterMark`, `Flag_Lore_UH028_Rachel_Targeted`, `Flag_Trace_Rachel_HuntingInstinct`, `Flag_Trace_Rachel_PatternAnxiety`
 
 ### ✅ `EVT_B001_Showerhair.md`
 - **Title:** 물소리가 잦아드는 순간
