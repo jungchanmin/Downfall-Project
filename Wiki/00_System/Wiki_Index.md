@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-21T13:41:47*  
-*Total entries: 13*  
+*Auto-generated on 2026-05-21T14:55:08*  
+*Total entries: 15*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -108,6 +108,14 @@
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`, `BESTIARY_UH028`
 - **Emits:** `Flag_Memory_Rachel_FleshEaterMark`, `Flag_Lore_UH028_Rachel_Targeted`, `Flag_Trace_Rachel_HuntingInstinct`, `Flag_Trace_Rachel_PatternAnxiety`
 
+### ✅ `EVT_A003_MusicBox.md`
+- **Title:** 아무도 이 곡을 알 수 없다
+- **ID:** `EVT_A003_MusicBox` | **Type:** `event`
+- **Summary:** 아침 장비 점검 중 레이첼이 작은방에서 스스로 연주하는 오르골이 국가대표 시절 훈련 루틴 곡과 정확히 일치함을 인지하는 아지트 단독 돌발 이벤트. 정신 판정에 따라 투지 발현 또는 과거 기억 침습으로 분기.
+- **Keywords:** 작은방, 레이첼, 오르골, 훈련루틴, 과거침습, 커리어붕괴
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_MusicBox`, `Flag_Trace_Rachel_PastInvasion`, `Flag_Trace_Rachel_MelodyLoop`, `Flag_Trace_Rachel_CareerFlashback`
+
 ### ✅ `EVT_B001_Showerhair.md`
 - **Title:** 물소리가 잦아드는 순간
 - **ID:** `EVT_B001_ShowerHair` | **Type:** `event`
@@ -115,4 +123,12 @@
 - **Keywords:** 샤워실, 레이첼, 머리카락, 수건, 깨진_거울, 침식도_분기
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_ShowerHair`, `Flag_Trace_Rachel_LeaderTouchAllowed`, `Flag_Trace_Rachel_CrackingEdge`, `Flag_Trace_Rachel_DistanceReset`, `Flag_Trace_Rachel_CollapseShame`, `Rel_Rachel_Leader_Intimacy_Up`
+
+### ✅ `EVT_B002_VerandaCorrection.md`
+- **Title:** 피스트 위의 사냥개
+- **ID:** `EVT_B002_VerandaCorrection` | **Type:** `event`
+- **Summary:** 아침 섀도우 펜싱 훈련 중 리더가 베란다에 진입해 레이첼의 동작을 뒤에서 교정하면서 신체 접촉이 발생하는 아지트 베란다 개입형 이벤트. 친밀도에 따라 차가운 수용, 경계 붕괴, 거리 재설정, 명령 갈구 폭발로 분기됨.
+- **Keywords:** 베란다, 레이첼, 섀도우펜싱, 동작교정, 안개, 흔들의자, 친밀도_분기
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_VerandaCorrection`, `Flag_Trace_Rachel_CommandAccepted`, `Flag_Trace_Rachel_BoundaryCollapse`, `Flag_Trace_Rachel_DistanceReclaimed`, `Flag_Trace_Rachel_HungerExposed`, `Rel_Rachel_Leader_Intimacy_Up`
 
