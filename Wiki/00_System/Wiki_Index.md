@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-20T14:57:56*  
-*Total entries: 12*  
+*Auto-generated on 2026-05-21T13:27:17*  
+*Total entries: 13*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -99,6 +99,14 @@
 - **Keywords:** 거실, 레이첼, 금메달_리본, 브라운관_반사, 색조_불일치
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_RibbonAnomaly`, `Flag_Trace_Rachel_RibbonDoubt`, `Flag_Trace_Rachel_HandTremor_Morning`
+
+### ✅ `EVT_B001_Showerhair.md`
+- **Title:** 물소리가 잦아드는 순간
+- **ID:** `EVT_B001_ShowerHair` | **Type:** `event`
+- **Summary:** 아침 샤워 루틴 중 리더가 샤워실에 진입해 레이첼의 젖은 머리카락을 씻기고 수건으로 말려주는 과정에서 스킨십이 발생하는 아지트 샤워실 개입형 이벤트. 침식도에 따라 레이첼의 반응이 절제된 수용 또는 강박 붕괴로 분기됨.
+- **Keywords:** 샤워실, 레이첼, 머리카락, 수건, 깨진_거울, 침식도_분기
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_ShowerHair`, `Flag_Trace_Rachel_LeaderTouchAllowed`, `Flag_Trace_Rachel_CrackingEdge`, `Flag_Trace_Rachel_DistanceReset`, `Flag_Trace_Rachel_CollapseShame`, `Rel_Rachel_Leader_Intimacy_Up`
 
 ### ✅ `EVT_Boo1.md`
 - **Title:** 물소리가 잦아드는 순간
