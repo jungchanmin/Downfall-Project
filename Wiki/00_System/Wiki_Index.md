@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-21T14:55:08*  
-*Total entries: 15*  
+*Auto-generated on 2026-05-23T14:09:13*  
+*Total entries: 17*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -44,15 +44,22 @@
 - **Keywords:** 이벤트, Track A, 통보형, 셜리잭슨
 - **Depends on:** `SYS_Manifest`, `SYS_EVT_Template_v2_Spec`, `EVT_Conveyor_Belt`
 
-### ⚪ `EVT_Template_v2_Spec.md`
-- **Title:** 범용 이벤트 템플릿 v2 사양 — 4대 문제 해결안
-- **ID:** `SYS_EVT_Template_v2_Spec` | **Type:** `system`
-- **Summary:** EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양.
-- **Keywords:** 이벤트, 템플릿, 필터링, 조사, 판정, DC
-- **Depends on:** `SYS_Manifest`, `TMPL_EVT_Notification`, `TMPL_EVT_Interactive`
-
 
 ## 📁 `01_Mechanics/`
+
+### ✅ `MECH_NPC_Stats_System.md`
+- **Title:** NPC 생존자 스탯 시스템
+- **ID:** `MECH_NPC_Stats_System` | **Type:** `mechanic`
+- **Summary:** 다운폴 NPC 생존자의 전체 스탯 체계 정의. 기본 스탯 6종 / 능력 스탯 8종 / 감정·사회 스탯 5종 / 성격 스탯 6종. 수치 범위·상호작용·이벤트 판정 기준 포함.
+- **Keywords:** 스탯, 체력, 정신력, 스트레스, 허기, 컨디션, 피로도, 전투, 탐색, 대화, 간호, 제작, 기술, 매력, 지능, 친밀도, 침식도, 판정, DC
+- **Depends on:** `SYS_Manifest`, `MECH_Resource_System`
+
+### ✅ `MECH_Resource_System.md`
+- **Title:** 자원 체계 시스템
+- **ID:** `MECH_Resource_System` | **Type:** `mechanic`
+- **Summary:** 다운폴 자원 체계 전체 정의. 식량·부품·장비·유물·금화·명성· 단서·세력평판·동료 9종 자원의 역할·범위·관리 방식 정의. 이벤트별 획득·소비는 각 이벤트 파일에서 개별 관리.
+- **Keywords:** 자원, 식량, 부품, 장비, 유물, 금화, 명성, 단서, 세력평판, 동료, 생존자, 암시장
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`
 
 ### ✅ `Time_System.md`
 - **Title:** 5페이즈 시간 시스템
@@ -131,4 +138,12 @@
 - **Keywords:** 베란다, 레이첼, 섀도우펜싱, 동작교정, 안개, 흔들의자, 친밀도_분기
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_VerandaCorrection`, `Flag_Trace_Rachel_CommandAccepted`, `Flag_Trace_Rachel_BoundaryCollapse`, `Flag_Trace_Rachel_DistanceReclaimed`, `Flag_Trace_Rachel_HungerExposed`, `Rel_Rachel_Leader_Intimacy_Up`
+
+### ✅ `EVT_B003_DaggerFound.md`
+- **Title:** 먼지 없는 단검
+- **ID:** `EVT_B003_DaggerFound` | **Type:** `event`
+- **Summary:** 아침 장비 점검 중 레이첼이 작은 다락방 잡동사니 속에서 먼지 없이 깨끗한 이계의 단검을 발견하고, 리더에게 보고할지 숨길지 선택하는 아지트 단독 돌발 이벤트. 숨기면 유물 귀속·패널티 활성화, 보고하면 단검과 기억이 동시에 소멸하는 분기.
+- **Keywords:** 작은다락방, 레이첼, 단검, 유물, 대제사장, 기억소멸, 이계
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`, `ITEM_Relic_DB`
+- **Emits:** `Flag_Memory_Rachel_DaggerFound`, `Flag_Item_HighPriestDagger_Owned`, `Flag_Item_HighPriestDagger_Reported`, `Flag_Trace_Rachel_DaggerObsession`, `Rel_Rachel_Leader_Trust_Up`
 
