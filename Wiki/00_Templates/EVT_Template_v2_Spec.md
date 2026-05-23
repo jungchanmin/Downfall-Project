@@ -2,7 +2,7 @@
 id: SYS_EVT_Template_v2_Spec
 title: 범용 이벤트 템플릿 v2 사양 — 4대 문제 해결안
 type: system
-status: complete
+status: draft
 version: 2.1
 summary: EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양. v2.1: 아이템·유물 획득 블록 확장.
 tags: [system, template, event, schema]
