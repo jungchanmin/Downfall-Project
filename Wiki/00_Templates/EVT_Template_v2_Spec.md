@@ -2,12 +2,13 @@
 id: SYS_EVT_Template_v2_Spec
 title: 범용 이벤트 템플릿 v2 사양 — 4대 문제 해결안
 type: system
-status: draft
-summary: EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양.
+status: complete
+version: 2.1
+summary: EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양. v2.1: 아이템·유물 획득 블록 확장.
 tags: [system, template, event, schema]
-keywords: [이벤트, 템플릿, 필터링, 조사, 판정, DC]
-depends_on: [SYS_Manifest, TMPL_EVT_Notification, TMPL_EVT_Interactive]
-last_updated: 2026-05-12
+keywords: [이벤트, 템플릿, 필터링, 조사, 판정, DC, 유물, 아이템, relic_acquire, item_acquire]
+depends_on: [SYS_Manifest, TMPL_EVT_Notification, TMPL_EVT_Interactive, MECH_Resource_System, ITEM_Relic_DB]
+last_updated: 2026-05-21
 ---
 
 # 🧩 EVT Template v2 — 4대 문제 통합 해결안
@@ -57,17 +58,17 @@ last_updated: 2026-05-12
 ```yaml
 family: F2_Atmosphere
 slots:
-  - location:        # 어디서
+  - location:
       values: [Loc_거실, Loc_복도, Loc_지하실, Loc_창고, Loc_부엌]
-  - sensory_axis:    # 어느 감각으로
+  - sensory_axis:
       values: [시각, 청각, 후각, 촉각]
-  - intensity:       # 얼마나
+  - intensity:
       values: [희미한, 분명한, 견딜 수 없는]
-  - anomaly_type:    # 무엇이 어긋났는가
+  - anomaly_type:
       values: [대칭의 어긋남, 시간의 반복, 사물의 위치, 그림자]
 ```
 
-→ 이 한 패밀리에서 5 × 4 × 3 × 4 = **240개의 조합**. 그중 *적절한 조합* 만 추려도 50~80개 이벤트가 나옵니다. 디렉터가 "오늘 청각·지하실·견딜 수 없는·시간 반복 조합 만들어줘" 한 줄이면 컨베이어 벨트가 작동합니다.
+→ 이 한 패밀리에서 5 × 4 × 3 × 4 = **240개의 조합**.
 
 ### 1-4. 패밀리 분포 메트릭
 
@@ -80,23 +81,13 @@ F4 Encounter:   ██████░░░░ 28개 / 30 목표  (93%)
 F5 Cosmic:      ███░░░░░░░ 7개  / 20 목표  (35%) ← 우선
 ```
 
-→ 다음 주 작업의 우선순위가 *자동으로 결정됩니다*.
-
 ---
 
 ## 2. 해법 ② — Trigger DSL (맥락 필터링)
 
-### 2-1. 현재 트리거 시스템의 빈약함
-지금까지 트리거는 *"이 조건이 충족되면 발생"* 의 단순 매칭이었습니다. 문제는:
-- *"이 조건이면 발생하지 *말아야* 함"* 이 표현 불가
-- *"이것 *또는* 저것이면 발생"* 이 표현 불가
-- 수치 범위 (`5 ≤ X ≤ 10`) 가 표현 불가
+### 2-1. 트리거 DSL 도입
 
-식량 배급 이벤트가 풍족할 때 터지는 이유가 바로 이것 — 트리거가 *식량 부족* 을 positive 조건으로 검사하지 못함.
-
-### 2-2. 트리거 DSL 도입
-
-JSON 술어 트리(predicate tree)로 표현합니다. MongoDB 쿼리 문법과 비슷한 형태.
+JSON 술어 트리(predicate tree)로 표현합니다.
 
 ```json
 {
@@ -117,23 +108,14 @@ JSON 술어 트리(predicate tree)로 표현합니다. MongoDB 쿼리 문법과 
 }
 ```
 
-위 트리거가 의미하는 것:
-- 아침 페이즈에
-- Day 5 이상이고
-- (식량이 5 미만 *또는* 누군가의 스트레스가 7 이상)
-- *식량 풍부 플래그가 없고*
-- *리더가 낙천적 기벽이 없을 때*
-
-→ **negative 조건과 numeric 범위가 표현 가능해짐.** 식량 풍부 시 식량 부족 이벤트가 *기계적으로* 차단됩니다.
-
-### 2-3. DSL 문법 명세
+### 2-2. DSL 문법 명세
 
 **논리 연산자 (재귀 가능)**:
-- `all: [...]` — AND (전부 참)
-- `any: [...]` — OR (하나라도 참)
-- `not: {...}` — NOT (부정)
+- `all: [...]` — AND
+- `any: [...]` — OR
+- `not: {...}` — NOT
 
-**리프 술어 (실제 검사)**:
+**리프 술어**:
 | 술어 | 의미 | 예시 |
 |---|---|---|
 | `phase` | 현재 페이즈 일치 | `{"phase": "밤"}` |
@@ -145,52 +127,15 @@ JSON 술어 트리(predicate tree)로 표현합니다. MongoDB 쿼리 문법과 
 | `flag` | 플래그 존재 | `{"flag": "Flag_Memory_Gavin_X"}` |
 | `relation` | 관계 수치 | `{"relation": {"a": "Gavin", "b": "Rachel", "gte": 3}}` |
 | `event_history` | 과거 발생 이력 | `{"event_history": {"id": "EVT_A001", "occurred": false}}` |
+| `relic` | 유물 소지 여부 | `{"relic": {"actor": "*", "id": "RELIC_HighPriestDagger"}}` |
 
 **비교 연산자**: `eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `in`
-
-**와일드카드**: `"actor": "*"` 는 "아무 생존자라도" 의 의미. 한 명이라도 만족하면 참.
-
-### 2-4. 평가 엔진 (Python 의사코드)
-
-```python
-def evaluate(predicate, state):
-    if "all" in predicate:
-        return all(evaluate(p, state) for p in predicate["all"])
-    if "any" in predicate:
-        return any(evaluate(p, state) for p in predicate["any"])
-    if "not" in predicate:
-        return not evaluate(predicate["not"], state)
-    # 리프 술어로 위임
-    return evaluate_leaf(predicate, state)
-```
-
-전체 엔진은 약 80~120 줄. 매 페이즈 시작 시 모든 이벤트의 트리거를 평가하여 *발현 후보 풀* 을 만들고, 가중치 기반 추첨.
-
-### 2-5. AI 가 이 DSL 을 쓸 때의 지침
-
-컨베이어 벨트 Step 3 (뼈대 설계) 에 다음을 추가:
-> *"이 이벤트가 부적절한 맥락에서 터지면 어떤 모습인가?" 를 먼저 생각하고, 그 맥락을 `not` 으로 명시한다.*
-
-예: 식량 부족 이벤트를 만들 때, *"식량 풍부할 때 터지면 이상하다"* → `{"not": {"resource": {"food": {"gte": 10}}}}` 를 자동 부착.
 
 ---
 
 ## 3. 해법 ③ — 한국어 조사 슬롯 시스템
 
-### 3-1. 문제 재정의
-변수 치환된 이름이 *받침 유무에 따라* 조사가 달라집니다:
-
-| 받침 있음 (가빈) | 받침 없음 (레이첼) |
-|---|---|
-| 가빈**이** 들어왔다 | 레이첼**이**~~가~~ 들어왔다 |
-| 가빈**을** 보았다 | 레이첼**을**~~를~~ 보았다 |
-| 가빈**과** 함께 | 레이첼**과**~~와~~ 함께 |
-
-템플릿 차원에서 *둘 다* 자연스럽게 작동해야 합니다.
-
-### 3-2. 조사 슬롯 문법
-
-이벤트 본문에 다음 형식으로 적습니다:
+### 3-1. 조사 슬롯 문법
 
 ```
 {actor}{이/가} 회계 장부를 들었다.
@@ -200,108 +145,28 @@ def evaluate(predicate, state):
 {actor}{으로/로} 향했다.
 ```
 
-→ 엔진이 `{변수}{A/B}` 패턴을 감지하면, 직전 변수의 마지막 글자 받침 유무에 따라 A 또는 B 를 선택.
+### 3-2. 지원되는 조사 쌍
 
-### 3-3. 지원되는 조사 쌍
-
-| 슬롯 | 받침 있음 | 받침 없음 | 용도 |
-|---|---|---|---|
-| `{이/가}` | 이 | 가 | 주격 |
-| `{을/를}` | 을 | 를 | 목적격 |
-| `{은/는}` | 은 | 는 | 주제 |
-| `{와/과}` | 과 | 와 | 동반 (받침 있음 → **과**, 직관과 반대) |
-| `{으로/로}` | 으로 | 로 | 방향/수단 (**ㄹ 받침은 예외**: 서울로, 레이첼로) |
-| `{아/야}` | 아 | 야 | 호격 |
-| `{이여/여}` | 이여 | 여 | 문어체 호격 |
-
-→ **두 가지 특수 규칙** (엔진이 자동 처리, 작가가 외울 필요 없음):
-1. **`{와/과}`** 는 받침 있을 때 *과*, 없을 때 *와* — 직관과 반대.
-2. **`{으로/로}`** 는 받침 없거나 받침이 ㄹ 일 때 *로*, 그 외에는 *으로*.
-   - `서울` (ㄹ 받침) → 서울**로** ✅
-   - `부산` (ㄴ 받침) → 부산**으로** ✅
-   - `레이첼` (ㄹ 받침) → 레이첼**로** ✅
-   - `가빈` (ㄴ 받침) → 가빈**으로** ✅
-
-### 3-4. 구현 함수 (Python)
-
-```python
-def has_jongseong(ch: str) -> bool:
-    """한 글자가 받침을 가지는지 판정."""
-    if not ch:
-        return False
-    code = ord(ch[-1]) - 0xAC00
-    if 0 <= code <= 11171:
-        return (code % 28) != 0
-    return False  # 한글이 아니면 false 처리
-
-PARTICLE_MAP = {
-    ("이", "가"):   ("이", "가"),
-    ("을", "를"):   ("을", "를"),
-    ("은", "는"):   ("은", "는"),
-    ("와", "과"):   ("과", "와"),   # 주의: 받침 있을 때 '과'
-    ("으로", "로"): ("으로", "로"),
-    ("아", "야"):   ("아", "야"),
-    ("이여", "여"): ("이여", "여"),
-}
-
-def resolve_particles(text: str, variables: dict) -> str:
-    import re
-    # 변수 치환
-    for k, v in variables.items():
-        text = text.replace(f"{{{k}}}", v)
-    # 조사 슬롯 처리: {A/B} 패턴
-    def pick(match):
-        a, b = match.group(1), match.group(2)
-        # 직전 문자의 받침 유무로 결정
-        idx = match.start()
-        if idx == 0:
-            return b
-        prev_ch = text[idx - 1]
-        if (a, b) in PARTICLE_MAP:
-            has = has_jongseong(prev_ch)
-            return PARTICLE_MAP[(a, b)][0 if has else 1]
-        return a  # fallback
-    return re.sub(r"\{([^/{}]+)/([^/{}]+)\}", pick, text)
-```
-
-→ 약 30줄. 게임 엔진에 한 번만 구현하면 모든 이벤트가 자동 처리.
-
-### 3-5. 템플릿 작가 (AI) 를 위한 지침
-
-컨베이어 벨트 Step 4 (지침 점검) 에 다음 추가:
-> *모든 변수 뒤에 *반드시* 조사 슬롯을 사용한다. `{actor}이`, `{actor}는` 같은 직접 표기 ❌.*
-
-예시:
-```
-❌ {actor}이 도착했다.
-❌ {actor}는 침묵했다.
-⭕ {actor}{이/가} 도착했다.
-⭕ {actor}{은/는} 침묵했다.
-```
-
-이 규칙은 자동 린트로 잡을 수 있습니다 (Gate A 의 새 검사 항목).
+| 슬롯 | 받침 있음 | 받침 없음 |
+|---|---|---|
+| `{이/가}` | 이 | 가 |
+| `{을/를}` | 을 | 를 |
+| `{은/는}` | 은 | 는 |
+| `{와/과}` | 과 | 와 |
+| `{으로/로}` | 으로 | 로 |
+| `{아/야}` | 아 | 야 |
+| `{이여/여}` | 이여 | 여 |
 
 ---
 
 ## 4. 해법 ④ — Resolution Mode (판정 구조)
 
-### 4-1. 현재 구조의 한계
-Track A (통보형) 는 *결과 사전 확정*. Track B (개입형) 는 *플레이어 선택*. 그 사이가 비어 있습니다.
-
-> 캐릭터의 스탯이 결과에 영향을 미치지만, 플레이어는 선택의 여지가 없는 이벤트
-
-이 영역이 필요합니다. 가빈을 폐가에 보냈는데, 가빈의 지능이 *판정*되어 무엇을 발견하는지가 결정되는 식.
-
-### 4-2. Resolution Mode 도입
-
-기존 Track 위에 *해결 방식* 을 명시하는 필드를 얹습니다.
+### 4-1. Resolution Mode 도입
 
 ```yaml
 resolution:
   mode: deterministic | stat_check | choice
 ```
-
-세 가지 모드:
 
 | 모드 | 의미 | 사용 처 |
 |---|---|---|
@@ -309,204 +174,199 @@ resolution:
 | `stat_check` | 캐릭터 스탯 판정으로 분기 | 자동 해결되지만 결과 가변 |
 | `choice` | 플레이어 선택 | Track B 의 본질 |
 
-### 4-3. 트랙과 모드의 매트릭스
+### 4-2. 트랙과 모드의 매트릭스
 
 | Track | 허용 모드 | 비중 (권장) |
 |---|---|---|
 | A | `deterministic`, `stat_check` | 70% / 30% |
 | B | `choice` (선택 내부에 `stat_check` 중첩 가능) | 100% |
 
-→ Track A 의 30% 가 stat_check 모드로 만들어지면, 캐릭터 스탯이 *생존자별로 다른 결과* 를 만들어내는 영역이 생깁니다.
+---
 
-### 4-4. stat_check 모드의 스키마
+## 5. v2.1 확장 — 아이템·유물 획득 블록
 
-```json
-{
-  "id": "EVT_A042_xyz",
-  "track": "A",
-  "family": "F4_Encounter",
-  "trigger": { ... },
-  "narrative": {
-    "setup": "{actor}{이/가} 폐가의 회계실로 들어섰다. 책상 위에 낯선 장부가 놓여 있었다."
-  },
-  "resolution": {
-    "mode": "stat_check",
-    "check": {
-      "actor": "{assigned_actor}",
-      "stat": "지능",
-      "dc": 12,
-      "modifiers": [
-        { "if": { "trait": { "actor": "{assigned_actor}", "trait": "통제강박" } },
-          "bonus": 2 },
-        { "if": { "stat": { "actor": "{assigned_actor}", "stress": { "gte": 7 } } },
-          "penalty": 3 }
-      ]
-    },
-    "on_success": {
-      "narrative": "그러나 {actor}{은/는} 장부의 결산이 *틀려 있음* 을 알아차렸다. 누군가가 의도적으로 한 줄을 옮겨 적은 흔적이다.",
-      "effects": {
-        "stat_delta": { "{actor}.정신": -1, "{actor}.스트레스": +1 },
-        "flags_emit": ["Flag_Memory_Ledger_Forged"]
-      }
-    },
-    "on_fail": {
-      "narrative": "{actor}{은/는} 숫자들을 한참 들여다본 뒤 책상을 떠났다. 무엇인가 어긋났다는 느낌만 남았다.",
-      "effects": {
-        "stat_delta": { "{actor}.스트레스": +1 },
-        "flags_emit": ["Flag_Memory_Ledger_Missed"]
-      }
-    }
-  }
-}
+> **v2.1 신규 추가 (2026-05-21)**
+> 이벤트 결과로 아이템 또는 유물을 획득하는 경우를 처리하기 위한
+> `item_acquire` 및 `relic_acquire` 블록을 공식 스키마에 추가한다.
+
+### 5-1. relic_acquire 블록
+
+유물 획득 시 사용. `ITEM_Relic_DB.md` 에 등재된 유물만 참조 가능.
+
+```yaml
+resolution:
+  mode: deterministic | stat_check
+  on_success:  # 또는 choice 선택지 내부
+    narration: |
+      [텍스트]
+    stat_delta:
+      "{actor}.스탯명": +N
+    relic_acquire:
+      id: RELIC_{유물식별자}        # ITEM_Relic_DB 등재 ID
+      bound_to: "{actor}"           # 귀속 대상
+      daily_penalty_active: true    # 일일 패널티 활성화 여부
+    flags_emit:
+      - Flag_Item_{유물명}_Owned
 ```
 
-→ *결과는 캐릭터에 따라 다르고*, *플레이어는 선택하지 않으며*, *둘 다 셜리 잭슨 톤을 유지함* (성공해도 안도가 아닌 *서늘한 확인*).
+**처리 규칙**:
+- `relic_acquire` 실행 시 해당 유물의 `stat_bonus` 가 즉시 적용
+- `daily_penalty_active: true` 이면 매일 밤 행동계산 페이즈에
+  `ITEM_Relic_DB` 의 `daily_penalty` 가 자동 실행
+- 귀속된 유물은 `Flag_Item_{유물명}_Owned` 플래그로 소지 추적
+- 동일 유물 중복 획득 불가 (트리거 `not: { flag: Flag_Item_{유물명}_Owned }` 로 차단)
 
-### 4-5. 변동 요소 (Modifier) 시스템
-
-`modifiers` 는 캐릭터의 상태에 따라 DC 를 가감합니다:
-- 기벽 보유 시 보너스/페널티
-- 스트레스 임계점 초과 시 페널티
-- 특정 플래그 보유 시 보너스
-
-→ 같은 이벤트라도 *누가 보내졌는지* 와 *그 시점 상태* 에 따라 결과 확률이 달라집니다. 이게 다운폴의 *"리더의 명령이 비용을 만든다"* 를 시스템적으로 강화합니다.
-
-### 4-6. on_success / on_fail 의 본문 작성 원칙
-
-셜리 잭슨 톤을 유지하기 위해:
-- **on_success 도 *완전한 해결* 이 아니어야 함** — 안도는 *오만한 확신* 으로, 발견은 *더 큰 불확실성* 으로
-- **on_fail 도 *명확한 패배* 가 아니어야 함** — 실패는 *놓친 것* 으로, 잃은 것은 *모호한 무언가* 로
-- 본문은 1~2문장으로 짧게, *주관적 감각* 으로 마무리
+**엔진 구현 요구사항**:
+```python
+def apply_relic_acquire(actor, relic_id, state):
+    relic = load_relic(relic_id)           # ITEM_Relic_DB 참조
+    state.apply_stat_bonus(actor, relic.stat_bonus)
+    state.bind_relic(actor, relic_id)
+    if relic.daily_penalty_active:
+        state.register_daily_effect(actor, relic.daily_penalty)
+    state.emit_flag(f"Flag_Item_{relic_id}_Owned")
+```
 
 ---
 
-## 5. 통합 — v2 템플릿의 최종 모습
+### 5-2. item_acquire 블록
+
+일반 장비·소모품 획득 시 사용. 유물과 달리 귀속되지 않으며
+수량으로 관리.
 
 ```yaml
-# Track A v2 (Resolution Mode 포함)
+resolution:
+  mode: deterministic | stat_check
+  on_success:
+    narration: |
+      [텍스트]
+    item_acquire:
+      - id: ITEM_{아이템식별자}
+        quantity: N
+        category: 의약품 | 무기류 | 일회용품 | 사치품
+    flags_emit:
+      - Flag_Memory_{actor}_{이벤트명}
+```
 
-id: EVT_A{nnn}_{hash}
+**처리 규칙**:
+- `item_acquire` 실행 시 인벤토리에 수량 추가
+- 장비 카테고리에 따라 저장 위치 자동 분류
+- 수량 상한은 `MECH_Resource_System` 의 1회 변동 상한 ±3 이내 권장
+
+---
+
+### 5-3. 두 블록의 공존
+
+하나의 이벤트 결과에서 `relic_acquire` 와 `item_acquire` 가
+동시에 존재할 수 있다.
+
+```yaml
+on_success:
+  narration: |
+    [텍스트]
+  stat_delta:
+    "{actor}.스트레스": -1
+  relic_acquire:
+    id: RELIC_HighPriestDagger
+    bound_to: "{actor}"
+    daily_penalty_active: true
+  item_acquire:
+    - id: ITEM_OldBandage
+      quantity: 2
+      category: 의약품
+  flags_emit:
+    - Flag_Item_HighPriestDagger_Owned
+```
+
+---
+
+### 5-4. relic_acquire 사용 시 Gate C 추가 검사
+
+이벤트 파일에 `relic_acquire` 블록이 있는 경우:
+
+- [ ] `ITEM_Relic_DB.md` 에 해당 `id` 가 등재되어 있는가
+- [ ] `trigger` 에 `not: { flag: Flag_Item_{유물명}_Owned }` 가 포함되어 있는가
+- [ ] `flags_emit` 에 `Flag_Item_{유물명}_Owned` 가 등재되어 있는가
+- [ ] `daily_penalty_active: true` 라면 `ITEM_Relic_DB` 의
+      `daily_penalty` 블록이 정의되어 있는가
+
+---
+
+## 6. 통합 — v2.1 템플릿의 최종 모습
+
+```yaml
+# Track B v2.1 (relic_acquire 포함 예시)
+
+id: EVT_B{nnn}_{hash}
 title: (한국어 제목)
-track: A
+track: B
 family: F1_Resource | F2_Atmosphere | F3_Internal | F4_Encounter | F5_Cosmic
 status: complete
 
 trigger:
-  # Trigger DSL (재귀 술어 트리)
   all:
     - phase: "..."
-    - any:
-      - resource: { food: { lt: 5 } }
-      - ...
-    - not:
-      - flag: "Flag_..."
+    - not: { flag: "Flag_Item_{유물명}_Owned" }  # 유물 소지 시 차단
 
-slots:
-  # 패밀리별 파라메트릭 슬롯 (선택)
-  location: Loc_지하실
-  sensory_axis: 청각
-  intensity: 견딜 수 없는
+intro_narration: |
+  (시네마틱 도입부)
 
-narrative:
-  setup: |
-    (시네마틱 8단계 도입부, {actor} 등 변수 사용, 조사 슬롯 {이/가} 포함)
-  
-resolution:
-  mode: deterministic | stat_check   # Track A 는 둘 중 하나
-  
-  # deterministic 일 때만:
-  effects:
-    stat_delta: { ... }
-    flags_emit: [ ... ]
-  
-  # stat_check 일 때만:
-  check:
-    actor: "{assigned_actor}"
-    stat: "지능"
-    dc: 12
-    modifiers: [ ... ]
-  on_success:
-    narrative: "..."
-    effects: { ... }
-  on_fail:
-    narrative: "..."
-    effects: { ... }
+choices:
+  - id: ch1
+    label: "선택지 라벨"
+    resolution:
+      mode: deterministic
+      narration: |
+        (결과 텍스트)
+      stat_delta: { ... }
+      relic_acquire:                          # ← v2.1 신규
+        id: RELIC_{유물식별자}
+        bound_to: "{actor}"
+        daily_penalty_active: true
+      item_acquire:                           # ← v2.1 신규
+        - id: ITEM_{아이템식별자}
+          quantity: N
+          category: 의약품
+      flags_emit:
+        - Flag_Item_{유물명}_Owned
+
+  - id: ch2
+    label: "선택지 라벨"
+    resolution:
+      mode: deterministic
+      narration: |
+        (결과 텍스트)
+      stat_delta: { ... }
+      flags_emit:
+        - Flag_Memory_{actor}_{이벤트명}
 
 emits:
-  # 이 이벤트가 발행 *가능* 한 모든 플래그 (Gate C 무결성 검사용)
-  - Flag_Memory_X
-  - Flag_Memory_Y
+  - Flag_Item_{유물명}_Owned
+  - Flag_Memory_{actor}_{이벤트명}
 
 shirley_jackson_axes:
-  # 4지침 중 *주력* 으로 발현되는 축 명시 (자가 점검용)
-  primary: 공간의_악의
-  secondary: 일상의_배신
+  primary: 공간의_악의 | 신경증적_투사 | 일상의_배신 | 무력한_목소리
+  secondary: ...
 ```
 
 ---
 
-## 6. 컨베이어 벨트 v2.2 변경 사항
+## 7. Gate A 자동 린트 (v2.1 추가)
 
-이 사양을 반영하기 위해 `EVT_Conveyor_Belt_Master_Prompt.md` 를 다음과 같이 갱신:
-
-### Step 2 (브레인스토밍) 갱신
-키워드 제안 시 **반드시 패밀리(F1~F5)를 명시**. 다음 형식:
-```
-패밀리: F2_Atmosphere
-슬롯 후보:
-  - location: Loc_지하실
-  - sensory_axis: 청각
-  - anomaly_type: 시간의 반복
-```
-
-### Step 3 (뼈대 설계) 갱신
-다음 5가지를 *반드시* 명시:
-1. 트리거 DSL (positive + negative + numeric)
-2. Resolution mode (Track A 는 deterministic / stat_check 중 택일)
-3. stat_check 일 경우 DC 와 modifier
-4. on_success / on_fail 의 효과 차이
-5. 발행 가능한 모든 `Flag_Memory_*` (emits 필드)
-
-### Step 4 (지침 점검) 신규 항목
-- [ ] 모든 변수에 조사 슬롯 부착했는가 (`{actor}이` 같은 직접 표기 없음)
-- [ ] 트리거에 *부적절한 맥락 차단* 의 `not` 조건이 포함되었는가
-- [ ] stat_check 모드라면 on_success 도 *완전한 해결* 이 아닌가 (오만한 확신·서늘한 확인)
-- [ ] 패밀리 분류가 자료로 명시되었는가
-
----
-
-## 7. Gate A 자동 린트 확장
-
-이 사양에 맞춰 새 린트 추가:
+기존 린트에 다음 추가:
 
 | 린트 | 검사 내용 |
 |---|---|
-| `lint_particle_slot` | 변수 뒤에 조사 슬롯 없는 직접 표기 검출 (예: `{actor}이`) |
-| `lint_trigger_negation` | 트리거가 `all` 만 있고 `not` 이 없으면 경고 (필수는 아님) |
-| `lint_resolution_mode` | Track A 인데 mode 필드 누락 시 에러 |
-| `lint_check_modifier` | stat_check 인데 modifiers 가 빈 배열이면 경고 |
-| `lint_family_required` | family 필드 누락 시 에러 |
-| `lint_emits_completeness` | narrative 에 등장하는 모든 `Flag_*` 가 `emits` 에 등재되어 있는지 |
+| `lint_relic_db_ref` | `relic_acquire.id` 가 `ITEM_Relic_DB` 에 존재하는가 |
+| `lint_relic_trigger` | `relic_acquire` 사용 시 트리거에 소지 차단 `not` 조건이 있는가 |
+| `lint_relic_flag` | `relic_acquire` 사용 시 `flags_emit` 에 소지 플래그가 있는가 |
+| `lint_item_quantity` | `item_acquire.quantity` 가 1회 변동 상한 ±3 을 초과하는가 |
 
 ---
 
-## 8. 도입 로드맵
+## 8. 버전 관리
 
-| 주차 | 작업 | 비고 |
+| 버전 | 날짜 | 변경 내용 |
 |---|---|---|
-| 1주 | 본 사양 디렉터 검토 + 합의 | |
-| 2주 | `EVT_Notification.md` / `EVT_Interactive.md` 의 v2 양식 갱신 | Phase 1 의 일부 |
-| 2주 | 컨베이어 벨트 v2.2 프롬프트 갱신 | |
-| 3주 | 조사 슬롯 처리 함수 + 트리거 DSL 엔진 구현 | 약 200줄 |
-| 3주 | Gate A 새 린트 6종 구현 | |
-| 4주 | 파일럿 이벤트 10개 v2 양식으로 양산 + 검수 | Phase 6 의 첫 사이클 |
-| 5주+ | 본격 양산 (패밀리 분포 추적하면서) | Phase 7 |
-
----
-
-## 9. 한 줄 요약
-
-> **범용 이벤트의 4대 문제는 모두 *스키마 표현력 부족* 이라는 한 뿌리에서 나온다.**
-> **패밀리 분류(다양화) + 트리거 DSL(필터링) + 조사 슬롯(언어) + Resolution Mode(판정) 의 4가지 확장을 한 번에 도입하면, 같은 비용으로 *질·양·정합성* 이 동시에 올라간다.**
-
-각 확장은 *독립적으로 도입 가능* 하지만, 함께 도입할 때 시너지가 가장 큽니다. 4주 안에 v2 로 전환 가능합니다.
+| v2.0 | 2026-05-12 | 최초 작성. 4대 문제 해결안 통합. |
+| v2.1 | 2026-05-21 | SECTION 5 추가. `relic_acquire` / `item_acquire` 블록 공식화. Gate A 린트 4종 추가. `relic` 트리거 술어 추가. |
