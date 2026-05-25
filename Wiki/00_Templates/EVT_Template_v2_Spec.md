@@ -4,7 +4,8 @@ title: 범용 이벤트 템플릿 v2 사양 — 4대 문제 해결안
 type: system
 status: draft
 version: 2.1
-summary: "EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양. v2.1: 아이템·유물 획득 블록 확장."tags: [system, template, event, schema]
+summary: "EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양. v2.1: 아이템·유물 획득 블록 확장."
+tags: [system, template, event, schema]
 keywords: [이벤트, 템플릿, 필터링, 조사, 판정, DC, 유물, 아이템, relic_acquire, item_acquire]
 depends_on: [SYS_Manifest, TMPL_EVT_Notification, TMPL_EVT_Interactive, MECH_Resource_System, ITEM_Relic_DB]
 last_updated: 2026-05-21
