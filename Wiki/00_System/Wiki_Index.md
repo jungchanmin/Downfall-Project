@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-25T14:09:32*  
-*Total entries: 20*  
+*Auto-generated on 2026-05-25T14:51:41*  
+*Total entries: 21*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -169,4 +169,12 @@
 - **Keywords:** 작은다락방, 레이첼, 단검, 유물, 대제사장, 기억소멸, 이계
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`, `ITEM_Relic_DB`
 - **Emits:** `Flag_Memory_Rachel_DaggerFound`, `Flag_Item_HighPriestDagger_Owned`, `Flag_Item_HighPriestDagger_Reported`, `Flag_Trace_Rachel_DaggerObsession`, `Rel_Rachel_Leader_Trust_Up`
+
+### ✅ `EVT_B004_SilentRequest.md`
+- **Title:** 삼켜진 말
+- **ID:** `EVT_B004_SilentRequest` | **Type:** `event`
+- **Summary:** 아침 작전 회의 직전 레이첼이 리더에게 무언가를 말하려다 끝내 입을 열지 못하는 아지트 거실 개입형 이벤트. 친밀도에 따라 말을 꺼내거나 지나치는 선택이 분기되며, 친밀도 높음 시 리더가 레이첼의 단어를 완성해주는 구조.
+- **Keywords:** 거실, 레이첼, 리더, 침묵, 명령갈구, 삼켜진말, 친밀도
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_SilentRequest`, `Flag_Trace_Rachel_WordsUnspoken`, `Flag_Trace_Rachel_LeaderNoticed`, `Flag_Trace_Rachel_PassedBy`, `Rel_Rachel_Leader_Intimacy_Up`
 
