@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-23T14:15:19*  
-*Total entries: 17*  
+*Auto-generated on 2026-05-25T13:51:26*  
+*Total entries: 19*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -122,6 +122,22 @@
 - **Keywords:** 작은방, 레이첼, 오르골, 훈련루틴, 과거침습, 커리어붕괴
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_MusicBox`, `Flag_Trace_Rachel_PastInvasion`, `Flag_Trace_Rachel_MelodyLoop`, `Flag_Trace_Rachel_CareerFlashback`
+
+### ✅ `EVT_A004_EchoStep.md`
+- **Title:** 한 박자 늦은 발소리
+- **ID:** `EVT_A004_EchoStep` | **Type:** `event`
+- **Summary:** 아침 순찰 중 레이첼이 복도에서 자신의 발소리를 정확히 한 박자 늦게 따라오는 정체불명의 소리를 감지하는 아지트 단독 돌발 이벤트. 탐색 판정에 따라 소리의 규칙을 읽어내거나 끝내 잡지 못하고 불안을 안은 채 순찰을 마침.
+- **Keywords:** 복도, 레이첼, 발소리, 순찰, 마룻바닥, 엇박자
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_EchoStep`, `Flag_Trace_Rachel_CorridorUnease`, `Flag_Trace_Rachel_EchoAnalysis`, `Flag_Trace_Rachel_EchoMissed`
+
+### ✅ `EVT_A005_CanInPocket.md`
+- **Title:** 품속의 통조림
+- **ID:** `EVT_A005_CanInPocket` | **Type:** `event`
+- **Summary:** 아침 배급 준비 중 레이첼이 어제 저녁 먹었다고 확신하는 통조림이 개봉 흔적 없이 훈련복 품속에 그대로 들어있음을 발견하는 아지트 주방 단독 돌발 이벤트. 정신 판정에 따라 통조림을 확인하고 서랍에 돌려놓거나, 확인하지 못하고 품속에 은닉한 채 자신의 배급을 건너뜀.
+- **Keywords:** 주방, 레이첼, 통조림, 기억붕괴, 배급, 식량
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`, `MECH_Resource_System`
+- **Emits:** `Flag_Memory_Rachel_CanInPocket`, `Flag_Trace_Rachel_MemoryDoubt`, `Flag_Trace_Rachel_CanReturned`, `Flag_Trace_Rachel_CanKept`
 
 ### ✅ `EVT_B001_Showerhair.md`
 - **Title:** 물소리가 잦아드는 순간
