@@ -54,3 +54,7 @@ jobs:
           else
             echo "ℹ️  No index changes — nothing to commit."
           fi
+          
+      - name: Validate frontmatter (lint mode)
+        run: python tools/wiki/build_index.py --check
+        # YAML 파싱 오류가 있으면 exit 1 → 커밋 차단
