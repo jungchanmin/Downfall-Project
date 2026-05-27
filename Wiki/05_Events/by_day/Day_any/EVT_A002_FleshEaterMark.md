@@ -93,7 +93,7 @@ narration: |
 resolution:
   mode: stat_check
   check:
-    stat: 정신
+    stat: 정신력
     dc: 10
     modifiers:
       - condition: { trait: { actor: "Rachel",
@@ -145,7 +145,7 @@ resolution:
       사정없이 덜덜 떨리기 시작했다.
     stat_delta:
       "Rachel.스트레스": +2
-      "Rachel.정신": -1
+      "Rachel.정신력": -1
     flags_emit:
       - Flag_Memory_Rachel_FleshEaterMark
       - Flag_Lore_UH028_Rachel_Targeted

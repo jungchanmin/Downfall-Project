@@ -105,7 +105,7 @@ narration: |
 resolution:
   mode: stat_check
   check:
-    stat: 정신
+    stat: 
     dc: 12
     modifiers:
       - condition: { trait: { actor: "Rachel", trait: "Trait_비정상적_침착함" } }
@@ -152,7 +152,7 @@ resolution:
       빛바랜 노란 천 조각의 음산한 윤곽이 길게 흘러내렸다.
     stat_delta:
       "Rachel.스트레스": +2
-      "Rachel.정신": -1
+      "Rachel.정신력": -1
     flags_emit:
       - Flag_Memory_Rachel_RibbonAnomaly
       - Flag_Trace_Rachel_RibbonDoubt

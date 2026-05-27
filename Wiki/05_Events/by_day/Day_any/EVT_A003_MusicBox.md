@@ -92,7 +92,7 @@ narration: |
 resolution:
   mode: stat_check
   check:
-    stat: 정신
+    stat: 정신력
     dc: 13
     modifiers:
       - condition: { trait: { actor: "Rachel",
@@ -120,7 +120,7 @@ resolution:
       레이첼의 눈동자에는 오로지 생존의 집념과 증오의 불길만이 가득 타올랐다.
     stat_delta:
       "Rachel.스트레스": +1
-      "Rachel.정신": -1
+      "Rachel.정신력": -1
     flags_emit:
       - Flag_Memory_Rachel_MusicBox
       - Flag_Trace_Rachel_MelodyLoop
@@ -140,7 +140,7 @@ resolution:
       오르골 앞에서 꼼짝없이 포로가 된 그녀의 뒤로 멈추지 않는 유령 같은 음악 소리만이 작은방의 서늘한 한기 속에 비정하게 울려 퍼졌다.
     stat_delta:
       "Rachel.스트레스": +2
-      "Rachel.정신": -2
+      "Rachel.정신력": -2
     flags_emit:
       - Flag_Memory_Rachel_MusicBox
       - Flag_Trace_Rachel_PastInvasion

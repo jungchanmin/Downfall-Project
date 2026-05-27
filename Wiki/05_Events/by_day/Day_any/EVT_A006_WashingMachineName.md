@@ -129,7 +129,7 @@ resolution:
       나가면서 끝내 뒤를 돌아보지 않았다.
     stat_delta:
       "Rachel.스트레스": +1
-      "Rachel.정신": -1
+      "Rachel.정신력": -1
     flags_emit:
       - Flag_Memory_Rachel_WashingMachineName
       - Flag_Trace_Rachel_NameHeard
@@ -153,7 +153,7 @@ resolution:
       손잡이에서 천천히 떨어졌다.
     stat_delta:
       "Rachel.스트레스": +2
-      "Rachel.정신": -1
+      "Rachel.정신력": -1
     flags_emit:
       - Flag_Memory_Rachel_WashingMachineName
       - Flag_Trace_Rachel_NameHeard

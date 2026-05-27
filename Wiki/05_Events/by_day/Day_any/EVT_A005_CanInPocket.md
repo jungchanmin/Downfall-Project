@@ -84,7 +84,7 @@ narration: |
 resolution:
   mode: stat_check
   check:
-    stat: 정신
+    stat: 정신력
     dc: 12
     modifiers:
       - condition: { trait: { actor: "Rachel",
@@ -123,7 +123,7 @@ resolution:
       굳게 닫힌 철제 서랍의 모습은 지극히도 평온했다.
     stat_delta:
       "Rachel.스트레스": +2
-      "Rachel.정신": -1
+      "Rachel.정신력": -1
     flags_emit:
       - Flag_Memory_Rachel_CanInPocket
       - Flag_Trace_Rachel_MemoryDoubt
@@ -149,7 +149,7 @@ resolution:
       그녀가 걸음을 옮길 때마다 훈련복 안감에 부딪히며 가슴팍을 무겁게 짓누르는 통조림의 무게감이 선명하게 따라붙었다.
     stat_delta:
       "Rachel.스트레스": +1
-      "Rachel.정신": -1
+      "Rachel.정신력": -1
       "Rachel.허기": -1
     flags_emit:
       - Flag_Memory_Rachel_CanInPocket
