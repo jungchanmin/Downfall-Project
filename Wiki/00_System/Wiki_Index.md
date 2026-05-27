@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-27T04:50:53*  
-*Total entries: 22*  
+*Auto-generated on 2026-05-27T13:59:41*  
+*Total entries: 23*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -153,6 +153,14 @@
 - **Keywords:** 세탁실, 레이첼, 세탁기, 이름, 웅얼거림, 전투복
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_WashingMachineName`, `Flag_Trace_Rachel_NameHeard`, `Flag_Trace_Rachel_MachineOpened`, `Flag_Trace_Rachel_MachineNotOpened`
+
+### ✅ `EVT_A007_WaterAnomaly.md`
+- **Title:** 삼켜진 질감
+- **ID:** `EVT_A007_WaterAnomaly` | **Type:** `event`
+- **Summary:** 레이첼이 아침 루틴 중 주방에서 물을 마시다가 끈적하고 시큼한  이상 질감을 인지하고 강박적으로 삼켜낸 뒤, 잔을 내려놓자  다시 평범한 물로 돌아와 있는 것을 목격하는 아지트 단독 돌발 이벤트.
+- **Keywords:** 주방, 레이첼, 물, 이상질감, 헛구역질
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_WaterAnomaly`, `Flag_Trace_Rachel_TasteDistortion`, `Flag_Trace_Rachel_Nausea_Morning`
 
 ### ✅ `EVT_B001_Showerhair.md`
 - **Title:** 물소리가 잦아드는 순간
