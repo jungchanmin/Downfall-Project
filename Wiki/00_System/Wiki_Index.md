@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-25T14:51:41*  
-*Total entries: 21*  
+*Auto-generated on 2026-05-27T04:50:53*  
+*Total entries: 22*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -145,6 +145,14 @@
 - **Keywords:** 주방, 레이첼, 통조림, 기억붕괴, 배급, 식량
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`, `MECH_Resource_System`
 - **Emits:** `Flag_Memory_Rachel_CanInPocket`, `Flag_Trace_Rachel_MemoryDoubt`, `Flag_Trace_Rachel_CanReturned`, `Flag_Trace_Rachel_CanKept`
+
+### ✅ `EVT_A006_WashingMachineName.md`
+- **Title:** 레이첼
+- **ID:** `EVT_A006_WashingMachineName` | **Type:** `event`
+- **Summary:** 아침 세탁 루틴 중 레이첼이 구형 세탁기 회전음 사이에서 자신의 이름을 웅얼대는 정체불명의 소리를 감지하는 아지트 세탁실 단독 돌발 이벤트. 정신 판정에 따라 세탁기를 멈추고 확인하거나 끝까지 멈추지 못하고 기다림.
+- **Keywords:** 세탁실, 레이첼, 세탁기, 이름, 웅얼거림, 전투복
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_WashingMachineName`, `Flag_Trace_Rachel_NameHeard`, `Flag_Trace_Rachel_MachineOpened`, `Flag_Trace_Rachel_MachineNotOpened`
 
 ### ✅ `EVT_B001_Showerhair.md`
 - **Title:** 물소리가 잦아드는 순간
