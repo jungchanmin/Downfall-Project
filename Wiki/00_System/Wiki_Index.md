@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-28T13:45:11*  
-*Total entries: 25*  
+*Auto-generated on 2026-05-28T14:27:40*  
+*Total entries: 26*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -60,6 +60,11 @@
 - **Summary:** 다운폴 NPC 생존자의 전체 스탯 체계 정의. 기본 스탯 6종 / 능력 스탯 8종 / 감정·사회 스탯 5종 / 성격 스탯 6종. 수치 범위·상호작용·이벤트 판정 기준 포함.
 - **Keywords:** 스탯, 체력, 정신력, 스트레스, 허기, 컨디션, 피로도, 전투, 탐색, 대화, 간호, 제작, 기술, 매력, 지능, 친밀도, 침식도, 판정, DC
 - **Depends on:** `SYS_Manifest`, `MECH_Resource_System`
+
+### ✅ `MECH_R18_Disposition_System.md`
+- **Title:** 핵심 시스템 사양서 — R18 성향 5대 축 및 신체 오염 시스템
+- **ID:** `MECH_R18_Disposition_System` | **Type:** `mechanic`
+- **Summary:** 생존자들의 심리적·성적 타락 단계를 추적하는 5대 성향 주축(Disposition Axes),  국소 부위별 성감 개발도(Anatomical Sensitivity), 육체 오염 및 도구 경험 기록 테이블의  데이터 아키텍처와 JRPG/미연시식 동적 트리거(Trigger DSL) 연동 규격을 정의한 마스터 문서.
 
 ### ✅ `MECH_Resource_System.md`
 - **Title:** 자원 체계 시스템
