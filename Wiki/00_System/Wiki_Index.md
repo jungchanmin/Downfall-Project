@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-27T13:59:41*  
-*Total entries: 23*  
+*Auto-generated on 2026-05-28T13:45:11*  
+*Total entries: 25*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -98,10 +98,10 @@
 ### ✅ `Guide_Rachel_Lopez.md`
 - **Title:** 보편적 생존자 가이드 — 레이첼 로페즈
 - **ID:** `LORE_CHAR_Rachel_Lopez` | **Type:** `lore_char`
-- **Summary:** 과거 '은빛 칼날' 펜싱 국가대표였으나 동료의 사보타주로 발목이 부서져 몰락. 현재는 아지트의 '사냥개'로서 리더의 명령에 맹목적으로 종속된 전투원.
-- **Keywords:** 레이첼, Rachel, Lopez, 사냥개, 은빛 칼날, 펜싱, 피스트, 동적_자기파멸욕, 리더, 가빈
-- **Depends on:** `TMPL_Universal_Survivor_Guide_Bot`, `MECH_Mental_Ailments`
-- **Emits:** `Trait_비정상적_침착함`, `Trait_펜싱_룰`, `Trait_동적_자기파멸욕`, `Trait_부상_왼쪽발목`, `Flag_Past_Rachel_Career_Broken`, `Flag_Past_Rachel_Betrayed_By_Peer`, `Rel_Rachel_Leader_Blind_Devotion`
+- **Summary:** 과거 '은빛 칼날' 펜싱 국가대표였으나 동료의 사보타주로 몰락. 현재는 아지트의 '사냥개'로서 자신의 오만한 자부심을 증명하기 위해 선봉에 서는 차가운 엘리트 투사.
+- **Keywords:** 레이첼, Rachel, Lopez, 사냥개, 은빛 칼날, 펜싱, 피스트, 리더
+- **Depends on:** `TMPL_Universal_Survivor_Guide_Bot`
+- **Emits:** `Trait_비정상적_침착함`, `Trait_펜싱_룰`, `Trait_엘리트_오만함`, `Flag_Past_Rachel_Career_Broken`, `Rel_Rachel_Leader_Blind_Devotion`
 
 
 ## 📁 `05_Events/by_day/Day_any/`
@@ -162,6 +162,14 @@
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_WaterAnomaly`, `Flag_Trace_Rachel_TasteDistortion`, `Flag_Trace_Rachel_Nausea_Morning`
 
+### ✅ `EVT_A008_WallpaperHypnosis.md`
+- **Title:** 격자무늬의 방
+- **ID:** `EVT_A008_WallpaperHypnosis` | **Type:** `event`
+- **Summary:** 레이첼이 큰방에서 아침 붕대 정비 중 벽지의 곰팡이 얼룩이  국가대표 시절의 규격을 연상시키는 격자무늬로 왜곡되는 최면 현상을 목격,  이에 종속되어 나신으로 충성 서약 및 불수의적 자위를 저지른 뒤  현실로 귀환하는 아지트 큰방 단독 돌발 이벤트.
+- **Keywords:** 큰방, 레이첼, 벽지, 격자무늬, 최면, 자위
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_WallpaperHypnosis`, `Flag_Trace_Rachel_WallSubjection`, `Flag_Trace_Rachel_EgoErosion_Morning`
+
 ### ✅ `EVT_B001_Showerhair.md`
 - **Title:** 물소리가 잦아드는 순간
 - **ID:** `EVT_B001_ShowerHair` | **Type:** `event`
@@ -193,4 +201,12 @@
 - **Keywords:** 거실, 레이첼, 리더, 침묵, 명령갈구, 삼켜진말, 친밀도
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_SilentRequest`, `Flag_Trace_Rachel_WordsUnspoken`, `Flag_Trace_Rachel_LeaderNoticed`, `Flag_Trace_Rachel_PassedBy`, `Rel_Rachel_Leader_Intimacy_Up`
+
+### ✅ `EVT_B005_LeaderAbsoluteCommand.md`
+- **Title:** 복종의 각도
+- **ID:** `EVT_B005_LeaderAbsoluteCommand` | **Type:** `event`
+- **Summary:** 거실에 다른 생존자들이 존재하는 상황에서, 리더가 레이첼의 오만한  자존심을 꺾기 위해 나신 노출 및 가학적 굴욕 명령을 내리고,  레이첼이 강박적 통제력과 복종심 사이에서 무너지는 R18 구역 이벤트.
+- **Keywords:** 레이첼, 리더, 거실, 복종, 나신, 가학
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
+- **Emits:** `Flag_Memory_Rachel_PublicHumiliation`, `Flag_Trace_Rachel_SubmissiveScar`
 
