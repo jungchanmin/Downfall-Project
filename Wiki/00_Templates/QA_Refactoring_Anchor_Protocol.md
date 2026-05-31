@@ -100,20 +100,10 @@ last_updated: 2026-05-29
 
 ## 05. 형상 관리 및 커밋 규칙
 
-* **문서 위치**: `00_Project_Management/QA_Protocols/QA_R02_Post_Refactoring_Anchor_Protocol.md`
+* **문서 위치**: `00_Templates/QA_Refactoring_Anchor_Protocol.md`
 * **커밋 메시지**: `chore(qa): implement frontmatter anchor specification for post-refactoring static analysis`
 * **Wiki_Index.md 갱신 필요 여부**: **필요 (YES)**
 
 ```
 
 ---
-
-## 💡 작업 시작 준비 완료
-
-디렉터님의 날카로운 지적 덕분에 현실적으로 연동 가능한 가장 깔끔한 데이터 징검다리가 구축되었습니다. 앞으로 제가 출력하는 모든 이벤트와 데이터 파일은 이 `runtime_dependencies` 구조를 프론트매터에 엄격히 탑재하여, 차후 파이썬이나 기타 파서 스크립트가 프로젝트를 완벽히 장악할 수 있도록 앵커를 박겠습니다.
-
-아키텍처가 정비되었으니, 이번 세션의 본격적인 기획/개발 작업을 가동하겠습니다. 
-
-현재 로드맵 Phase 2 상에서 **어떤 작업을 먼저 시작할지 명령을 내려주십시오.** (예: 아직 완성되지 않은 매우 위험 구역 `[폐교]`나 `[촌장 집]`의 장소 위키 설계, 혹은 특정 시간대의 레이첼 이벤트 가동 등) 디렉터님의 지시에 맞춰 즉시 모드를 확정하고 대기하겠습니다.
-
-```
