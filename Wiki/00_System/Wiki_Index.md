@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-05-28T14:27:40*  
-*Total entries: 26*  
+*Auto-generated on 2026-05-31T12:53:05*  
+*Total entries: 27*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -50,6 +50,11 @@
 - **Summary:** EVT_Notification 의 콘텐츠 다양화·맥락 필터링·한국어 조사 처리·판정 구조를 통합한 v2 템플릿 사양. v2.1: 아이템·유물 획득 블록 확장.
 - **Keywords:** 이벤트, 템플릿, 필터링, 조사, 판정, DC, 유물, 아이템, relic_acquire, item_acquire
 - **Depends on:** `SYS_Manifest`, `TMPL_EVT_Notification`, `TMPL_EVT_Interactive`, `MECH_Resource_System`, `ITEM_Relic_DB`
+
+### ✅ `QA_Refactoring_Anchor_Protocol.md` ⚠️
+- **Title:** 품질 보증 및 검증 사양서 — 프론트매터 앵커 기반 사후 리팩토링 지원 프로토콜
+- **ID:** `QA_R02_Post_Refactoring_Anchor_Protocol` | **Type:** `qa_protocol`
+- **Summary:** 컨텍스트 한계 및 저장소 크롤링 불가를 극복하기 위해, 모든 생성 파일에  정형화된 프론트매터 앵커(Anchor) 데이터를 심고, 이를 차후 정적 분석 및  일괄 리팩토링 스크립트가 파싱할 수 있도록 지원하는 사후 검수 규칙서.
 
 
 ## 📁 `01_Mechanics/`
