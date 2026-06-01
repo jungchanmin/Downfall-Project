@@ -1,6 +1,6 @@
 ---
 id: MECH_Quirk_Mental_DB
-title: 핵심 시스템 사양서 — 기벽 데이터베이스: 정신적 문제 (정신이상/욕구폭발/트라우마)
+title: "핵심 시스템 사양서 — 기벽 데이터베이스: 정신적 문제 (정신이상/욕구폭발/트라우마)"
 type: mechanic
 status: complete
 version: 1.0.0

@@ -1,6 +1,6 @@
 ---
 id: MECH_Quirk_Physical_DB
-title: 핵심 시스템 사양서 — 기벽 데이터베이스: 육체적 문제 (신체 외/내부)
+title: "핵심 시스템 사양서 — 기벽 데이터베이스: 육체적 문제 (신체 외/내부)"
 type: mechanic
 status: complete
 version: 1.1.0
