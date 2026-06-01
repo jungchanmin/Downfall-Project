@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-01T12:57:32*  
-*Total entries: 27*  
+*Auto-generated on 2026-06-01T13:57:55*  
+*Total entries: 28*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -65,6 +65,13 @@
 - **Summary:** 다운폴 NPC 생존자의 전체 스탯 체계 정의. 기본 스탯 6종 / 능력 스탯 8종 / 감정·사회 스탯 5종 / 성격 스탯 6종. 수치 범위·상호작용·이벤트 판정 기준 포함.
 - **Keywords:** 스탯, 체력, 정신력, 스트레스, 허기, 컨디션, 피로도, 전투, 탐색, 대화, 간호, 제작, 기술, 매력, 지능, 친밀도, 침식도, 판정, DC
 - **Depends on:** `SYS_Manifest`, `MECH_Resource_System`
+
+### ✅ `MECH_Quirk_R18.md`
+- **Title:** 핵심 시스템 사양서 — R18 전용 변이 및 정신 개변 기벽 데이터베이스
+- **ID:** `MECH_Quirk_R18_DB` | **Type:** `mechanic`
+- **Summary:** R18 트랙과 직결되는 특수 신체 변이, 감도 개발, 성벽 및 상식 개변 기벽 24종 정의. 간호 제거를 배제하고 지속시간 및 특수 이벤트 연동형 선택지 변동 효과 탑재.
+- **Keywords:** 기벽, R18, 신체 변이, 감도 개발, 성벽, 상식 개변, 침식도, 욕구불만
+- **Depends on:** `SYS_Manifest`
 
 ### ✅ `MECH_R18_Disposition_System.md`
 - **Title:** 핵심 시스템 사양서 — R18 성향 5대 축 및 신체 오염 시스템
