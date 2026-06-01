@@ -5,10 +5,35 @@ type: mechanic
 status: complete
 version: 1.0.0
 summary: >
-  정신이상형 8종, 욕구폭발형 8종, 트라우마형 8종의 인게임 발동문 및 
+  정신이상형 8종, 욕구폭발형 8종, 트라우마형 8종의 인게임 발동문 및
   명확한 스탯 패널티, 간호 요구치를 정리한 정신적 기벽 마스터 데이터베이스.
+tags:
+  - mechanic
+  - quirk
+  - database
+  - mental
+keywords:
+  - 기벽
+  - 정신적 문제
+  - 정신이상
+  - 욕구폭발
+  - 트라우마
+  - 패널티
+  - 간호
+  - 사치품
+depends_on:
+  - SYS_Manifest
 runtime_dependencies:
-  stats: [ #Stat_Sanity, #Stat_Stress, #Stat_Condition, #Stat_Fatigue, #Stat_Dialogue, #Stat_Combat, #Stat_Search, #Stat_Intelligence, #Stat_Knowledge ]
+  stats:
+    - "#Stat_Sanity"
+    - "#Stat_Stress"
+    - "#Stat_Condition"
+    - "#Stat_Fatigue"
+    - "#Stat_Dialogue"
+    - "#Stat_Combat"
+    - "#Stat_Search"
+    - "#Stat_Intelligence"
+    - "#Stat_Knowledge"
   traits: []
   locations: []
   flags: []

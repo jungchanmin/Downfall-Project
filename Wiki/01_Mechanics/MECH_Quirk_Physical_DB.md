@@ -5,10 +5,34 @@ type: mechanic
 status: complete
 version: 1.1.0
 summary: >
-  인게임 효과 발동문 규격과 정형화된 시스템 스탯 패널티, 의약품 통합 소모 규칙을 
+  인게임 효과 발동문 규격과 정형화된 시스템 스탯 패널티, 의약품 통합 소모 규칙을
   반영하여 전면 리팩토링된 육체적 기벽(외/내부 총 16종) 마스터 데이터베이스.
+tags:
+  - mechanic
+  - quirk
+  - database
+  - physical
+keywords:
+  - 기벽
+  - 육체적 문제
+  - 신체 외부
+  - 신체 내부
+  - 패널티
+  - 간호
+  - 의약품
+depends_on:
+  - SYS_Manifest
 runtime_dependencies:
-  stats: [ #Stat_HP, #Stat_Fatigue, #Stat_Condition, #Stat_Combat, #Stat_Search, #Stat_Craft, #Stat_Stress, #Stat_Intelligence, #Stat_Knowledge ]
+  stats:
+    - "#Stat_HP"
+    - "#Stat_Fatigue"
+    - "#Stat_Condition"
+    - "#Stat_Combat"
+    - "#Stat_Search"
+    - "#Stat_Craft"
+    - "#Stat_Stress"
+    - "#Stat_Intelligence"
+    - "#Stat_Knowledge"
   traits: []
   locations: []
   flags: []

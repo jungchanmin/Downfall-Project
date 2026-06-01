@@ -1,5 +1,5 @@
 ---
-id: MECH_Quirk_R18
+id: MECH_Quirk_R18_DB
 title: 핵심 시스템 사양서 — R18 전용 변이 및 정신 개변 기벽 데이터베이스
 type: mechanic
 status: complete
@@ -7,11 +7,35 @@ version: 1.0.0
 summary: >
   R18 트랙과 직결되는 특수 신체 변이, 감도 개발, 성벽 및 상식 개변 기벽 24종 정의.
   간호 제거를 배제하고 지속시간 및 특수 이벤트 연동형 선택지 변동 효과 탑재.
+tags:
+  - mechanic
+  - quirk
+  - database
+  - r18
+keywords:
+  - 기벽
+  - R18
+  - 신체 변이
+  - 감도 개발
+  - 성벽
+  - 상식 개변
+  - 침식도
+  - 욕구불만
+depends_on:
+  - SYS_Manifest
 runtime_dependencies:
-  stats: [ #Stat_HP, #Stat_Sanity, #Stat_Stress, #Stat_Condition, #Stat_Fatigue, #Stat_Libido, #Stat_Frustration ]
+  stats:
+    - "#Stat_HP"
+    - "#Stat_Sanity"
+    - "#Stat_Stress"
+    - "#Stat_Condition"
+    - "#Stat_Fatigue"
+    - "#Stat_Libido"
+    - "#Stat_Frustration"
   traits: []
   locations: []
-  flags: [ #Flag_R18_Erosion_Track ]
+  flags:
+    - "#Flag_R18_Erosion_Track"
 last_updated: 2026-05-31
 ---
 
