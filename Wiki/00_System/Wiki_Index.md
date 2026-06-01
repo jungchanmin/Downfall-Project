@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-01T13:57:55*  
-*Total entries: 28*  
+*Auto-generated on 2026-06-01T14:14:00*  
+*Total entries: 31*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -59,12 +59,33 @@
 
 ## 📁 `01_Mechanics/`
 
+### ✅ `MECH_Event_Reward_Appraisal.md`
+- **Title:** 핵심 시스템 사양서 — 이벤트 보상 책정기 (역방향 검수형)
+- **ID:** `MECH_Event_Reward_Appraisal` | **Type:** `mechanic`
+- **Summary:** 완성된 이벤트 출력물(텍스트·선택지)을 입력으로 받아 스탯 패널티·기벽·자원· 판정 난이도를 역방향으로 산정하는 총체적 보상 책정 사양서. 강도 밴드 가산점 모델, 패널티/보상 이중 사다리, 성패 4단 구조, 복합 스탯 판정, 기벽 계열 결정 트리를 규정. Downfall AI Assistant 모드 D(태그·보상·코드 통합)의 상세 사양서 역할.
+- **Keywords:** 보상 책정, 패널티, 강도 밴드, 성패 분기, 복합 판정, 기벽 부여, 자원 보상, 난이도, DC
+- **Depends on:** `SYS_Manifest`, `SYS_Downfall_AI_Assistant`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Quirk_Physical_DB`, `MECH_Quirk_Mental_DB`, `MECH_Quirk_R18_DB`
+
 ### ✅ `MECH_NPC_Stats_System.md`
 - **Title:** NPC 생존자 스탯 시스템
 - **ID:** `MECH_NPC_Stats_System` | **Type:** `mechanic`
 - **Summary:** 다운폴 NPC 생존자의 전체 스탯 체계 정의. 기본 스탯 6종 / 능력 스탯 8종 / 감정·사회 스탯 5종 / 성격 스탯 6종. 수치 범위·상호작용·이벤트 판정 기준 포함.
 - **Keywords:** 스탯, 체력, 정신력, 스트레스, 허기, 컨디션, 피로도, 전투, 탐색, 대화, 간호, 제작, 기술, 매력, 지능, 친밀도, 침식도, 판정, DC
 - **Depends on:** `SYS_Manifest`, `MECH_Resource_System`
+
+### ✅ `MECH_Quirk_Mental_DB.md`
+- **Title:** 핵심 시스템 사양서 — 기벽 데이터베이스: 정신적 문제 (정신이상/욕구폭발/트라우마)
+- **ID:** `MECH_Quirk_Mental_DB` | **Type:** `mechanic`
+- **Summary:** 정신이상형 8종, 욕구폭발형 8종, 트라우마형 8종의 인게임 발동문 및 명확한 스탯 패널티, 간호 요구치를 정리한 정신적 기벽 마스터 데이터베이스.
+- **Keywords:** 기벽, 정신적 문제, 정신이상, 욕구폭발, 트라우마, 패널티, 간호, 사치품
+- **Depends on:** `SYS_Manifest`
+
+### ✅ `MECH_Quirk_Physical_DB.md`
+- **Title:** 핵심 시스템 사양서 — 기벽 데이터베이스: 육체적 문제 (신체 외/내부)
+- **ID:** `MECH_Quirk_Physical_DB` | **Type:** `mechanic`
+- **Summary:** 인게임 효과 발동문 규격과 정형화된 시스템 스탯 패널티, 의약품 통합 소모 규칙을 반영하여 전면 리팩토링된 육체적 기벽(외/내부 총 16종) 마스터 데이터베이스.
+- **Keywords:** 기벽, 육체적 문제, 신체 외부, 신체 내부, 패널티, 간호, 의약품
+- **Depends on:** `SYS_Manifest`
 
 ### ✅ `MECH_Quirk_R18.md`
 - **Title:** 핵심 시스템 사양서 — R18 전용 변이 및 정신 개변 기벽 데이터베이스
