@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-01T14:14:00*  
-*Total entries: 31*  
+*Auto-generated on 2026-06-03T13:43:24*  
+*Total entries: 32*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -121,6 +121,16 @@
 - **Summary:** 오뱅마을 15개 구역(성당·상점가·폐가 등)의 분위기·위험도·고유 이벤트 시드.
 - **Keywords:** 오뱅마을, 성당, 상점가, 폐가
 - **Depends on:** `SYS_Manifest`
+
+
+## 📁 `03_Entities/Monsters/`
+
+### 🟡 `MONSTER_DB.md`
+- **Title:** 핵심 시스템 사양서 — 괴물 데이터베이스 (분류 체계)
+- **ID:** `MONSTER_DB` | **Type:** `mechanic`
+- **Summary:** 다운폴 괴물의 분류 체계 정의. 위협/지속성 축(일반·네임드)과 형태 축(인간형·비인간형 7종)을 직교 분리한 2축 모델. 일반괴물 인스턴트 전투, 네임드괴물 새벽 상주, 세력 회피 훅, 보상 책정기 연계(즉시 전투 vs 등장)를 규정. 개체별 스탯 블록은 후속 단계에서 확정.
+- **Keywords:** 괴물, 일반괴물, 네임드, 멸망의 괴물, 적대적 생존자, 인간형, 비인간형, 인스턴트 전투, 세력 회피
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Event_Reward_Appraisal`
 
 
 ## 📁 `03_Entities/Survivors/`
