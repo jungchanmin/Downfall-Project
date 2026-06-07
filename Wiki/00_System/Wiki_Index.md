@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-03T13:43:24*  
-*Total entries: 32*  
+*Auto-generated on 2026-06-07T13:26:35*  
+*Total entries: 33*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -257,4 +257,11 @@
 - **Keywords:** 레이첼, 리더, 거실, 복종, 나신, 가학
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_PublicHumiliation`, `Flag_Trace_Rachel_SubmissiveScar`
+
+### ✅ `EVT_B006_BasementInterrogation.md` ⚠️
+- **Title:** 아침의 철장 — 지하실 심문 트랙
+- **ID:** `EVT_B022_BasementInterrogation` | **Type:** `event_track_b`
+- **Summary:** 아침 배급 직전, 물자 도난 혐의로 지하실 의자에 결박된 레이첼을 리더가 심문하는 R18 트랙 개입형 이벤트. 레이첼은 물리적 명령에 복종하여 나신으로 결박당하면서도, 거짓 자백을 거부하고 투지로 버티는 분기와 굴복하여 거짓으로 맹세하는 분기로 대치됨.
+- **Keywords:** 레이첼, 리더, 지하실, 심문, 나신, 가학, 결박
+- **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 
