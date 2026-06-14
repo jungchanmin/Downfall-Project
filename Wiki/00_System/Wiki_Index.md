@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-07T13:26:35*  
-*Total entries: 33*  
+*Auto-generated on 2026-06-14T13:47:31*  
+*Total entries: 36*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -59,6 +59,13 @@
 
 ## 📁 `01_Mechanics/`
 
+### 🟡 `MECH_Combat_System.md`
+- **Title:** 핵심 시스템 사양서 — 전투 시스템 (턴제 레이드형)
+- **ID:** `MECH_Combat_System` | **Type:** `mechanic`
+- **Summary:** 다운폴 턴제 전투 시스템. d6 성공 풀 위에 8개 능력 스탯별 전투 커맨드(NPC 스탯 임계 해금), swarm 다수전(규모×개체체력), 거리·무기 약점·정밀타, 전투기벽, 격파/도주 이중 승리, 그리고 R18 전투 레이어(분노/흥분 게이지·성감/굴복도/의복·굴복 페이즈·전용 기술)를 규정. 코드 구현 가능한 데이터 구조·의사코드 포함.
+- **Keywords:** 전투, 턴제, 전투 커맨드, 스탯별 역할, swarm, 다수전, 개방 게이지, 거리, 무기 약점, 전투기벽, 격파, 도주 락, 분노 게이지, 흥분 게이지, 성감, 굴복도, 굴복 페이즈, R18, 대사 템플릿
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MONSTER_DB`, `MECH_Event_Reward_Appraisal`, `MECH_Quirk_Physical_DB`, `MECH_Quirk_Mental_DB`, `MECH_Quirk_R18_DB`
+
 ### ✅ `MECH_Event_Reward_Appraisal.md`
 - **Title:** 핵심 시스템 사양서 — 이벤트 보상 책정기 (역방향 검수형)
 - **ID:** `MECH_Event_Reward_Appraisal` | **Type:** `mechanic`
@@ -99,12 +106,26 @@
 - **ID:** `MECH_R18_Disposition_System` | **Type:** `mechanic`
 - **Summary:** 생존자들의 심리적·성적 타락 단계를 추적하는 5대 성향 주축(Disposition Axes),  국소 부위별 성감 개발도(Anatomical Sensitivity), 육체 오염 및 도구 경험 기록 테이블의  데이터 아키텍처와 JRPG/미연시식 동적 트리거(Trigger DSL) 연동 규격을 정의한 마스터 문서.
 
+### 🟡 `MECH_R18_Memory_Log.md`
+- **Title:** 핵심 시스템 사양서 — R18 기록·변질 시스템 (메모리 로그)
+- **ID:** `MECH_R18_Memory_Log` | **Type:** `mechanic`
+- **Summary:** R18 경험을 변질 6축(대분류)으로 누적하고, 그 아래 신체부위 민감도(소분류·경험치형)를 곱연산으로 얹어 '개발된 부위가 약점이자 무기'가 되게 하는 시스템. 각 축은 기록→숙련→업적 3단 단계별로 텍스트 변질 묘사 + 인게임 변화(진행 규칙 수정 포함)를 발생. 진척은 괴물 주도(수동) 기본 + 굴복 페이즈·양날 커맨드로만 능동 가속. R18 기벽 DB와 해금/완화/강화 상호보완.
+- **Keywords:** R18 기록, 메모리 로그, 변질 6축, 접촉, 침범, 체액, 변이, 인지, 함락, 신체부위 민감도, 경험치, 레벨, 업적, 양날, 능동 가속, 완화, 침식도
+- **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Quirk_R18_DB`, `MECH_NPC_Stats_System`
+
 ### ✅ `MECH_Resource_System.md`
 - **Title:** 자원 체계 시스템
 - **ID:** `MECH_Resource_System` | **Type:** `mechanic`
 - **Summary:** 다운폴 자원 체계 전체 정의. 식량·부품·장비·유물·금화·명성· 단서·세력평판·동료 9종 자원의 역할·범위·관리 방식 정의. 이벤트별 획득·소비는 각 이벤트 파일에서 개별 관리.
 - **Keywords:** 자원, 식량, 부품, 장비, 유물, 금화, 명성, 단서, 세력평판, 동료, 생존자, 암시장
 - **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`
+
+### 🟡 `MONSTER_DB.md`
+- **Title:** 핵심 시스템 사양서 — 괴물 데이터베이스
+- **ID:** `MONSTER_DB` | **Type:** `mechanic`
+- **Summary:** 다운폴 괴물 DB. 위협 축(일반·네임드)×형태 축(인간형+비인간형 7) 2축 분류. 일반형은 원형 8종 + 파라미터로 양산(swarm 규모×개체체력), 네임드는 개별 상세. 세력 회피 훅, 보상 책정기 연계, r18_module/r18_weakness 필드. 첫 네임드 2종(거대이빨악어·잔혹한 살점포식자) 등재.
+- **Keywords:** 괴물, 일반형, 네임드, 멸망, 원형, 파라미터, swarm, 규모, 적대적 생존자, 인간형, 비인간형, 거대이빨악어, 살점포식자, r18 module
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Combat_System`, `MECH_Event_Reward_Appraisal`
 
 ### ✅ `Time_System.md`
 - **Title:** 5페이즈 시간 시스템
