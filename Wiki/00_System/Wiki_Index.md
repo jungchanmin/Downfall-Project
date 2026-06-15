@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-14T13:56:13*  
-*Total entries: 36*  
+*Auto-generated on 2026-06-15T14:30:38*  
+*Total entries: 37*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -64,7 +64,7 @@
 - **ID:** `MECH_Combat_System` | **Type:** `mechanic`
 - **Summary:** 다운폴 턴제 전투 시스템. d6 성공 풀 위에 8개 능력 스탯별 전투 커맨드(NPC 스탯 임계 해금), swarm 다수전(규모×개체체력), 거리·무기 약점·정밀타, 전투기벽, 격파/도주 이중 승리, 그리고 R18 전투 레이어(분노/흥분 게이지·성감/굴복도/의복·굴복 페이즈·전용 기술)를 규정. 코드 구현 가능한 데이터 구조·의사코드 포함.
 - **Keywords:** 전투, 턴제, 전투 커맨드, 스탯별 역할, swarm, 다수전, 개방 게이지, 거리, 무기 약점, 전투기벽, 격파, 도주 락, 분노 게이지, 흥분 게이지, 성감, 굴복도, 굴복 페이즈, R18, 대사 템플릿
-- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MONSTER_DB`, `MECH_Event_Reward_Appraisal`, `MECH_Quirk_Physical_DB`, `MECH_Quirk_Mental_DB`, `MECH_Quirk_R18_DB`
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MONSTER_DB`, `MECH_Status_Effect_DB`, `MECH_Event_Reward_Appraisal`, `MECH_Quirk_Physical_DB`, `MECH_Quirk_Mental_DB`, `MECH_Quirk_R18_DB`
 
 ### ✅ `MECH_Event_Reward_Appraisal.md`
 - **Title:** 핵심 시스템 사양서 — 이벤트 보상 책정기 (역방향 검수형)
@@ -119,6 +119,13 @@
 - **Summary:** 다운폴 자원 체계 전체 정의. 식량·부품·장비·유물·금화·명성· 단서·세력평판·동료 9종 자원의 역할·범위·관리 방식 정의. 이벤트별 획득·소비는 각 이벤트 파일에서 개별 관리.
 - **Keywords:** 자원, 식량, 부품, 장비, 유물, 금화, 명성, 단서, 세력평판, 동료, 생존자, 암시장
 - **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`
+
+### 🟡 `MECH_Status_Effect_DB.md`
+- **Title:** 핵심 시스템 사양서 — 상태이상·전투기벽 데이터베이스
+- **ID:** `MECH_Status_Effect_DB` | **Type:** `mechanic`
+- **Summary:** 모든 상태이상·전투기벽의 정의 단일 출처(single source of truth). 일반 전투·R18·굴복 페이즈 전용을 ID 체계로 통합 관리. 기술 카탈로그·MONSTER_DB는 status_inflict 에 본 DB의 ID를 참조만 한다. 신규 상태이상 도입은 본 DB 등록 + 디렉터 승인 게이트. 중복 정의(같은 이름 다른 효과)를 원천 차단.
+- **Keywords:** 상태이상, 전투기벽, 속박, 고통, 공포, 출혈, 낙인, 최면, 홀림, 광분, 타락욕망, 무방비, 비틀거림, 은신, 절정 여운, 굴복 페이즈, 단일 출처, ID 참조
+- **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Quirk_R18_DB`
 
 ### 🟡 `MONSTER_DB.md`
 - **Title:** 핵심 시스템 사양서 — 괴물 데이터베이스
