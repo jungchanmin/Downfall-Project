@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-15T14:30:38*  
-*Total entries: 37*  
+*Auto-generated on 2026-06-21T12:54:17*  
+*Total entries: 39*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -113,12 +113,26 @@
 - **Keywords:** R18 기록, 메모리 로그, 변질 6축, 접촉, 침범, 체액, 변이, 인지, 함락, 신체부위 민감도, 경험치, 레벨, 업적, 양날, 능동 가속, 완화, 침식도
 - **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Quirk_R18_DB`, `MECH_NPC_Stats_System`
 
+### 🟡 `MECH_R18_Skill_Catalog.md`
+- **Title:** 핵심 시스템 사양서 — R18 전투 기술 카탈로그
+- **ID:** `MECH_R18_Skill_Catalog` | **Type:** `mechanic`
+- **Summary:** R18 전투 기술 정의의 단일 출처. 괴물 R18/굴복 커맨드(공유 풀)와 생존자 굴복 페이즈 기술 5대분류(봉사·유혹·농락·흡수·저항)를 ID로 정의. 개체/NPC는 참조만. 파일 단위로 SFW 빌드에서 제외(토글). 일반 기술 스키마(MECH_Skill_Catalog)를 확장해 R18 게이지·진척 필드를 추가.
+- **Keywords:** R18 기술, 굴복 기술, 굴복 페이즈, 봉사형, 유혹형, 농락형, 흡수형, 저항형, 음담패설, 주무르기, 옷찢기, 주도권, 흥분, 성감, 진척 가속, 기술 ID
+- **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Memory_Log`, `MECH_Quirk_R18_DB`, `MONSTER_DB`
+
 ### ✅ `MECH_Resource_System.md`
 - **Title:** 자원 체계 시스템
 - **ID:** `MECH_Resource_System` | **Type:** `mechanic`
 - **Summary:** 다운폴 자원 체계 전체 정의. 식량·부품·장비·유물·금화·명성· 단서·세력평판·동료 9종 자원의 역할·범위·관리 방식 정의. 이벤트별 획득·소비는 각 이벤트 파일에서 개별 관리.
 - **Keywords:** 자원, 식량, 부품, 장비, 유물, 금화, 명성, 단서, 세력평판, 동료, 생존자, 암시장
 - **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`
+
+### 🟡 `MECH_Skill_Catalog.md`
+- **Title:** 핵심 시스템 사양서 — 일반 전투 기술 카탈로그
+- **ID:** `MECH_Skill_Catalog` | **Type:** `mechanic`
+- **Summary:** 괴물 일반 전투 기술(약기술·공유 준강기술)의 정의 단일 출처. 개체는 본 카탈로그를 기술 ID로 참조만 한다(정의 복사 금지). 공유되는 약기술은 카탈로그 소유, 네임드 시그니처 강기술은 개체 잔류. 단순 수치는 데이터로, 복잡한 조건부 로직은 effect_id로 코드 핸들러를 가리킨다. R18 기술은 별도 MECH_R18_Skill_Catalog 가 소유.
+- **Keywords:** 기술 카탈로그, 약기술, 강기술, 공유 풀, 기술 ID, 참조, effect_id, 정의, 휘두르기, 외치기, 물기, 꼬리치기, 붙잡기, 텍스트 로그, 밸런스 패치
+- **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MONSTER_DB`
 
 ### 🟡 `MECH_Status_Effect_DB.md`
 - **Title:** 핵심 시스템 사양서 — 상태이상·전투기벽 데이터베이스
@@ -132,7 +146,7 @@
 - **ID:** `MONSTER_DB` | **Type:** `mechanic`
 - **Summary:** 다운폴 괴물 DB. 위협 축(일반·네임드)×형태 축(인간형+비인간형 7) 2축 분류. 일반형은 원형 8종 + 파라미터로 양산(swarm 규모×개체체력), 네임드는 개별 상세. 세력 회피 훅, 보상 책정기 연계, r18_module/r18_weakness 필드. 첫 네임드 2종(거대이빨악어·잔혹한 살점포식자) 등재.
 - **Keywords:** 괴물, 일반형, 네임드, 멸망, 원형, 파라미터, swarm, 규모, 적대적 생존자, 인간형, 비인간형, 거대이빨악어, 살점포식자, r18 module
-- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Combat_System`, `MECH_Event_Reward_Appraisal`
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Skill_Catalog`, `MECH_Event_Reward_Appraisal`
 
 ### ✅ `Time_System.md`
 - **Title:** 5페이즈 시간 시스템
