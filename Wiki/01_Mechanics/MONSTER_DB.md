@@ -3,7 +3,7 @@ id: MONSTER_DB
 title: "핵심 시스템 사양서 — 괴물 데이터베이스"
 type: mechanic
 status: wip
-version: 0.2.1
+version: 0.2.3
 summary: >
   다운폴 괴물 DB. 위협 축(일반·네임드)×형태 축(인간형+비인간형 7) 2축 분류. 일반형은
   원형 8종 + 파라미터로 양산(swarm 규모×개체체력), 네임드는 개별 상세. 세력 회피 훅,
@@ -22,6 +22,8 @@ depends_on:
   - MECH_NPC_Stats_System
   - MECH_Resource_System
   - MECH_Combat_System
+  - MECH_Skill_Catalog
+  - MECH_R18_Skill_Catalog
   - MECH_Event_Reward_Appraisal
 last_updated: 2026-06-05
 ---
@@ -140,22 +142,13 @@ default_size: 3                 # 기본 규모 (다수 등장)
 weapon: 둔기 | 칼               # 개체별 랜덤. 무기 타입 효과 없음(일반형)
 faction: null | 가변            # 세력 영향 구역이면 소속 부여 → 세력 회피 훅
 
-skills_basic:
-  - 휘두르기: [게이트 A — 무장 시만] 근접 단일/소광역 피해. 무장 해제 시 잠김.
-  - 외치기: swarm 규모 +1(동료 호출) 또는 일대 [움츠러듬].
-  - 붙잡기: 대상 [속박] 시도. 회피 판정 실패 시 구속 → 게이트 B 개방.
-
-conditional_signature:          # [게이트 B — 대상 속박 시만] 준-강기술, 전조 없음
-  - 장비 약탈: 구속 대상 장비 1개 탈취. (SFW에서도 유효)
+skills: [SK_Swing, SK_Shout, SK_Grab]      # → MECH_Skill_Catalog 참조 (정의는 카탈로그 소유)
+semi_heavy: [SK_LootEquip]                  # [게이트 B] 공유 준-강기술 (카탈로그 소유)
 
 r18_module:                     # 토글 OFF면 무시
-  arousal_attacks_unbound:      # 미구속 대상 대상
-    - 음담패설: 흥분 게이지↑ (정신 간섭, 약)
-    - 더듬기: 성감↑ + 의복 게이지 소량
-    - 옷찢기: 의복 게이지 대량 (노출 → 성감 배율 증폭)
-  arousal_attacks_bound:        # [게이트 B] 구속 대상 대상 — 준-강기술
-    - 강제 펠라치오: 성감 대량 + 기록 Log_R18_입_괴롭혀짐 +1
-  pin_condition: 붙잡기 적중 → 대상 [속박]
+  r18_skills_unbound: [R18_DirtyTalk, R18_Grope, R18_TearClothes]  # → MECH_R18_Skill_Catalog 참조
+  r18_skills_bound:   [R18_ForcedOral]                             # [게이트 B] 구속 대상
+  pin_condition: 붙잡기(SK_Grab) 적중 → 대상 [속박]
   r18_status_pool: [속박, 흥분]
   r18_weakness: [유혹 미끼]      # 표적 고정에 약함
 
@@ -175,6 +168,57 @@ survivor_reads:
 
 ---
 
+## SECTION 2-D — 일반형 개체 ② 광신도
+
+> 고위험 지역 출현. **정신공격형** — 단검 기반 + 기벽 비례 정신피해. 약탈자(물리·구속형)와 대비.
+
+```yaml
+id: "#Monster_Humanoid_Cultist"
+name: 광신도
+threat: 일반
+archetype: ARCH_Human_Armed
+morphology: 인간형
+unit_hp: 2                      # swarm 개체 체력
+default_size: 2                 # 약탈자보다 소규모(고위험 지역)
+weapon: 단검                    # 찌르기·낙인새기기 게이트(weapon_held). 무기 타입 효과 없음(일반형)
+faction: null | 가변            # 광신 세력 구역이면 소속 → 세력 회피 훅
+
+skills: [SK_Stab, SK_Brandmark]            # → MECH_Skill_Catalog 참조 (단검 약기술)
+semi_heavy: [SK_OminousPrayer]              # 기벽 수 비례 정신피해 (준-강기술, 카탈로그)
+signature_skills:                # 강기술 — 개체 잔류(고유, 공유 안 함)
+  - 피의 제사: 대상 [낙인](ST_Brand) 소비 → 피해 + 영구 기벽(전투기벽 아님) 부여.
+              낙인새기기로 적립 → 피의 제사로 터뜨리는 2단 콤보. 낙인 수 비례 위력.
+
+r18_module:                     # 토글 OFF면 무시 — 일반 R18 전투(굴복 이전) 기벽
+  r18_status_pool: [ST_CorruptDesire, ST_Enthrall, ST_Frenzy]   # 타락욕망·홀림·광분
+  r18_attacks:                   # 일반 R18 전투 공격(끔찍한 환상·최면·광란)
+    - 끔찍한 환상: [ST_CorruptDesire] 부여 (전투 커맨드 효과↓ + 흥분 先MAX 시 강제 굴복 전환)
+    - 최면(정신착란): [ST_Enthrall] 부여 (기벽저항↓·성감 가속)
+    - 광란: [ST_Frenzy] 부여 (전투 커맨드 위력↑ + 괴물 분노↓ — 흥분 경로 유도)
+  pin_condition: 흥분 先MAX → 굴복 페이즈 진입 시
+  r18_weakness: [농락]           # 굴복 페이즈에서 농락 역공에 약함(인지·함락 상성)
+
+r18_submission_draw:            # 굴복 페이즈 커맨드 — MECH_R18_Skill_Catalog SECTION 3-3 참조
+  pools: [Cognition, Subjugation]   # 인지 + 함락 (정신조작형 정합)
+  draw_count: 3                     # 전투마다 풀에서 랜덤 추출
+  fixed: [SR_Cog_ForcedKiss]        # 고정 시그니처(강제 입맞춤)
+
+flee_lock: { stats: [대화(위압·교섭), 매력], required: 3, note: 인간형 — 위압/세력호감도로 해산 가능 }
+
+dialogue_override:
+  on_encounter: ["놈이 피 묻은 단검을 들고 기도문을 읊조렸다."]
+  on_telegraph: ["놈의 눈이 광기로 번뜩이며 칼끝을 들어올렸다."]
+  on_defeat: ["광신도가 황홀한 표정으로 무너져 내렸다."]
+survivor_reads:
+  weakness: ["기벽 많은 사람을 노려 — 정신을 파고드는 기도야. 단검부터 떨궈내."]
+  danger: ["낙인이 쌓이면 위험해. 피의 제사로 터뜨리기 전에 끝내."]
+```
+
+> **공략 요약**: 단검 해제(무기 떨어트리기·강공/위압)로 찌르기·낙인새기기 봉쇄 → 정신피해 차단.
+> 낙인 적립 방치 시 '피의 제사'로 영구 기벽. 굴복 페이즈는 인지+함락 → **농락 역공이 정공법**(타락 NPC 유리).
+
+---
+
 ## SECTION 3 — 네임드 상세 ① 거대이빨악어
 
 ```yaml
@@ -189,15 +233,11 @@ weaknesses:
   weak_points: [눈, 비늘없는 복부]
   sense_dependency: [청각, 진동] # 차단 시 탐색 급감
   behavioral: 시력 나쁨·지능 낮음 → 시야 이탈 시 포기
-skills_basic:                    # 약기술
-  - 물기: 근접 단일 → [속박됨]. 근접 밀착 시 취약. 속박 중 타 약기술 불가.
-  - 꼬리치기: 근접 광역 → [비틀거림]. 구조물/엄폐 있으면 피해↓·비틀거림 불가.
-  - 경계하며 뒷걸음질: 1턴 눈치보기. 공격받으면 물기 연계 / 비공격 시 발톱치기 연계. 함정 파악.
-  - 달려들어 발톱치기: 근접 → [고통].
-  - 사냥감 추적: 도주 시 1회. 물기 확정 적중.
-skills_signature:                # 강기술
+skills: [SK_Bite, SK_TailSwipe, SK_WaryStep, SK_ClawLunge]   # → MECH_Skill_Catalog 참조 (공유 약기술)
+signature_skills:                # 강기술 — 개체 잔류(고유, 공유 안 함)
   - 데스롤 [전조형]: 속박 보유 시만. 장비 전부 떨굼 + [심각한 고통] + 고정 피해.
   - 강하게 물기 [전조형]: 2턴 준비. 엄폐 안 한 표적 돌진 물기 → [속박]+[고통]. 전조가 '경계하며 뒷걸음질'과 유사(마인드게임).
+  - 사냥감 추적: 도주 시 1회. 물기 확정 적중.
 flee_lock: { stats: [제작(소음·진동 차단), 탐색(시야 이탈)], required: 4 }
 dialogue_template:
   on_encounter: ["진흙 사이로 붉은 눈이 떠올랐다."]
@@ -242,11 +282,13 @@ survivor_reads:
   danger: ["기벽 많이 쌓인 사람부터 노려. 물리면 통째로 뜯겨."]
   morale_low: ["...저런 걸 어떻게 이겨."]
 r18_module:                      # 멸망급 R18 후보 (촉수형) — 콘텐츠 [미정], 훅만
-  clothing_attacks: [미정]
-  arousal_attacks: [미정]
+  r18_skills_unbound: [미정]      # → 추후 MECH_R18_Skill_Catalog 에 촉수형 기술 정의 후 ID 참조
+  r18_skills_bound:   [미정]
   pin_condition: 다중 촉수 [속박] 2회 누적
   r18_status_pool: [속박, 흥분, 황홀]
   r18_weakness: [미정]
+# 주: 본 개체의 skills/signature(할퀴며 피핥기·은밀한 잠복자·공포스러운 외침·잔혹한 처형식·
+#     공중덮치기 + 패시브)는 전부 단일 개체 고유 → 개체 잔류(카탈로그 비소유).
 ```
 
 ---
@@ -282,5 +324,7 @@ R18 콘텐츠          : 살점포식자 등 r18_module 세부. MECH_Combat_Syst
 | v0.1.0 | 2026-06-02 | 2축 분류·훅. |
 | v0.2.0 | 2026-06-05 | **일반형 원형 8종 + 파라미터 / swarm(규모×개체체력·분리승격) / 네임드 상세 2종(거대이빨악어·잔혹한 살점포식자) / r18_module·r18_weakness 필드 / 세력 회피 훅 구체화.** |
 | v0.2.1 | 2026-06-05 | 일반형 강기술 규약 완화(절대→대체로, 조건부 슬롯 허용). `ARCH_Human_Armed` 상세(2게이트·무장 해제 2경로). 일반형 개체 ① **약탈자** 등재(구속 게이트 R18 포함). |
+| v0.2.2 | 2026-06-07 | **기술을 카탈로그 ID 참조 방식으로 전환**: 공유 약기술→`MECH_Skill_Catalog`, R18 기술→`MECH_R18_Skill_Catalog`. 약탈자·악어 약기술 ID화. 네임드 시그니처 강기술·살점포식자 고유기술은 개체 잔류 명시. |
+| v0.2.3 | 2026-06-08 | 일반형 개체 ② **광신도** 등재(정신공격형): 단검 약기술(찌르기·낙인새기기·불길한 기도 카탈로그 참조) + 시그니처 '피의 제사'(낙인 소비 영구 기벽) 개체 잔류. R18 일반 기벽(타락욕망·홀림·광분) + 굴복 풀(인지+함락, `r18_submission_draw`). |
 
 **갱신 기준**: 개체 다수 등재 후 status `complete`. FACTION_DB·Day_Type·R18 콘텐츠 작성 시 연동.
