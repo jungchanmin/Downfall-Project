@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-21T12:54:17*  
-*Total entries: 39*  
+*Auto-generated on 2026-06-21T14:23:31*  
+*Total entries: 38*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -141,13 +141,6 @@
 - **Keywords:** 상태이상, 전투기벽, 속박, 고통, 공포, 출혈, 낙인, 최면, 홀림, 광분, 타락욕망, 무방비, 비틀거림, 은신, 절정 여운, 굴복 페이즈, 단일 출처, ID 참조
 - **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Quirk_R18_DB`
 
-### 🟡 `MONSTER_DB.md`
-- **Title:** 핵심 시스템 사양서 — 괴물 데이터베이스
-- **ID:** `MONSTER_DB` | **Type:** `mechanic`
-- **Summary:** 다운폴 괴물 DB. 위협 축(일반·네임드)×형태 축(인간형+비인간형 7) 2축 분류. 일반형은 원형 8종 + 파라미터로 양산(swarm 규모×개체체력), 네임드는 개별 상세. 세력 회피 훅, 보상 책정기 연계, r18_module/r18_weakness 필드. 첫 네임드 2종(거대이빨악어·잔혹한 살점포식자) 등재.
-- **Keywords:** 괴물, 일반형, 네임드, 멸망, 원형, 파라미터, swarm, 규모, 적대적 생존자, 인간형, 비인간형, 거대이빨악어, 살점포식자, r18 module
-- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Skill_Catalog`, `MECH_Event_Reward_Appraisal`
-
 ### ✅ `Time_System.md`
 - **Title:** 5페이즈 시간 시스템
 - **ID:** `MECH_Time_System` | **Type:** `mechanic`
@@ -168,11 +161,11 @@
 ## 📁 `03_Entities/Monsters/`
 
 ### 🟡 `MONSTER_DB.md`
-- **Title:** 핵심 시스템 사양서 — 괴물 데이터베이스 (분류 체계)
+- **Title:** 핵심 시스템 사양서 — 괴물 데이터베이스
 - **ID:** `MONSTER_DB` | **Type:** `mechanic`
-- **Summary:** 다운폴 괴물의 분류 체계 정의. 위협/지속성 축(일반·네임드)과 형태 축(인간형·비인간형 7종)을 직교 분리한 2축 모델. 일반괴물 인스턴트 전투, 네임드괴물 새벽 상주, 세력 회피 훅, 보상 책정기 연계(즉시 전투 vs 등장)를 규정. 개체별 스탯 블록은 후속 단계에서 확정.
-- **Keywords:** 괴물, 일반괴물, 네임드, 멸망의 괴물, 적대적 생존자, 인간형, 비인간형, 인스턴트 전투, 세력 회피
-- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Event_Reward_Appraisal`
+- **Summary:** 다운폴 괴물 DB. 위협 축(일반·네임드)×형태 축(인간형+비인간형 7) 2축 분류. 일반형은 원형 8종 + 파라미터로 양산(swarm 규모×개체체력), 네임드는 개별 상세. 세력 회피 훅, 보상 책정기 연계, r18_module/r18_weakness 필드. 첫 네임드 2종(거대이빨악어·잔혹한 살점포식자) 등재.
+- **Keywords:** 괴물, 일반형, 네임드, 멸망, 원형, 파라미터, swarm, 규모, 적대적 생존자, 인간형, 비인간형, 거대이빨악어, 살점포식자, r18 module
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Skill_Catalog`, `MECH_Event_Reward_Appraisal`
 
 
 ## 📁 `03_Entities/Survivors/`
