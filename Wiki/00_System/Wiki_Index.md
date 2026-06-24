@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-21T14:23:31*  
-*Total entries: 38*  
+*Auto-generated on 2026-06-24T12:50:42*  
+*Total entries: 39*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -72,6 +72,13 @@
 - **Summary:** 완성된 이벤트 출력물(텍스트·선택지)을 입력으로 받아 스탯 패널티·기벽·자원· 판정 난이도를 역방향으로 산정하는 총체적 보상 책정 사양서. 강도 밴드 가산점 모델, 패널티/보상 이중 사다리, 성패 4단 구조, 복합 스탯 판정, 기벽 계열 결정 트리를 규정. Downfall AI Assistant 모드 D(태그·보상·코드 통합)의 상세 사양서 역할.
 - **Keywords:** 보상 책정, 패널티, 강도 밴드, 성패 분기, 복합 판정, 기벽 부여, 자원 보상, 난이도, DC
 - **Depends on:** `SYS_Manifest`, `SYS_Downfall_AI_Assistant`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Quirk_Physical_DB`, `MECH_Quirk_Mental_DB`, `MECH_Quirk_R18_DB`
+
+### 🟡 `MECH_Monster_AI.md`
+- **Title:** 핵심 시스템 사양서 — 괴물 행동 결정 (AI) 시스템
+- **ID:** `MECH_Monster_AI` | **Type:** `mechanic`
+- **Summary:** 괴물의 턴 행동 선택 로직. 괴물 전용 게이지 3종(분노·흥분·위압)이 전투 진행에 따라 누적되어 행동 분포(기본기/고유기/R18 전조/방어 빈도)를 동적으로 변화시킨다. R18 ON=흥분, OFF=위압으로 배타 적용. 분노 우선 에스컬레이션. 괴물 스타일 프로파일(신중형/호전형 등) 선호율로 개체 차별화. 정의/참조 분리 — 개체는 ai_profile 참조만.
+- **Keywords:** 괴물 AI, 행동 결정, 분노 게이지, 흥분 게이지, 위압 게이지, 행동 분포, 스타일 프로파일, 신중형, 호전형, 기본 세트, 선호율, 에스컬레이션
+- **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Skill_Catalog`, `MECH_Status_Effect_DB`, `MONSTER_DB`
 
 ### ✅ `MECH_NPC_Stats_System.md`
 - **Title:** NPC 생존자 스탯 시스템
@@ -165,7 +172,7 @@
 - **ID:** `MONSTER_DB` | **Type:** `mechanic`
 - **Summary:** 다운폴 괴물 DB. 위협 축(일반·네임드)×형태 축(인간형+비인간형 7) 2축 분류. 일반형은 원형 8종 + 파라미터로 양산(swarm 규모×개체체력), 네임드는 개별 상세. 세력 회피 훅, 보상 책정기 연계, r18_module/r18_weakness 필드. 첫 네임드 2종(거대이빨악어·잔혹한 살점포식자) 등재.
 - **Keywords:** 괴물, 일반형, 네임드, 멸망, 원형, 파라미터, swarm, 규모, 적대적 생존자, 인간형, 비인간형, 거대이빨악어, 살점포식자, r18 module
-- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Skill_Catalog`, `MECH_Event_Reward_Appraisal`
+- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Combat_System`, `MECH_Monster_AI`, `MECH_Skill_Catalog`, `MECH_R18_Skill_Catalog`, `MECH_Event_Reward_Appraisal`
 
 
 ## 📁 `03_Entities/Survivors/`
