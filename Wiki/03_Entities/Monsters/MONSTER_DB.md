@@ -3,7 +3,7 @@ id: MONSTER_DB
 title: "핵심 시스템 사양서 — 괴물 데이터베이스"
 type: mechanic
 status: wip
-version: 0.2.3
+version: 0.2.5
 summary: >
   다운폴 괴물 DB. 위협 축(일반·네임드)×형태 축(인간형+비인간형 7) 2축 분류. 일반형은
   원형 8종 + 파라미터로 양산(swarm 규모×개체체력), 네임드는 개별 상세. 세력 회피 훅,
@@ -22,6 +22,7 @@ depends_on:
   - MECH_NPC_Stats_System
   - MECH_Resource_System
   - MECH_Combat_System
+  - MECH_Monster_AI
   - MECH_Skill_Catalog
   - MECH_R18_Skill_Catalog
   - MECH_Event_Reward_Appraisal
@@ -136,6 +137,7 @@ id: "#Monster_Humanoid_Looter"
 name: 약탈자
 threat: 일반
 archetype: ARCH_Human_Armed
+ai_profile: AI_Opportunist     # 기회형 — 무방비·약체 노림↑ (MECH_Monster_AI)
 morphology: 인간형
 unit_hp: 2                      # swarm 개체 체력
 default_size: 3                 # 기본 규모 (다수 등장)
@@ -177,6 +179,7 @@ id: "#Monster_Humanoid_Cultist"
 name: 광신도
 threat: 일반
 archetype: ARCH_Human_Armed
+ai_profile: AI_Fanatic         # 광신형 — R18 전조·정신기↑ (MECH_Monster_AI)
 morphology: 인간형
 unit_hp: 2                      # swarm 개체 체력
 default_size: 2                 # 약탈자보다 소규모(고위험 지역)
@@ -216,6 +219,56 @@ survivor_reads:
 
 > **공략 요약**: 단검 해제(무기 떨어트리기·강공/위압)로 찌르기·낙인새기기 봉쇄 → 정신피해 차단.
 > 낙인 적립 방치 시 '피의 제사'로 영구 기벽. 굴복 페이즈는 인지+함락 → **농락 역공이 정공법**(타락 NPC 유리).
+
+---
+
+## SECTION 2-E — 일반형 개체 ③ 자경단원(말단)
+
+> 오뱅마을 통제 집단의 정규 전투원. 말단이어도 충분한 무장·전투력(세력 위계: 부랑자<자경단<악마조직<광신). 물리형·고방어.
+
+```yaml
+id: "#Monster_Humanoid_Vigilante"
+name: 자경단원(말단)
+threat: 일반
+archetype: ARCH_Human_Armed
+ai_profile: AI_Cautious        # 신중형 — 방어·경계↑, 분노 느림 (MECH_Monster_AI)
+morphology: 인간형
+unit_hp: 3                      # 장비 좋아 단단함
+defense: 2                      # 방어 수준 높음 (고방어 — 약탈자/광신도보다 큼)
+default_size: 2                 # 2인조 편성
+weapon: 둔기(기본) | 1둔기+1총기  # 2인조 중 일부 총기. 무기 타입 효과 없음(일반형)
+faction: 자경단                 # 세력 구역 출현 → 세력 회피 훅 강하게 연결
+
+skills: [SK_Swing, SK_AimedShot, SK_CallSupport, SK_StunGun]   # → MECH_Skill_Catalog 참조
+  # SK_Swing(둔기) / SK_AimedShot(총기 개체, 원거리) / SK_CallSupport(지원 자버프) / SK_StunGun(기절·마비)
+signature_skills: []            # 시그니처 없음 (계급차 ≠ 전투력차)
+
+r18_module:                     # 토글 OFF면 무시 — 방어적 희롱형
+  r18_status_pool: [ST_Enthrall, ST_Restraint]
+  r18_attacks:                   # 일반 R18 전투 — "검문·검사를 빙자한 희롱"(위험하지 않은 선)
+    - 몸수색: 의복 게이지↑ + 성감 소량 (검사 명목 희롱)
+    - 조롱: [ST_Enthrall] (약올리며 굴복 유도)
+  pin_condition: 흥분 先MAX → 굴복 페이즈 진입 시
+  r18_weakness: [유혹, 저항]      # 접촉↔유혹·침범↔저항 → 둘 다 유효(공략 폭 넓음)
+
+r18_submission_draw:            # 굴복 페이즈 — MECH_R18_Skill_Catalog SECTION 3-4 참조
+  pools: [Contact, Penetration]     # 접촉 + 침범 (방어적 희롱·통제형)
+  draw_count: 3
+  fixed: [SR_Contact_Grope]         # 고정 시그니처(희롱하는 손길)
+
+flee_lock: { stats: [대화(세력호감도·교섭), 매력], required: 3, note: 적당한 피해 후 협상도 유효(정규군이라 손익 계산) }
+
+dialogue_override:
+  on_encounter: ["자경단원 둘이 곤봉을 두드리며 다가왔다. \"검문이다. 순순히 협조해.\""]
+  on_telegraph: ["한 명이 무전기를 들었다 — 지원을 부르려는 듯."]
+  on_defeat: ["자경단원이 곤봉을 떨군 채 물러섰다."]
+survivor_reads:
+  weakness: ["장비가 좋아 단단해. 무기부터 떨궈내고, 지원 부르기 전에 끝내."]
+  danger: ["스턴건 조심해 — 마비되면 손도 못 써. 둘이 조를 짜니 한쪽씩 끊어."]
+```
+
+> **공략 요약**: 고방어라 약공만으론 느림 → 무장 해제(찌르기/총기 봉쇄) + 지원 요청 전에 속결.
+> 스턴건의 기절·마비 주의. 도주는 세력호감도·협상·매력. R18은 방어적 희롱(접촉+침범) → 유혹·저항 둘 다 통함.
 
 ---
 
@@ -326,5 +379,7 @@ R18 콘텐츠          : 살점포식자 등 r18_module 세부. MECH_Combat_Syst
 | v0.2.1 | 2026-06-05 | 일반형 강기술 규약 완화(절대→대체로, 조건부 슬롯 허용). `ARCH_Human_Armed` 상세(2게이트·무장 해제 2경로). 일반형 개체 ① **약탈자** 등재(구속 게이트 R18 포함). |
 | v0.2.2 | 2026-06-07 | **기술을 카탈로그 ID 참조 방식으로 전환**: 공유 약기술→`MECH_Skill_Catalog`, R18 기술→`MECH_R18_Skill_Catalog`. 약탈자·악어 약기술 ID화. 네임드 시그니처 강기술·살점포식자 고유기술은 개체 잔류 명시. |
 | v0.2.3 | 2026-06-08 | 일반형 개체 ② **광신도** 등재(정신공격형): 단검 약기술(찌르기·낙인새기기·불길한 기도 카탈로그 참조) + 시그니처 '피의 제사'(낙인 소비 영구 기벽) 개체 잔류. R18 일반 기벽(타락욕망·홀림·광분) + 굴복 풀(인지+함락, `r18_submission_draw`). |
+| v0.2.4 | 2026-06-08 | 일반형 개체 ③ **자경단원(말단)** 등재(물리·고방어): 둔기 기본+일부 총기, 2인조, defense 2. 약기술(휘두르기·정조준 격발·지원 요청·스턴건). 신규 상태이상 마비·지원. R18 방어적 희롱형(접촉+침범, 유혹·저항 둘 다 유효). 시그니처 없음. |
+| v0.2.5 | 2026-06-09 | 기존 3개체에 `ai_profile` 소급(약탈자=기회형·광신도=광신형·자경단=신중형). `MECH_Monster_AI` 의존 추가 — 게이지 기반 행동 분포·스타일 차별화 연동. |
 
 **갱신 기준**: 개체 다수 등재 후 status `complete`. FACTION_DB·Day_Type·R18 콘텐츠 작성 시 연동.

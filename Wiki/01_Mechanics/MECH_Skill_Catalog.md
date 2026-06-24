@@ -3,7 +3,7 @@ id: MECH_Skill_Catalog
 title: "핵심 시스템 사양서 — 일반 전투 기술 카탈로그"
 type: mechanic
 status: wip
-version: 1.1.0
+version: 1.3.0
 summary: >
   괴물 일반 전투 기술(약기술·공유 준강기술)의 정의 단일 출처. 개체는 본 카탈로그를 기술 ID로
   참조만 한다(정의 복사 금지). 공유되는 약기술은 카탈로그 소유, 네임드 시그니처 강기술은 개체 잔류.
@@ -74,6 +74,47 @@ SkillDef:
 ---
 
 ## SECTION 2 — 공유 약기술 (범용 풀)
+
+### 2-0. 인간형 기본 세트 (모든 무장 인간형 공유 — 무제약·약함·맨몸)
+> 무장 해제돼도 사용 가능(완전 무력화 방지). 강한 무기 기술은 고유 약기술 계층(무장 약점 유효).
+> 괴물 AI 행동 분포의 base_weight 구성(`MECH_Monster_AI` SECTION 4). 3계층 중 [1] 기본기.
+```yaml
+- id: SK_Base_Strike
+  name: 맨손 타격
+  category: light
+  range: melee
+  target: single
+  damage: 1                            # 약함. 무기 무관(맨몸) — 무장 해제돼도 사용 가능
+  effect_id: null
+  log: { on_use: ["놈이 주먹을 휘둘렀다."], on_hit: ["둔한 충격이 스쳤다."] }
+
+- id: SK_Base_Threaten
+  name: 위협·조롱
+  category: light
+  range: mid
+  target: single
+  status_inflict: [ST_Cower]           # 약한 움츠러듬 시도. 자원 소모 없음
+  effect_id: null
+  log: { on_use: ["놈이 이죽거리며 위협했다."] }
+
+- id: SK_Base_Brace
+  name: 경계
+  category: light
+  range: self
+  target: self
+  effect_id: fx_base_brace             # 피해 무효 아님 — 다음 피격 피해 감소 + 다음 행동/게이지 영향
+  log: { on_use: ["놈이 자세를 낮추고 경계했다."] }
+
+- id: SK_Base_Backstep
+  name: 거리 벌리기
+  category: light
+  range: self
+  target: self
+  effect_id: fx_base_backstep          # 1밴드 후퇴(회피성) — 근접 피격 위험↓, 다음 접근 필요
+  log: { on_use: ["놈이 한 걸음 물러섰다."] }
+```
+> 괴물 방어(경계·거리 벌리기)는 생존자 회피와 달리 **피해 무효가 아님** — 감소·지연. 스타일 차별화용
+> (신중형은 이 빈도↑, 호전형은 ↓ — `MECH_Monster_AI` SECTION 3).
 
 ### 2-1. 인간형 실체 계열 (`ARCH_Human_Armed` 등 공유)
 ```yaml
@@ -193,6 +234,38 @@ SkillDef:
 > 정신공격형 인간형(광신도 등)이 공유. 출혈·낙인은 `ST_Bleed`·`ST_Brand`(Status DB).
 > 시그니처 강기술 '피의 제사'(낙인 소비 → 피해 + 영구 기벽)는 공유 안 함 → 개체 잔류.
 
+### 2-4. 자경단 계열 (무장 정규 인간형 — 공유 가능)
+```yaml
+- id: SK_AimedShot
+  name: 정조준 격발
+  category: light
+  range: ranged                        # 총기 보유 개체 — 거리 시스템 원거리 특화
+  target: single
+  damage: 2
+  lock_condition: weapon_held          # 무기(총기) 필요 — 무장 해제 시 잠김
+  effect_id: fx_weapon_type_variant     # 무기 타입에 따라 근접(둔기)/원거리(총) 분기
+  log: { on_use: ["놈이 총구를 겨눴다."], on_hit: ["총성과 함께 충격이 박혔다."] }
+
+- id: SK_CallSupport
+  name: 지원 요청
+  category: light
+  range: mid
+  target: self
+  status_inflict: [ST_Reinforce]       # 일정 턴 후 swarm 규모 +1 (지연 자버프)
+  effect_id: null
+  log: { on_use: ["놈이 무전으로 지원을 요청했다."] }
+
+- id: SK_StunGun
+  name: 스턴건
+  category: light
+  range: melee
+  target: single
+  effect_id: fx_stun_or_paralyze        # 적중 시 [기절] 또는 [마비] 중 하나
+  log: { on_use: ["놈이 전류가 흐르는 도구를 들이댔다."], on_hit: ["몸이 경직되며 감각이 끊겼다."] }
+```
+> 무장 정규 인간형(자경단 등)이 공유. 휘두르기는 기존 `SK_Swing` 재사용.
+> 지원·기절·마비는 `ST_Reinforce`·`ST_Stun`·`ST_Paralysis`(Status DB). 시그니처 없음.
+
 ---
 
 ## SECTION 3 — 개체 잔류 (카탈로그 비소유) — 참조용 목록
@@ -238,6 +311,10 @@ SkillDef:
 | `fx_cover_reduces` | 엄폐/구조물 존재 시 피해↓·[비틀거림] 무효 |
 | `fx_wary_branch` | 피격 여부로 다음 연계 분기 + 함정 파악 |
 | `fx_prayer_quirk_scaling` | 대상 기벽 수 비례 정신피해(기본 100% + 기벽당 10%, 상한 200%) |
+| `fx_weapon_type_variant` | 무기 타입에 따라 근접(둔기)/원거리(총) 사거리·보정 분기 |
+| `fx_stun_or_paralyze` | 적중 시 [기절](ST_Stun) 또는 [마비](ST_Paralysis) 중 하나 부여 |
+| `fx_base_brace` | 피해 무효 아님 — 다음 피격 피해 감소 + 다음 행동/게이지 영향 |
+| `fx_base_backstep` | 1밴드 후퇴(회피성) — 근접 피격 위험↓ |
 
 ---
 
@@ -251,5 +328,7 @@ SkillDef:
 |---|---|---|
 | v1.0.0 | 2026-06-07 | 최초. 소유 규칙(약기술 공유=카탈로그 / 네임드 강기술=개체) / 기술 정의 스키마 + effect_id / 공유 약기술 풀(인간형·동물형) / 개체 참조 방식 / effect_id 핸들러 목록. 악어·약탈자 약기술 ID 추출. |
 | v1.1.0 | 2026-06-08 | 광신도 계열 공유 약기술 추가(2-3): 찌르기(ST_Bleed)·낙인새기기(ST_Brand)·불길한 기도(준-강기술, 기벽 비례). effect_id `fx_prayer_quirk_scaling` 추가. 피의 제사는 개체 시그니처로 잔류. |
+| v1.2.0 | 2026-06-08 | 자경단 계열 공유 약기술 추가(2-4): 정조준 격발(무기 타입 분기)·지원 요청(ST_Reinforce)·스턴건(기절/마비). effect_id `fx_weapon_type_variant`·`fx_stun_or_paralyze` 추가. |
+| v1.3.0 | 2026-06-09 | **인간형 기본 세트(2-0) 추가**: 맨손 타격·위협조롱·경계·거리 벌리기(무제약·약함·맨몸, 무장 해제 시도 사용 가능). 괴물 방어=피해 감소(무효 아님). effect_id `fx_base_brace`·`fx_base_backstep`. `MECH_Monster_AI` 연동(3계층 [1]). |
 
 **갱신 기준**: 일반형 개체 확충 시 공유 약기술 추가. effect_id 핸들러는 코드와 동기화. R18 기술은 본 문서 아님.

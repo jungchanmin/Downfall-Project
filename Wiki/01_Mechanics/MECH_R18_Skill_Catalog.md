@@ -3,7 +3,7 @@ id: MECH_R18_Skill_Catalog
 title: "핵심 시스템 사양서 — R18 전투 기술 카탈로그"
 type: mechanic
 status: wip
-version: 1.3.0
+version: 1.4.0
 summary: >
   R18 전투 기술 정의의 단일 출처. 괴물 R18/굴복 커맨드(공유 풀)와 생존자 굴복 페이즈 기술
   5대분류(봉사·유혹·농락·흡수·저항)를 ID로 정의. 개체/NPC는 참조만. 파일 단위로 SFW 빌드에서
@@ -233,6 +233,60 @@ r18_submission_draw:
 > 고정 시그니처 = `SR_Cog_ForcedKiss` + 풀에서 랜덤 2~3 추출.
 > 상성: 인지·함락 둘 다 농락(◎)에 약함 → 농락형 역공이 정공법(단 침식·진척 비례).
 
+### 3-4. 접촉 + 침범 굴복 커맨드 풀 (방어적 희롱·통제형)
+> 자경단 등 사용 축 = **접촉 + 침범**. "위험하지 않은 선에서 굴복시키는" 희롱·통제 색
+> (약탈자의 공격적 구속과 대비). 직관적 신체 행위 + 검사·조롱·도구 연출.
+```yaml
+# ① 접촉 (Contact) — 달구는 희롱
+- id: SR_Contact_Grope
+  name: 희롱하는 손길
+  side: monster; phase: submission; progress_axis: Contact; progress_part: 가슴
+  gauge_delta: { arousal_self: +2, clothing: +1 }
+  required_parts: [손]; valid_postures: [대치, 정면]
+  log: { on_use: ["검문을 빙자한 손이 몸을 더듬었다."] }
+
+- id: SR_Contact_Strip
+  name: 강제 탈의
+  side: monster; phase: submission; progress_axis: Contact; progress_part: 전신
+  gauge_delta: { clothing: +3 }            # 의복 대량 → 노출 → 성감 배율 증폭
+  required_parts: [손]
+  log: { on_use: ["위험물 검사를 명목으로 옷을 벗겼다."] }
+
+- id: SR_Contact_Tease
+  name: 조롱하는 애무
+  side: monster; phase: submission; progress_axis: Contact; progress_part: 하복부
+  gauge_delta: { arousal_self: +2 }
+  status_inflict: [ST_Enthrall]            # 약올리듯 자극 → 기벽저항↓·성감 가속
+  required_parts: [손]; valid_postures: [정면]
+  log: { on_use: ["약을 올리듯 천천히 만지작거렸다."] }
+
+# ② 침범 (Penetration) — 받아들이게 하는 통제
+- id: SR_Pen_Finger
+  name: 손가락 침범
+  side: monster; phase: submission; progress_axis: Penetration; progress_part: 하복부
+  gauge_delta: { arousal_self: +3 }
+  required_parts: [손]; valid_postures: [정면, 후배위]
+  log: { on_use: ["손가락이 비집고 들어왔다."] }
+
+- id: SR_Pen_Toy
+  name: 도구 침범
+  side: monster; phase: submission; progress_axis: Penetration; progress_part: 하복부
+  gauge_delta: { arousal_self: +3 }
+  status_inflict: [ST_Restraint]           # 도구로 고정하며 침범 → 구속(굴복)
+  required_parts: [손]; valid_postures: [후배위, 구속]
+  log: { on_use: ["장비를 꺼내 들이밀며 고정했다."] }
+
+- id: SR_Pen_Press
+  name: 밀어붙이기
+  side: monster; phase: submission; progress_axis: Penetration; progress_part: 하복부
+  gauge_delta: { arousal_self: +2 }
+  effect_id: fx_sub_will_break             # 굴복도 직접 압박(통제·굴복 강요)
+  required_parts: [하반신]; valid_postures: [정면, 후배위]
+  log: { on_use: ["몸으로 밀어붙여 굴복을 강요했다."] }
+```
+> 운용: 접촉(희롱)으로 성감·의복 누적 → 침범(통제)으로 굴복 압박. 방어적이라 폭력적 유린 아님.
+> 상성: 접촉은 유혹(◎)에 약하고 침범은 저항(◎)에 약함 → **유혹 패링·저항 버티기 둘 다 유효**(공략 폭 넓음).
+
 ---
 
 ## SECTION 4 — 생존자 굴복 페이즈 기술 (5대분류·공용 풀)
@@ -427,5 +481,6 @@ r18_submission_draw:
 | v1.1.0 | 2026-06-08 | **괴물 굴복 페이즈 커맨드(변질 6축) 섹션 신설** — 풀 추출(고정+랜덤 혼합)·축별 대표 커맨드. **축 vs 분류 상성표** 추가(충돌 판정 보정). effect_id `fx_sub_fluid_feed` 추가. 섹션 재번호(상성표 5 / effect_id 6 / 참조 7 / 버전 8). |
 | v1.2.0 | 2026-06-08 | **자세 게이팅 SECTION 8 신설**: 점유 부위(피점유 5·행위 3)·자세 5종(대치/정면/후배위/기승/구속)·봉쇄 안전장치(저항 면역·주도권 해제·전부위 동시봉쇄 불가)·유혹형 패링(범용·고위험, 약상성 실패 시 역이용 증폭). 스키마에 게이팅 4필드 추가. 버전 섹션 9로. |
 | v1.3.0 | 2026-06-08 | **광신도 굴복 커맨드 풀(3-3) 추가**: 인지+함락 6종, 직관적 신체 행위(강제 입맞춤·귓속 애무·농밀한 더듬기 / 짓누르기·입 틀어막기·깊숙이 박기). 부위·자세 명확 → 자세 게이팅·티키타카 작동. effect_id `fx_sub_will_break`·`fx_sub_offering` 추가. |
+| v1.4.0 | 2026-06-08 | **접촉+침범 굴복 커맨드 풀(3-4) 추가**(자경단 방어적 희롱·통제형): 접촉 3(희롱하는 손길·강제 탈의·조롱하는 애무) + 침범 3(손가락 침범·도구 침범·밀어붙이기). id·name·설명 정합 통일. 상성상 유혹·저항 둘 다 유효. |
 
 **갱신 기준**: 분류별 개별 기술 변종 확충. 형태별 괴물 R18 기술 추가. effect_id 코드 동기화.

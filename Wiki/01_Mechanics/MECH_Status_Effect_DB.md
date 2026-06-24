@@ -3,7 +3,7 @@ id: MECH_Status_Effect_DB
 title: "핵심 시스템 사양서 — 상태이상·전투기벽 데이터베이스"
 type: mechanic
 status: wip
-version: 1.0.0
+version: 1.1.0
 summary: >
   모든 상태이상·전투기벽의 정의 단일 출처(single source of truth). 일반 전투·R18·굴복 페이즈
   전용을 ID 체계로 통합 관리. 기술 카탈로그·MONSTER_DB는 status_inflict 에 본 DB의 ID를 참조만 한다.
@@ -61,6 +61,8 @@ ID 규약: ST_{이름}
 | `ST_Brand` | 낙인 | survivor | 전투기벽 | 자체 효과 미미(표식). 중첩 수 = '피의 제사' 위력·발동 연료 | 피의 제사로 소비 / 종료 | 낙인새기기 |
 | `ST_Exposed` | 무방비 | monster | 지속 | 회피 불가 → 개방. 강공 +2 보너스 | 일시/괴물 행동 | 약공 누적 |
 | `ST_Stagger` | 비틀거림 | survivor | 지속 | 다음 행동 주사위 −1 | 1행동 후 | 꼬리치기 |
+| `ST_Paralysis` | 마비 | survivor | 지속 | 행동 시 일정 확률로 실패(불발). 여러 턴 잔존 | 턴 경과/판정 | 스턴건 |
+| `ST_Reinforce` | 지원 | monster | 지속 | 일정 턴 후 swarm 규모 +1 (지연 발동 자버프) | 발동 후 소멸 | 지원 요청 |
 | `ST_Stealth` | 은신 | monster | 지속 | 공격받지 않음. 공격 시 해제+1턴 공격력 2배 | 피격/탐색 | 은밀한 잠복자 |
 
 ---
@@ -139,5 +141,6 @@ status_inflict: [ST_Bleed, ST_Brand]   # 본 DB ID 참조만
 | 버전 | 날짜 | 변경 내용 |
 |---|---|---|
 | v1.0.0 | 2026-06-08 | 최초. Combat SECTION 10 표 이전 + ID 체계화. 일반 11종 / R18 7종 / 굴복 전용 4종. 신규(출혈·낙인·홀림·광분·타락욕망) 등록. **최면≠홀림 충돌 해소.** 신규 등록 프로토콜·빌드 검증 규약. |
+| v1.1.0 | 2026-06-08 | 자경단원 신규 2종: `ST_Paralysis`(마비 — 확률 실패·다턴 잔존, 기절과 구분)·`ST_Reinforce`(지원 — 지연 발동 swarm 규모↑ 자버프). |
 
 **갱신 기준**: 네임드 기벽 50+종·R18 추가분 순차 등록. `layer`별 SFW 토글. 신규는 SECTION 5 프로토콜 준수.
