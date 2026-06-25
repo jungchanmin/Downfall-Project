@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-25T12:57:33*  
-*Total entries: 39*  
+*Auto-generated on 2026-06-25T13:14:42*  
+*Total entries: 40*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -13,6 +13,15 @@
 - **ID:** `SYS_Manifest` | **Type:** `system`
 - **Summary:** 프로젝트의 핵심 아키텍처·디자인 필러·라이팅 지침·태그 스키마를 정의한 헌법 문서.
 - **Keywords:** 필러, 셜리잭슨, 태그, 리더권한
+
+
+## 📁 `00_System/Planning/`
+
+### ⚪ `01_AI_Event_Pipeline_Roadmap.md`
+- **Title:** AI 이벤트 파이프라인 로드맵
+- **ID:** `PLAN_AI_Event_Pipeline_Roadmap` | **Type:** `planning`
+- **Summary:** Downfall 프로젝트의 AI 이벤트 제작 및 검수 파이프라인 구축 계획.
+- **Keywords:** AI, 이벤트, 파이프라인, 로드맵
 
 
 ## 📁 `00_Templates/`
@@ -51,9 +60,9 @@
 - **Keywords:** 이벤트, 템플릿, 필터링, 조사, 판정, DC, 유물, 아이템, relic_acquire, item_acquire
 - **Depends on:** `SYS_Manifest`, `TMPL_EVT_Notification`, `TMPL_EVT_Interactive`, `MECH_Resource_System`, `ITEM_Relic_DB`
 
-### ✅ `QA_Refactoring_Anchor_Protocol.md` ⚠️
+### ✅ `QA_Refactoring_Anchor_Protocol.md`
 - **Title:** 품질 보증 및 검증 사양서 — 프론트매터 앵커 기반 사후 리팩토링 지원 프로토콜
-- **ID:** `QA_R02_Post_Refactoring_Anchor_Protocol` | **Type:** `qa_protocol`
+- **ID:** `QA_R02_Post_Refactoring_Anchor_Protocol` | **Type:** `template`
 - **Summary:** 컨텍스트 한계 및 저장소 크롤링 불가를 극복하기 위해, 모든 생성 파일에  정형화된 프론트매터 앵커(Anchor) 데이터를 심고, 이를 차후 정적 분석 및  일괄 리팩토링 스크립트가 파싱할 수 있도록 지원하는 사후 검수 규칙서.
 
 
@@ -300,9 +309,9 @@
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
 - **Emits:** `Flag_Memory_Rachel_PublicHumiliation`, `Flag_Trace_Rachel_SubmissiveScar`
 
-### ✅ `EVT_B006_BasementInterrogation.md` ⚠️
+### ✅ `EVT_B006_BasementInterrogation.md`
 - **Title:** 아침의 철장 — 지하실 심문 트랙
-- **ID:** `EVT_B022_BasementInterrogation` | **Type:** `event_track_b`
+- **ID:** `EVT_B022_BasementInterrogation` | **Type:** `event`
 - **Summary:** 아침 배급 직전, 물자 도난 혐의로 지하실 의자에 결박된 레이첼을 리더가 심문하는 R18 트랙 개입형 이벤트. 레이첼은 물리적 명령에 복종하여 나신으로 결박당하면서도, 거짓 자백을 거부하고 투지로 버티는 분기와 굴복하여 거짓으로 맹세하는 분기로 대치됨.
 - **Keywords:** 레이첼, 리더, 지하실, 심문, 나신, 가학, 결박
 - **Depends on:** `LORE_CHAR_Rachel_Lopez`, `SYS_EVT_Template_v2_Spec`
