@@ -1,7 +1,7 @@
 ---
 id: QA_R02_Post_Refactoring_Anchor_Protocol
 title: 품질 보증 및 검증 사양서 — 프론트매터 앵커 기반 사후 리팩토링 지원 프로토콜
-type: qa_protocol
+type: template
 status: complete
 version: 1.2.0
 summary: >

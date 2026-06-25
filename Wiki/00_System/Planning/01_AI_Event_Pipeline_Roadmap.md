@@ -1,3 +1,16 @@
+---
+id: PLAN_AI_Event_Pipeline_Roadmap
+title: AI 이벤트 파이프라인 로드맵
+type: planning
+status: draft
+summary: Downfall 프로젝트의 AI 이벤트 제작 및 검수 파이프라인 구축 계획.
+tags: [planning, ai, event, pipeline]
+keywords: [AI, 이벤트, 파이프라인, 로드맵]
+depends_on: []
+emits: []
+last_updated: 2026-06-25
+---
+
 # 🏭 AI 이벤트 생성 파이프라인 로드맵 (v1.0)
 
 > **목적**: `EVT_Conveyor_Belt_Master_Prompt.md` 가 안정적으로 작동하기 위해 위키의 어떤 항목을 어떤 순서로 채워야 하는지를 정의한 마스터 빌드 오더(Build Order).

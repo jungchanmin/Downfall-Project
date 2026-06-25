@@ -1,7 +1,7 @@
 ---
 id: EVT_B022_BasementInterrogation
 title: 아침의 철장 — 지하실 심문 트랙
-type: event_track_b
+type: event
 status: complete
 version: 1.1.0
 summary: >
