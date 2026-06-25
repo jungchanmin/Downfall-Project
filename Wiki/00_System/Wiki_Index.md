@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-25T13:49:26*  
-*Total entries: 39*  
+*Auto-generated on 2026-06-25T13:50:31*  
+*Total entries: 40*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -58,6 +58,14 @@
 - **Title:** 품질 보증 및 검증 사양서 — 프론트매터 앵커 기반 사후 리팩토링 지원 프로토콜
 - **ID:** `QA_R02_Post_Refactoring_Anchor_Protocol` | **Type:** `template`
 - **Summary:** 컨텍스트 한계 및 저장소 크롤링 불가를 극복하기 위해, 모든 생성 파일에  정형화된 프론트매터 앵커(Anchor) 데이터를 심고, 이를 차후 정적 분석 및  일괄 리팩토링 스크립트가 파싱할 수 있도록 지원하는 사후 검수 규칙서.
+
+### ✅ `Survivor_Lore_Bible_Template.md`
+- **Title:** 생존자 로어바이블 템플릿
+- **ID:** `TMPL_Survivor_Lore_Bible` | **Type:** `template`
+- **Summary:** Downfall 생존자의 고정 설정, 성격 구조, 행동 기준, 관계 및 장기 변화 가능성을 기록하기 위한 표준 로어바이블 템플릿.
+- **Keywords:** 생존자, 로어바이블, 캐릭터, 설정, 행동 기준, 관계, 캐릭터 아크
+- **Depends on:** `MECH_NPC_Stats_System`
+- **Emits:** `RUNTIME_CHAR_{Character_Name}`, `DATA_CHAR_{Character_Name}`
 
 
 ## 📁 `01_Mechanics/`
