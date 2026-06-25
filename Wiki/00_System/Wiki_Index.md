@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-25T13:14:42*  
-*Total entries: 40*  
+*Auto-generated on 2026-06-25T13:49:26*  
+*Total entries: 39*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -25,12 +25,6 @@
 
 
 ## 📁 `00_Templates/`
-
-### ✅ `Bot_Universal_Template.md`
-- **Title:** 보편적 생존자 가이드 봇 템플릿
-- **ID:** `TMPL_Universal_Survivor_Guide_Bot` | **Type:** `template`
-- **Summary:** 캐릭터 로어 바이블 작성을 위한 11개 섹션 표준 양식. Declared/Believed/Actual/Lack 의 4층 내면 구조와 상황별 말투 10종을 포함.
-- **Keywords:** 캐릭터 양식, 로어 바이블, 내면 구조, 상황별 말투, Identity, Personality, Voice, Relationships
 
 ### ✅ `EVT_Conveyor_Belt_Master_Prompt.md`
 - **Title:** Downfall 이벤트 컨베이어 벨트 마스터 프롬프트 v2.2
