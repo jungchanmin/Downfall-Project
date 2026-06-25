@@ -1,6 +1,6 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-24T12:50:42*  
+*Auto-generated on 2026-06-25T12:57:33*  
 *Total entries: 39*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
@@ -178,12 +178,12 @@
 ## 📁 `03_Entities/Survivors/`
 
 ### ✅ `Guide_Gavin_Jackson.md`
-- **Title:** 보편적 생존자 가이드 — 레이첼 로페즈
-- **ID:** `LORE_CHAR_Rachel_Lopez` | **Type:** `lore_char`
-- **Summary:** 과거 '은빛 칼날' 펜싱 국가대표였으나 동료의 사보타주로 발목이 부서져 몰락. 현재는 아지트의 '사냥개'로서 리더의 명령에 맹목적으로 종속된 전투원.
-- **Keywords:** 레이첼, Rachel, Lopez, 사냥개, 은빛 칼날, 펜싱, 피스트, 동적_자기파멸욕, 리더, 가빈
+- **Title:** 보편적 생존자 가이드 — 가빈 잭슨
+- **ID:** `LORE_CHAR_Gavin_Jackson` | **Type:** `lore_char`
+- **Summary:** 실리콘밸리의 투자자이자 가빈 컴퍼니 CEO였으나 가족의 배신에 맞서 자신의 제국을 스스로 파괴했다. 현재는 아지트의 물자와 자산을 독점 관리하는 신경증적 통제관.
+- **Keywords:** 가빈, Gavin, Jackson, 뱅커, 회계실, 자산_통제, 강박적_수치화, 예방적_적대, 가빈_컴퍼니, 레이첼
 - **Depends on:** `TMPL_Universal_Survivor_Guide_Bot`, `MECH_Mental_Ailments`
-- **Emits:** `Trait_비정상적_침착함`, `Trait_펜싱_룰`, `Trait_동적_자기파멸욕`, `Trait_부상_왼쪽발목`, `Flag_Past_Rachel_Career_Broken`, `Flag_Past_Rachel_Betrayed_By_Peer`, `Rel_Rachel_Leader_Blind_Devotion`
+- **Emits:** `Trait_강박적_수치화`, `Trait_예방적_적대`, `Trait_편집증적_마이크로_매니징`, `Flag_Past_Gavin_Company_Destroyed`, `Flag_Past_Gavin_Family_Betrayal`, `Rel_Gavin_Rachel_Conditional_Control`
 
 ### ✅ `Guide_Rachel_Lopez.md`
 - **Title:** 보편적 생존자 가이드 — 레이첼 로페즈
