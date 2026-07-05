@@ -1,0 +1,78 @@
+name: Project Governance
+
+on:
+  pull_request:
+    paths:
+      - 'Wiki/**'
+      - 'Scripts/**'
+      - 'tools/**'
+      - 'docs/**'
+      - '.github/workflows/**'
+      - 'PROJECT_MANIFEST.md'
+  push:
+    branches:
+      - main
+      - 'ai/**'
+    paths:
+      - 'Wiki/**'
+      - 'Scripts/**'
+      - 'tools/**'
+      - 'docs/**'
+      - '.github/workflows/**'
+      - 'PROJECT_MANIFEST.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate Wiki frontmatter
+        run: python tools/wiki/build_index.py --check
+
+      - name: Validate Wiki references
+        run: python tools/qa/lint_wiki_refs.py
+
+      - name: Generate repository manifest
+        run: python tools/repository/build_manifest.py
+
+      - name: Show generated manifest diff
+        run: git diff -- PROJECT_MANIFEST.md || true
+
+      - name: Commit generated manifest on push
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "project-governance-bot"
+          git config user.email "project-governance-bot@users.noreply.github.com"
+
+          if [[ -n "$(git status --porcelain PROJECT_MANIFEST.md)" ]]; then
+            git add PROJECT_MANIFEST.md
+            git commit -m "chore(repository): refresh project manifest [skip ci]"
+            git push
+            echo "Manifest refreshed and pushed."
+          else
+            echo "Manifest is already current."
+          fi
+
+      - name: Require current manifest in pull requests
+        if: github.event_name == 'pull_request'
+        run: |
+          if [[ -n "$(git status --porcelain PROJECT_MANIFEST.md)" ]]; then
+            echo "PROJECT_MANIFEST.md is stale. Run: python tools/repository/build_manifest.py"
+            exit 1
+          fi
