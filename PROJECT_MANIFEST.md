@@ -119,7 +119,7 @@
 | `Wiki/00_Templates/EVT_Notification.md` | 15413 | text/config | `0fe965526be4` |
 | `Wiki/00_Templates/EVT_NotificationTest.md` | 3397 | text/config | `830d78ed93f8` |
 | `Wiki/00_Templates/EVT_Template_v2_Spec.md` | 12291 | text/config | `7329919648d7` |
-| `Wiki/00_Templates/QA_Refactoring_Anchor_Protocol.md` | 4965 | text/config | `8180b1c6dd7a` |
+| `Wiki/00_Templates/QA_Refactoring_Anchor_Protocol.md` | 5046 | text/config | `2aef4a4f3fde` |
 | `Wiki/00_Templates/Survivor_Lore_Bible_Template.md` | 19288 | text/config | `39469294a693` |
 | `Wiki/01_Mechanics/MECH_Combat_System.md` | 27569 | text/config | `2faab0aacbc1` |
 | `Wiki/01_Mechanics/MECH_Event_Reward_Appraisal.md` | 15514 | text/config | `4113d2e438fe` |
