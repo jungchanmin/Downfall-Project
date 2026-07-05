@@ -101,7 +101,7 @@
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
 | `tools/qa/lint_event.py` | 18319 | text/config | `6c417aebcd4d` |
-| `tools/qa/lint_wiki_refs.py` | 4293 | text/config | `a6edfd5c9527` |
+| `tools/qa/lint_wiki_refs.py` | 4975 | text/config | `c8528fb84d0d` |
 | `tools/qa/test_lint_event.py` | 11670 | text/config | `5e073c553b42` |
 | `tools/repository/build_manifest.py` | 5620 | text/config | `dd24c166880c` |
 | `tools/wiki/build_index.py` | 7643 | text/config | `66049e7aaead` |
