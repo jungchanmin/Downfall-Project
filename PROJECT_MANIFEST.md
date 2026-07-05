@@ -4,15 +4,15 @@
 
 ## Repository summary
 
-- Total tracked candidates: 102
-- Text/config candidates: 88
+- Total tracked candidates: 103
+- Text/config candidates: 89
 - Binary/other candidates: 14
 
 ## Category summary
 
 | Category | Files |
 |---|---:|
-| Documentation | 1 |
+| Documentation | 2 |
 | GitHub automation | 2 |
 | Other | 38 |
 | Runtime code | 3 |
@@ -23,7 +23,7 @@
 
 | Extension | Files |
 |---|---:|
-| `.md` | 76 |
+| `.md` | 77 |
 | `(none)` | 16 |
 | `.py` | 5 |
 | `.cs` | 3 |
@@ -36,6 +36,7 @@
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
 | `docs/GITHUB_WORKFLOW.md` | 4804 | text/config | `347e6438da5e` |
+| `docs/WIKI_MIGRATION_BACKLOG.md` | 1829 | text/config | `0b018c64f760` |
 
 ### GitHub automation
 
