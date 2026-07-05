@@ -104,7 +104,7 @@
 | `tools/qa/lint_wiki_refs.py` | 4975 | text/config | `c8528fb84d0d` |
 | `tools/qa/test_lint_event.py` | 11670 | text/config | `5e073c553b42` |
 | `tools/repository/build_manifest.py` | 5620 | text/config | `dd24c166880c` |
-| `tools/wiki/build_index.py` | 7643 | text/config | `66049e7aaead` |
+| `tools/wiki/build_index.py` | 7094 | text/config | `64f7abcab98c` |
 
 ### Wiki
 
