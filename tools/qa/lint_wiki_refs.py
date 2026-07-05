@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Validate Downfall Wiki frontmatter IDs and cross-document references.
 
-The default mode blocks structural errors while reporting legacy reference debt as
-warnings. Use --strict to make unresolved dependencies and event filename/ID
-mismatches fail CI.
+The default mode blocks structural errors in indexed Wiki documents while reporting
+legacy migration debt as warnings. Use --strict to make warnings fail CI.
 """
 
 from __future__ import annotations
@@ -25,6 +24,17 @@ WIKI_ROOT = ROOT / "Wiki"
 INDEX_PATH = WIKI_ROOT / "00_System" / "Wiki_Index.md"
 EVENT_FILE_RE = re.compile(r"^(EVT_[A-Z]\d{3})_")
 EVENT_ID_RE = re.compile(r"^(EVT_[A-Z]\d{3})_")
+
+ARCHIVE_DIRS = {"Garbage"}
+LEGACY_UNINDEXED = {
+    "Wiki/00_System/Planning/02_Event_QA_Protocol.md",
+    "Wiki/00_System/Planning/03_Downfall_PRD.md",
+    "Wiki/00_System/Planning/04_Solo_Dev_AI_Tools_Tutorial.md",
+    "Wiki/00_Templates/EVT_NotificationTest.md",
+    "Wiki/02_World/World_Concept.md",
+    "Wiki/03_Entities/Entities.md",
+    "Wiki/PROJECT_STATE.md",
+}
 
 
 def extract_frontmatter(path: Path) -> tuple[dict | None, str | None]:
@@ -54,6 +64,11 @@ def as_list(value: object) -> list[str]:
     return [str(value)]
 
 
+def is_archive(path: Path) -> bool:
+    rel_parts = path.relative_to(WIKI_ROOT).parts
+    return bool(rel_parts) and rel_parts[0] in ARCHIVE_DIRS
+
+
 def scan() -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -61,10 +76,15 @@ def scan() -> tuple[list[str], list[str]]:
     ids: dict[str, list[Path]] = defaultdict(list)
 
     for path in sorted(WIKI_ROOT.rglob("*.md")):
-        if path.resolve() == INDEX_PATH.resolve():
+        if path.resolve() == INDEX_PATH.resolve() or is_archive(path):
             continue
-        meta, error = extract_frontmatter(path)
+
         rel = path.relative_to(ROOT).as_posix()
+        if rel in LEGACY_UNINDEXED:
+            warnings.append(f"{rel}: pending frontmatter migration; see docs/WIKI_MIGRATION_BACKLOG.md")
+            continue
+
+        meta, error = extract_frontmatter(path)
         if error:
             errors.append(f"{rel}: {error}")
             continue
