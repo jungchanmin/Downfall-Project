@@ -1,7 +1,7 @@
 ---
 id: SYS_Project_Canon
 title: Downfall 프로젝트 정본
- type: system
+type: system
 status: draft
 summary: Downfall의 장르, 플레이어 목표, 고정 세계 규칙과 문서 우선순위를 정의하는 최상위 정본 문서.
 tags: [system, canon, project, direction]
