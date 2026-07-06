@@ -22,6 +22,10 @@ on:
       - 'PROJECT_MANIFEST.md'
   workflow_dispatch:
 
+concurrency:
+  group: project-governance-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -58,8 +62,8 @@ jobs:
       - name: Show generated manifest diff
         run: git diff -- PROJECT_MANIFEST.md || true
 
-      - name: Commit generated manifest on push
-        if: github.event_name == 'push'
+      - name: Commit generated manifest on main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "project-governance-bot"
           git config user.email "project-governance-bot@users.noreply.github.com"
@@ -68,7 +72,7 @@ jobs:
             git add PROJECT_MANIFEST.md
             git commit -m "chore(repository): refresh project manifest [skip ci]"
             git push
-            echo "Manifest refreshed and pushed."
+            echo "Manifest refreshed and pushed on main."
           else
             echo "Manifest is already current."
           fi
@@ -77,7 +81,8 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           if [[ -n "$(git status --porcelain PROJECT_MANIFEST.md)" ]]; then
-            echo "PROJECT_MANIFEST.md is stale. Run: python tools/repository/build_manifest.py"
+            echo "PROJECT_MANIFEST.md is stale."
+            echo "Generate and commit it after all content changes are complete."
             exit 1
           fi
 
