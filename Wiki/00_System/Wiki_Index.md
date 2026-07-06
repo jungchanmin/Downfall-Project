@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-07-06T13:29:49*  
-*Total entries: 41*  
+*Auto-generated on 2026-07-06T13:59:14*  
+*Total entries: 47*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -19,6 +19,30 @@
 - **ID:** `SYS_Wiki_Operations` | **Type:** `system`
 - **Summary:** Downfall Wiki 문서에 표준 YAML frontmatter를 생성하고 Wiki Index에 등록하기 위한 운영 규칙.
 - **Keywords:** Wiki, Frontmatter, YAML, Index, 문서관리
+- **Depends on:** `SYS_Manifest`
+
+
+## 📁 `00_System/`
+
+### ⚪ `DESIGN_PILLARS.md`
+- **Title:** Downfall 핵심 디자인 필러
+- **ID:** `SYS_Design_Pillars` | **Type:** `system`
+- **Summary:** 관계 변질, 반복 생존, 씬 중심 내러티브와 성인 콘텐츠의 역할을 프로젝트 우선순위로 정의한다.
+- **Keywords:** 관계, 로그라이크, 씬, Bark, R18, 생존
+- **Depends on:** `SYS_Project_Canon`
+
+### ⚪ `DOCUMENT_RULES.md`
+- **Title:** Downfall 문서 소유권 및 폴더 규칙
+- **ID:** `SYS_Document_Rules` | **Type:** `system`
+- **Summary:** Wiki와 docs의 역할, 정본·DB·세부 규칙·R18 모듈의 의존 방향과 단계적 이전 원칙을 정의한다.
+- **Keywords:** Wiki, docs, 정본, DB, 폴더, R18, Archive, depends_on
+- **Depends on:** `SYS_Project_Canon`, `SYS_Wiki_Operations`
+
+### ⚪ `PROJECT_CANON.md`
+- **Title:** Downfall 프로젝트 정본
+- **ID:** `SYS_Project_Canon` | **Type:** `system`
+- **Summary:** Downfall의 장르, 플레이어 목표, 고정 세계 규칙과 문서 우선순위를 정의하는 최상위 정본 문서.
+- **Keywords:** Downfall, 오벵마을, 25일, 생존, 로그라이크, TRPG
 - **Depends on:** `SYS_Manifest`
 
 
@@ -176,12 +200,33 @@
 
 ## 📁 `02_World/`
 
+### ⚪ `MOTHER_LORE.md`
+- **Title:** 괴물들의 어머니와 그릇 정본
+- **ID:** `LORE_WORLD_Mother` | **Type:** `lore_world`
+- **Summary:** 25일 의식으로 인간 생존자가 괴물들의 어머니로 재탄생하는 조건, 인격 소멸과 장기적 종말을 정의한다.
+- **Keywords:** 어머니, 그릇, 수육, 명성, 신화, 광신도의 시험, 인류멸망
+- **Depends on:** `LORE_WORLD_Ritual_25_Days`
+
 ### 🟡 `Obeng_Village_Lore.md`
 - **Title:** 오뱅마을 15구역 로어
 - **ID:** `LORE_LOC_Oebeng` | **Type:** `lore_world`
 - **Summary:** 오뱅마을 15개 구역(성당·상점가·폐가 등)의 분위기·위험도·고유 이벤트 시드.
 - **Keywords:** 오뱅마을, 성당, 상점가, 폐가
 - **Depends on:** `SYS_Manifest`
+
+### ⚪ `RITUAL_OF_25_DAYS.md`
+- **Title:** 25일 의식과 오벵마을의 제련 구조
+- **ID:** `LORE_WORLD_Ritual_25_Days` | **Type:** `lore_world`
+- **Summary:** 오벵마을 전체를 그릇과 제물을 선별하는 의식장으로 만드는 25일 구조와 위험도 규칙을 정의한다.
+- **Keywords:** 25일, 의식, 그릇, 제물, 중심부, 외곽, 제련
+- **Depends on:** `LORE_WORLD_Overview`
+
+### ⚪ `WORLD_OVERVIEW.md`
+- **Title:** Downfall 세계관 개요
+- **ID:** `LORE_WORLD_Overview` | **Type:** `lore_world`
+- **Summary:** 오벵마을의 고립, 외부 세계, 괴물과 광신도, 공포 톤의 공통 세계 규칙을 정의한다.
+- **Keywords:** 오벵마을, 휴양도시, 고립, 광신도, 괴물, 이상현상
+- **Depends on:** `SYS_Project_Canon`
 
 
 ## 📁 `03_Entities/Monsters/`
