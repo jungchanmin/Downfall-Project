@@ -4,8 +4,8 @@
 
 ## Repository summary
 
-- Total tracked candidates: 107
-- Text/config candidates: 93
+- Total tracked candidates: 108
+- Text/config candidates: 94
 - Binary/other candidates: 14
 
 ## Category summary
@@ -17,13 +17,13 @@
 | Other | 38 |
 | Runtime code | 3 |
 | Tools | 5 |
-| Wiki | 57 |
+| Wiki | 58 |
 
 ## Extension summary
 
 | Extension | Files |
 |---|---:|
-| `.md` | 81 |
+| `.md` | 82 |
 | `(none)` | 16 |
 | `.py` | 5 |
 | `.cs` | 3 |
@@ -138,6 +138,7 @@
 | `Wiki/01_Mechanics/MECH_Skill_Catalog.md` | 14640 | text/config | `5c41173d0542` |
 | `Wiki/01_Mechanics/MECH_Status_Effect_DB.md` | 8113 | text/config | `83fff9caf51f` |
 | `Wiki/01_Mechanics/Time_System.md` | 5339 | text/config | `9f3b21ed1631` |
+| `Wiki/02_World/MOTHER_LORE.md` | 3255 | text/config | `3d6fd41f5df5` |
 | `Wiki/02_World/Obeng_Village_Lore.md` | 8045 | text/config | `4e7b9548c371` |
 | `Wiki/02_World/RITUAL_OF_25_DAYS.md` | 3560 | text/config | `c215eaf84aa9` |
 | `Wiki/02_World/WORLD_OVERVIEW.md` | 2725 | text/config | `ccb0d1ac1125` |
