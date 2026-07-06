@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-06-25T13:50:31*  
-*Total entries: 40*  
+*Auto-generated on 2026-07-06T13:29:49*  
+*Total entries: 41*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -13,6 +13,13 @@
 - **ID:** `SYS_Manifest` | **Type:** `system`
 - **Summary:** 프로젝트의 핵심 아키텍처·디자인 필러·라이팅 지침·태그 스키마를 정의한 헌법 문서.
 - **Keywords:** 필러, 셜리잭슨, 태그, 리더권한
+
+### ✅ `Wiki_Operations.md`
+- **Title:** Wiki 운영 및 Frontmatter 생성 지침
+- **ID:** `SYS_Wiki_Operations` | **Type:** `system`
+- **Summary:** Downfall Wiki 문서에 표준 YAML frontmatter를 생성하고 Wiki Index에 등록하기 위한 운영 규칙.
+- **Keywords:** Wiki, Frontmatter, YAML, Index, 문서관리
+- **Depends on:** `SYS_Manifest`
 
 
 ## 📁 `00_System/Planning/`
@@ -54,10 +61,11 @@
 - **Keywords:** 이벤트, 템플릿, 필터링, 조사, 판정, DC, 유물, 아이템, relic_acquire, item_acquire
 - **Depends on:** `SYS_Manifest`, `TMPL_EVT_Notification`, `TMPL_EVT_Interactive`, `MECH_Resource_System`, `ITEM_Relic_DB`
 
-### ✅ `QA_Refactoring_Anchor_Protocol.md`
+### 🗑️ `QA_Refactoring_Anchor_Protocol.md`
 - **Title:** 품질 보증 및 검증 사양서 — 프론트매터 앵커 기반 사후 리팩토링 지원 프로토콜
 - **ID:** `QA_R02_Post_Refactoring_Anchor_Protocol` | **Type:** `template`
-- **Summary:** 컨텍스트 한계 및 저장소 크롤링 불가를 극복하기 위해, 모든 생성 파일에  정형화된 프론트매터 앵커(Anchor) 데이터를 심고, 이를 차후 정적 분석 및  일괄 리팩토링 스크립트가 파싱할 수 있도록 지원하는 사후 검수 규칙서.
+- **Summary:** 과거 로컬 정적 분석을 전제로 사용하던 프론트매터 앵커 규격. 현재 GitHub 직접 수정 및 자동 검증 체계와 규격이 충돌하므로 역사 기록용으로만 보존하며 신규 문서에는 적용하지 않는다.
+- **Depends on:** `SYS_Wiki_Operations`
 
 ### ✅ `Survivor_Lore_Bible_Template.md`
 - **Title:** 생존자 로어바이블 템플릿
