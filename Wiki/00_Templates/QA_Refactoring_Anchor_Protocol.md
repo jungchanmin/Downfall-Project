@@ -2,15 +2,22 @@
 id: QA_R02_Post_Refactoring_Anchor_Protocol
 title: 품질 보증 및 검증 사양서 — 프론트매터 앵커 기반 사후 리팩토링 지원 프로토콜
 type: template
-status: complete
+status: deprecated
 version: 1.2.0
 summary: >
-  컨텍스트 한계 및 저장소 크롤링 불가를 극복하기 위해, 모든 생성 파일에 
-  정형화된 프론트매터 앵커(Anchor) 데이터를 심고, 이를 차후 정적 분석 및 
-  일괄 리팩토링 스크립트가 파싱할 수 있도록 지원하는 사후 검수 규칙서.
-tags: [qa, workflow, frontmatter, refactoring, code_generation]
-last_updated: 2026-05-29
+  과거 로컬 정적 분석을 전제로 사용하던 프론트매터 앵커 규격. 현재 GitHub 직접 수정 및
+  자동 검증 체계와 규격이 충돌하므로 역사 기록용으로만 보존하며 신규 문서에는 적용하지 않는다.
+tags: [qa, workflow, frontmatter, refactoring, deprecated]
+depends_on: [SYS_Wiki_Operations]
+emits: []
+last_updated: 2026-07-05
 ---
+
+> [!WARNING]
+> **Deprecated** — 이 문서는 과거 운영 규칙의 기록이다. 신규 문서에는 본문의
+> `runtime_dependencies` 전용 규격을 적용하지 않는다. 현재 규칙은
+> `Wiki/Wiki_Operations.md`, `docs/GITHUB_WORKFLOW.md`, `tools/wiki/build_index.py`,
+> `tools/qa/lint_wiki_refs.py`를 따른다.
 
 # 🛡️ DOWNFALL 사후 리팩토링 앵커 프로토콜 (v1.2)
 
@@ -36,13 +43,12 @@ version: 1.0.0
 summary: >
   문서 내용 요약 (정적 분석기가 맥락을 필터링할 때 참조)
 runtime_dependencies:
-  stats: [ #Stat_Submission, #Stat_Rationality ]  # 본 파일이 인용하는 동적 스탯 락
-  traits: [ #Trait_Fencing_Rule ]                 # 본 파일이 인용하는 기벽 식별자 락
-  locations: [ #Loc_아지트_거실_B2 ]              # 본 파일이 구속되는 장소 식별자 락
-  flags: [ #Flag_Memory_Rachel_RibbonAnomaly ]   # 본 파일이 방출/참조하는 플래그 락
+  stats: [ #Stat_Submission, #Stat_Rationality ]
+  traits: [ #Trait_Fencing_Rule ]
+  locations: [ #Loc_아지트_거실_B2 ]
+  flags: [ #Flag_Memory_Rachel_RibbonAnomaly ]
 last_updated: 2026-05-29
 ---
-
 ```
 
 ### 락(Lock) 매커니즘의 기능
@@ -66,9 +72,8 @@ last_updated: 2026-05-29
 [정형 데이터 추출] -> 스크립트가 모든 파일의 runtime_dependencies 블록을 취합
                       │ (오염되거나 새로 도입된 스탯/태그/용어 일괄 리스트업)
                       ▼
-[일괄 리팩토링] -> 디렉터가 확정한 정제 맵핑 데이터에 따라, 
+[일괄 리팩토링] -> 디렉터가 확정한 정제 맵핑 데이터에 따라,
                       스크립트가 로컬 파일 내 변수명을 일괄 치환(Find & Replace)
-
 ```
 
 ---
@@ -91,7 +96,6 @@ last_updated: 2026-05-29
     "reason": "기존 스탯 스키마 오염 방지를 위해 차후 로컬 스크립트로 일괄 치환할 것을 권장함."
   }
 }
-
 ```
 
 * 디렉터는 이 JSON 블록을 그대로 로컬 리팩토링 툴의 구성 파일(config.json)로 사용하여 정제 작업을 자동화할 수 있다.
@@ -103,7 +107,3 @@ last_updated: 2026-05-29
 * **문서 위치**: `00_Templates/QA_Refactoring_Anchor_Protocol.md`
 * **커밋 메시지**: `chore(qa): implement frontmatter anchor specification for post-refactoring static analysis`
 * **Wiki_Index.md 갱신 필요 여부**: **필요 (YES)**
-
-```
-
----

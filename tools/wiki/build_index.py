@@ -1,92 +1,77 @@
 #!/usr/bin/env python3
-"""
-build_index.py — Auto-generate Wiki_Index.md from frontmatter of wiki files.
+"""Generate Wiki_Index.md from Wiki document frontmatter.
 
 Usage:
-  python tools/wiki/build_index.py            # build index, write file
-  python tools/wiki/build_index.py --check    # lint-only mode (CI 검증용, 파일 안 씀)
-  python tools/wiki/build_index.py --verbose  # 상세 로그
+  python tools/wiki/build_index.py
+  python tools/wiki/build_index.py --check
+  python tools/wiki/build_index.py --verbose
 
-Requirements:
-  pip install pyyaml
-
-Frontmatter spec (필수 필드: id, title, type, status, summary):
----
-id: LORE_CHAR_Gavin
-title: 가빈 잭슨 캐릭터 로어 바이블
-type: character_lore        # template | mechanic | lore_world | lore_char | event | system
-status: complete            # draft | wip | complete | deprecated
-summary: 한두 문장 요약.
-tags: [character, survivor]
-keywords: [가빈, Gavin]
-depends_on: [Bot_Universal_Template]
-emits: [Flag_Memory_Gavin_X]
-last_updated: 2026-05-12
----
+Documents under Wiki/Garbage and explicitly tracked migration backlog files are not
+canonical Wiki entries. They are skipped with warnings until reviewed.
 """
 
 from __future__ import annotations
-import sys
+
 import argparse
 import datetime as dt
+import sys
 from pathlib import Path
 
 try:
-    import yaml  # PyYAML
+    import yaml
 except ImportError:
     print("ERROR: PyYAML not installed. Run: pip install pyyaml", file=sys.stderr)
-    sys.exit(2)
+    raise SystemExit(2)
 
-# ───────────── Configuration ─────────────
 WIKI_ROOT = Path("Wiki")
 INDEX_PATH = WIKI_ROOT / "00_System" / "Wiki_Index.md"
 REQUIRED_FIELDS = ["id", "title", "type", "status", "summary"]
 KNOWN_TYPES = {
-    "system", "template", "mechanic",
-    "lore_world", "lore_char", "lore_faction",
-    "event", "planning", "log",
+    "system", "template", "mechanic", "lore_world", "lore_char",
+    "lore_faction", "event", "planning", "log",
 }
 STATUS_ICONS = {
-    "complete":   "✅",
-    "wip":        "🟡",
-    "draft":      "⚪",
+    "complete": "✅",
+    "wip": "🟡",
+    "draft": "⚪",
     "deprecated": "🗑️",
 }
+ARCHIVE_DIRS = {"Garbage"}
+LEGACY_UNINDEXED = {
+    "Wiki/00_System/Planning/02_Event_QA_Protocol.md",
+    "Wiki/00_System/Planning/03_Downfall_PRD.md",
+    "Wiki/00_System/Planning/04_Solo_Dev_AI_Tools_Tutorial.md",
+    "Wiki/00_Templates/EVT_NotificationTest.md",
+    "Wiki/02_World/World_Concept.md",
+    "Wiki/03_Entities/Entities.md",
+    "Wiki/PROJECT_STATE.md",
+}
 
-# ───────────── Frontmatter extraction ─────────────
+
 def extract_frontmatter(path: Path):
-    """Return (meta_dict, error_str). meta_dict is None on error."""
     try:
-        text = path.read_text(encoding="utf-8")
-    except Exception as e:
-        return None, f"read-error: {e}"
-
-    if not text.lstrip().startswith("---"):
+        text = path.read_text(encoding="utf-8").lstrip()
+    except Exception as exc:
+        return None, f"read-error: {exc}"
+    if not text.startswith("---"):
         return None, "no-frontmatter"
-
-    # Remove leading whitespace before first '---'
-    text = text.lstrip()
     parts = text.split("---", 2)
     if len(parts) < 3:
         return None, "malformed-frontmatter (no closing ---)"
-
     try:
         meta = yaml.safe_load(parts[1])
-    except yaml.YAMLError as e:
-        return None, f"yaml-parse-error: {e}"
-
+    except yaml.YAMLError as exc:
+        return None, f"yaml-parse-error: {exc}"
     if not isinstance(meta, dict):
         return None, "frontmatter-not-dict"
-
     return meta, None
 
 
 def validate(meta: dict) -> list[str]:
-    """Return list of validation warnings (empty if OK)."""
-    warnings = []
-    for f in REQUIRED_FIELDS:
-        if f not in meta or meta[f] in (None, ""):
-            warnings.append(f"missing required field: '{f}'")
+    warnings: list[str] = []
+    for field in REQUIRED_FIELDS:
+        if field not in meta or meta[field] in (None, ""):
+            warnings.append(f"missing required field: '{field}'")
     if "type" in meta and meta["type"] not in KNOWN_TYPES:
         warnings.append(f"unknown type: '{meta['type']}' (allowed: {sorted(KNOWN_TYPES)})")
     if "status" in meta and meta["status"] not in STATUS_ICONS:
@@ -94,43 +79,48 @@ def validate(meta: dict) -> list[str]:
     return warnings
 
 
-# ───────────── Collection ─────────────
+def is_archive(path: Path, wiki_root: Path) -> bool:
+    parts = path.relative_to(wiki_root).parts
+    return bool(parts) and parts[0] in ARCHIVE_DIRS
+
+
 def collect_entries(wiki_root: Path):
-    entries, errors = [], []
+    entries, errors, migration_warnings = [], [], []
     index_abs = INDEX_PATH.resolve()
 
     for md in sorted(wiki_root.rglob("*.md")):
-        # Skip the index itself
-        if md.resolve() == index_abs:
+        if md.resolve() == index_abs or is_archive(md, wiki_root):
             continue
 
-        meta, err = extract_frontmatter(md)
-        if err:
-            errors.append((md, err))
+        repo_rel = md.as_posix()
+        if repo_rel in LEGACY_UNINDEXED:
+            migration_warnings.append(md)
             continue
 
-        warnings = validate(meta)
-        if warnings:
-            errors.append((md, "; ".join(warnings)))
-            # Still include in index but mark as broken
+        meta, error = extract_frontmatter(md)
+        if error:
+            errors.append((md, error))
+            continue
+
+        validation = validate(meta)
+        if validation:
+            errors.append((md, "; ".join(validation)))
             meta["_broken"] = True
-
         entries.append((md, meta))
-    return entries, errors
+
+    return entries, errors, migration_warnings
 
 
-# ───────────── Rendering ─────────────
 def render(entries, wiki_root: Path) -> str:
     by_folder: dict[str, list] = {}
     for path, meta in entries:
         folder = str(path.parent.relative_to(wiki_root)) or "."
         by_folder.setdefault(folder, []).append((path, meta))
 
-    now = dt.datetime.now().isoformat(timespec="seconds")
     lines = [
         "# 🗂️ Downfall Wiki Master Index",
         "",
-        f"*Auto-generated on {now}*  ",
+        f"*Auto-generated on {dt.datetime.now().isoformat(timespec='seconds')}*  ",
         f"*Total entries: {len(entries)}*  ",
         "*⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*",
         "",
@@ -138,78 +128,77 @@ def render(entries, wiki_root: Path) -> str:
         "",
     ]
 
-    for folder in sorted(by_folder.keys()):
-        lines.append(f"## 📁 `{folder}/`")
-        lines.append("")
-        for path, meta in sorted(by_folder[folder], key=lambda x: x[0].name):
+    for folder in sorted(by_folder):
+        lines.extend([f"## 📁 `{folder}/`", ""])
+        for path, meta in sorted(by_folder[folder], key=lambda item: item[0].name):
             icon = STATUS_ICONS.get(meta.get("status", ""), "❓")
             broken = " ⚠️" if meta.get("_broken") else ""
-            title = meta.get("title", "(untitled)")
-            mid = meta.get("id", "(no-id)")
-            summary = (meta.get("summary") or "").strip()
-            deps = meta.get("depends_on") or []
-            emits = meta.get("emits") or []
-            type_ = meta.get("type", "?")
-            keywords = meta.get("keywords") or []
-
             lines.append(f"### {icon} `{path.name}`{broken}")
-            lines.append(f"- **Title:** {title}")
-            lines.append(f"- **ID:** `{mid}` | **Type:** `{type_}`")
+            lines.append(f"- **Title:** {meta.get('title', '(untitled)')}")
+            lines.append(f"- **ID:** `{meta.get('id', '(no-id)')}` | **Type:** `{meta.get('type', '?')}`")
+
+            summary = (meta.get("summary") or "").strip()
             if summary:
                 lines.append(f"- **Summary:** {summary}")
+
+            keywords = meta.get("keywords") or []
             if keywords:
-                kw_str = ", ".join(str(k) for k in keywords) if isinstance(keywords, list) else str(keywords)
-                lines.append(f"- **Keywords:** {kw_str}")
-            if deps:
-                deps_str = ", ".join(f"`{d}`" for d in deps) if isinstance(deps, list) else f"`{deps}`"
-                lines.append(f"- **Depends on:** {deps_str}")
+                value = ", ".join(str(item) for item in keywords) if isinstance(keywords, list) else str(keywords)
+                lines.append(f"- **Keywords:** {value}")
+
+            dependencies = meta.get("depends_on") or []
+            if dependencies:
+                value = ", ".join(f"`{item}`" for item in dependencies) if isinstance(dependencies, list) else f"`{dependencies}`"
+                lines.append(f"- **Depends on:** {value}")
+
+            emits = meta.get("emits") or []
             if emits:
-                emits_str = ", ".join(f"`{e}`" for e in emits) if isinstance(emits, list) else f"`{emits}`"
-                lines.append(f"- **Emits:** {emits_str}")
+                value = ", ".join(f"`{item}`" for item in emits) if isinstance(emits, list) else f"`{emits}`"
+                lines.append(f"- **Emits:** {value}")
             lines.append("")
         lines.append("")
 
     return "\n".join(lines)
 
 
-# ───────────── Main ─────────────
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description="Build Wiki_Index.md from frontmatter.")
-    parser.add_argument("--check", action="store_true",
-                        help="lint mode: only report issues, do not write index. Exits non-zero on errors.")
-    parser.add_argument("--verbose", "-v", action="store_true",
-                        help="verbose output.")
-    parser.add_argument("--root", type=Path, default=WIKI_ROOT,
-                        help=f"wiki root path (default: {WIKI_ROOT})")
+    parser.add_argument("--check", action="store_true", help="Validate only; do not write the index.")
+    parser.add_argument("--verbose", "-v", action="store_true")
+    parser.add_argument("--root", type=Path, default=WIKI_ROOT)
     args = parser.parse_args()
 
-    wiki_root = args.root
-    if not wiki_root.exists():
-        print(f"ERROR: wiki root '{wiki_root}' not found.", file=sys.stderr)
-        sys.exit(2)
+    if not args.root.exists():
+        print(f"ERROR: wiki root '{args.root}' not found.", file=sys.stderr)
+        return 2
 
-    entries, errors = collect_entries(wiki_root)
+    entries, errors, migration_warnings = collect_entries(args.root)
+
+    for path in migration_warnings:
+        print(
+            f"WARNING: {path}: pending frontmatter migration; see docs/WIKI_MIGRATION_BACKLOG.md",
+            file=sys.stderr,
+        )
 
     if args.verbose or errors:
-        print(f"Scanned {len(entries)} files in {wiki_root}/.")
+        print(f"Scanned {len(entries)} indexed files in {args.root}/.")
     if errors:
         print(f"\n⚠️  {len(errors)} file(s) have frontmatter issues:\n", file=sys.stderr)
-        for path, err in errors:
-            print(f"  - {path}: {err}", file=sys.stderr)
+        for path, error in errors:
+            print(f"  - {path}: {error}", file=sys.stderr)
         print("", file=sys.stderr)
 
     if args.check:
-        sys.exit(1 if errors else 0)
+        return 1 if errors else 0
 
-    # Write index
     INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
-    output = render(entries, wiki_root)
-    INDEX_PATH.write_text(output, encoding="utf-8")
-    print(f"✅ Wrote {INDEX_PATH} ({len(entries)} entries, {len(errors)} flagged).")
-
-    # Lint-style exit code (always 0 unless --check)
-    sys.exit(0)
+    INDEX_PATH.write_text(render(entries, args.root), encoding="utf-8")
+    print(
+        f"✅ Wrote {INDEX_PATH} ({len(entries)} entries, {len(errors)} flagged, "
+        f"{len(migration_warnings)} migration-pending)."
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

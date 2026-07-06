@@ -1,3 +1,16 @@
+---
+id: SYS_Wiki_Operations
+title: Wiki 운영 및 Frontmatter 생성 지침
+type: system
+status: complete
+summary: Downfall Wiki 문서에 표준 YAML frontmatter를 생성하고 Wiki Index에 등록하기 위한 운영 규칙.
+tags: [wiki, operation, frontmatter, index]
+keywords: [Wiki, Frontmatter, YAML, Index, 문서관리]
+depends_on: [SYS_Manifest]
+emits: []
+last_updated: 2026-07-05
+---
+
 # 🛠️ Wiki Operations: Frontmatter Generator
 
 ## 1. 목적 (Purpose)
@@ -40,3 +53,4 @@ depends_on: [Ref_ID1, Ref_ID2, ...]
 emits: [Flag1, Flag2, ...]
 last_updated: YYYY-MM-DD
 ---
+```
