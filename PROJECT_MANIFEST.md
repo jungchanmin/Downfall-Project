@@ -112,7 +112,7 @@
 |---|---:|---|---|
 | `Wiki/00_System/DESIGN_PILLARS.md` | 2903 | text/config | `c1637ae2c15c` |
 | `Wiki/00_System/DOCUMENT_RULES.md` | 4238 | text/config | `0654b67c5581` |
-| `Wiki/00_System/PROJECT_CANON.md` | 3071 | text/config | `79f9041deec9` |
+| `Wiki/00_System/PROJECT_CANON.md` | 3070 | text/config | `ddce8c4938ea` |
 | `Wiki/00_System/Planning/01_AI_Event_Pipeline_Roadmap.md` | 8376 | text/config | `6712e6a4b966` |
 | `Wiki/00_System/Planning/02_Event_QA_Protocol.md` | 10315 | text/config | `5e3f32273869` |
 | `Wiki/00_System/Planning/03_Downfall_PRD.md` | 12604 | text/config | `39b6f90844a2` |
