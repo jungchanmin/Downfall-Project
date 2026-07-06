@@ -77,13 +77,13 @@ jobs:
             echo "Manifest is already current."
           fi
 
-      - name: Require current manifest in pull requests
+      - name: Report stale manifest in pull requests
         if: github.event_name == 'pull_request'
         run: |
           if [[ -n "$(git status --porcelain PROJECT_MANIFEST.md)" ]]; then
-            echo "PROJECT_MANIFEST.md is stale."
-            echo "Generate and commit it after all content changes are complete."
-            exit 1
+            echo "::warning::PROJECT_MANIFEST.md is stale and will be refreshed after merge to main."
+          else
+            echo "PROJECT_MANIFEST.md is current."
           fi
 
       - name: Fail on Wiki validation errors
