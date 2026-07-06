@@ -4,8 +4,8 @@
 
 ## Repository summary
 
-- Total tracked candidates: 103
-- Text/config candidates: 89
+- Total tracked candidates: 104
+- Text/config candidates: 90
 - Binary/other candidates: 14
 
 ## Category summary
@@ -17,13 +17,13 @@
 | Other | 38 |
 | Runtime code | 3 |
 | Tools | 5 |
-| Wiki | 53 |
+| Wiki | 54 |
 
 ## Extension summary
 
 | Extension | Files |
 |---|---:|
-| `.md` | 77 |
+| `.md` | 78 |
 | `(none)` | 16 |
 | `.py` | 5 |
 | `.cs` | 3 |
@@ -110,6 +110,7 @@
 
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
+| `Wiki/00_System/PROJECT_CANON.md` | 3071 | text/config | `79f9041deec9` |
 | `Wiki/00_System/Planning/01_AI_Event_Pipeline_Roadmap.md` | 8376 | text/config | `6712e6a4b966` |
 | `Wiki/00_System/Planning/02_Event_QA_Protocol.md` | 10315 | text/config | `5e3f32273869` |
 | `Wiki/00_System/Planning/03_Downfall_PRD.md` | 12604 | text/config | `39b6f90844a2` |
