@@ -1,49 +1,33 @@
-# 🌑 Downfall: World Concept & Philosophy
-
-## 1. 세계관 개요 (Overview)
-- **핵심 문구**: 고립된 마을에서의 29일간의 생존 기록.
-- **장르**: 종말(Apocalypse), 생존(Survival), 심리 공포(Psychological Horror).
-
+---
+id: LORE_WORLD_Concept_Legacy
+title: World Concept 레거시 안내
+type: lore_world
+status: deprecated
+summary: 구형 29일 세계관 개념 문서의 대체 정본 경로를 안내한다.
+tags: [lore, world, deprecated, legacy]
+keywords: [World Concept, 29일, 레거시, 대체 문서]
+depends_on: [SYS_Project_Canon, SYS_Design_Pillars, LORE_WORLD_Overview, LORE_WORLD_Ritual_25_Days, LORE_WORLD_Mother]
+emits: []
+last_updated: 2026-07-06
 ---
 
-## 2. 공포의 3대 지주 (The 3 Pillars of Horror)
-*AI는 모든 텍스트 생성 시 아래 세 가지 필러를 유지해야 함.*
+# World Concept 레거시 안내
 
-1. **내부의 적 (The Enemy Within)**: 진짜 공포는 괴물이 아닌 생존자 사이의 갈등, 불신, 배신에서 옴. 이기심과 이타심의 저울질을 강조.
-2. **이해 불가능한 공포 (Incomprehensible Horror)**: 이성으로 대항할 수 없는 우주적 존재와 기괴한 초자연 현상. 거대한 절망감을 선사.
-3. **자원의 무게 (The Weight of Resources)**: 유한한 자원을 둘러싼 냉혹한 현실. 도덕성과 효율성 사이의 고뇌를 유도.
+이 문서는 과거 29일 구조와 초기 공포 필러를 담았던 레거시 문서다. 현재 프로젝트 정본으로 사용하지 않는다.
 
----
+## 대체 정본
 
-## 3. 의식의 감옥: 오벵마을 (The Ritual Prison)
-- **공포의 구심력**: 외곽의 괴물은 '면도날 철조망' 역할. 생존자들을 중심부로 몰아넣어 갈등을 증폭시키는 '압력솥 효과' 창출.
-- **병목지점 (Bottleneck)**: 필수 자원과 이벤트는 위험한 병목 구역에 배치하여 희생과 결단을 강요.
+- 프로젝트 정의와 플레이어 목표: `PROJECT_CANON.md`
+- 핵심 관계·로그라이크·내러티브 필러: `DESIGN_PILLARS.md`
+- 세계관 개요와 공포 톤: `WORLD_OVERVIEW.md`
+- 25일 의식과 오벵마을 위험도 구조: `RITUAL_OF_25_DAYS.md`
+- 어머니와 그릇: `MOTHER_LORE.md`
+- 오벵마을 상세 지리와 구역: `Obeng_Village_Lore.md`
 
----
+## 폐기된 구형 전제
 
-## 4. 시간의 압박 (Pressure of Time)
-### ⏳ 거시적: 29일간의 시련
-- 날짜가 지날수록 '고요'는 줄고 '멸망'이 빈번해짐.
-- 후반부로 갈수록 기존 생존 공식이 무력화되며 세계의 진실(제물 의식)이 드러남.
+- 29일 카운트다운
+- 초기 3대 지주 세력 중심 분류
+- 플레이어의 세계 구원 또는 의식 저지 중심 해석
 
-### 🔄 미시적: 하루의 5단계 순환 (5-Phase Cycle)
-1. **새벽(Dawn)**: 세계 이벤트 등장 및 환경 변화.
-2. **아침(Morning)**: 자원 분배 및 행동 지시 (허기 정산).
-3. **점심(Noon)**: 외출 인원 활동(전투/탐색) 및 내부 경계 이벤트.
-4. **저녁(Evening)**: 귀환 정산 및 야간 대비(불침번 지정).
-5. **밤(Night)**: 위협의 극대화. 괴물 침입 및 광기 이벤트 방어.
-
----
-
-## 5. 갈등의 주체 (The Actors)
-- **플레이어 그룹**: 29일 의식의 '살아있는 제물'.
-- **기타 생존자**: 협력과 배신이 공존하는 '걸어 다니는 딜레마'.
-- **4대 세력**: 자경단, 악마조직, 방랑자, 광신도 (사회적 장벽).
-- **괴물**: 의식장의 '면역체계'로서 생존자를 압박하는 물리적 장치.
-
----
-
-## 6. 시스템: 절망의 톱니바퀴 (Core Systems)
-- **날씨의 변덕**: [고요 / 전조 / 멸망]의 3단계 날씨 시스템.
-- **광기 잠식**: 스트레스와 비정한 선택으로 인한 [기벽] 획득 및 정신 파멸.
-- **관계의 양면성**: 유일한 치유책이지만, 뒤틀린 욕망이나 애증으로 변질될 수 있는 양날의 검.
+과거 원문은 Git 이력에서 확인할 수 있다.
