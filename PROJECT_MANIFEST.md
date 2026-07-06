@@ -4,8 +4,8 @@
 
 ## Repository summary
 
-- Total tracked candidates: 104
-- Text/config candidates: 90
+- Total tracked candidates: 105
+- Text/config candidates: 91
 - Binary/other candidates: 14
 
 ## Category summary
@@ -17,13 +17,13 @@
 | Other | 38 |
 | Runtime code | 3 |
 | Tools | 5 |
-| Wiki | 54 |
+| Wiki | 55 |
 
 ## Extension summary
 
 | Extension | Files |
 |---|---:|
-| `.md` | 78 |
+| `.md` | 79 |
 | `(none)` | 16 |
 | `.py` | 5 |
 | `.cs` | 3 |
@@ -110,6 +110,7 @@
 
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
+| `Wiki/00_System/DESIGN_PILLARS.md` | 2903 | text/config | `c1637ae2c15c` |
 | `Wiki/00_System/PROJECT_CANON.md` | 3071 | text/config | `79f9041deec9` |
 | `Wiki/00_System/Planning/01_AI_Event_Pipeline_Roadmap.md` | 8376 | text/config | `6712e6a4b966` |
 | `Wiki/00_System/Planning/02_Event_QA_Protocol.md` | 10315 | text/config | `5e3f32273869` |
