@@ -2,9 +2,9 @@
 
 ## Current Phase
 
-**Phase 3: 오벵마을 상세 설정 및 원고 관리 정합성 정리**
+**Phase 4A: 장소 상세 문서 분리**
 
-Phase 1의 핵심 정본과 Phase 2의 문서 구조 개편을 병합했다. 현재는 오벵마을의 공식 표기, 고정 지리, 15개 지역, 아지트 고정성, 위험도 구조와 ConfigureBook 원고 관리 정책을 정본화하는 단계다.
+Phase 1의 핵심 정본, Phase 2의 문서 구조 개편, Phase 3의 오벵마을 표기·고정 지리·ConfigureBook 정책을 병합했다. 현재는 `Obeng_Village_Lore.md`를 상위 인덱스로 유지하고, 15개 고정 지역의 세부 공간과 이벤트 제작 정보를 `Wiki/02_World/Locations/` 하위 문서로 분리하는 단계다.
 
 ## Completed
 
@@ -19,14 +19,14 @@ Phase 1의 핵심 정본과 Phase 2의 문서 구조 개편을 병합했다. 현
 - World Concept deprecated 전환
 - Entity 인덱스 작성
 - Migration Backlog 정리
+- 오벵마을 공식 표기와 고정 지리 원칙 반영
+- ConfigureBook 원고 등록 정책 수립
 
 ## In Progress
 
-- 오벵마을 공식 표기 통일
-- 15개 고정 지역 구조 정리
-- 중심부·외곽 위험도 의미 보강
-- ConfigureBook 원고 등록 정책 수립
-- ConfigureBook 원고와 Wiki 정본 대응표 작성
+- `Wiki/02_World/Locations/` 장소별 상세 문서 작성
+- ConfigureBook Place 원고와 Wiki 상세 문서 대응표 갱신
+- 장소 원고 세부 공간·이상현상 시드 Import 여부 판단
 
 ## Blockers
 
@@ -37,15 +37,15 @@ Phase 1의 핵심 정본과 Phase 2의 문서 구조 개편을 병합했다. 현
 
 ## Next Priorities
 
-1. Phase 3 오벵마을 정합성 PR 검토 및 병합
-2. 장소 원고의 세부 공간과 이상현상 시드를 Wiki 장소 정본에 반영할지 결정
-3. Combat 상위 허브와 세부 문서 소유권 설계
-4. R18 모듈 이동 계획 작성
-5. Survivor 원고 등록 추적 체계 확장
+1. Phase 4A 장소 상세 문서 PR 검토 및 병합
+2. Place 원고별 세부 공간·이상현상 시드 전체 Import 여부 판단
+3. Imported 판정된 ConfigureBook Place 원고의 Archive 이동 승인
+4. Combat 상위 허브와 세부 문서 소유권 설계
+5. R18 모듈 이동 계획 작성
 
 ## Active Pull Request
 
-Phase 3 작업 완료 후 이 항목을 해당 Draft PR로 갱신한다.
+Phase 4A 작업 완료 후 이 항목을 해당 Draft PR로 갱신한다.
 
 ## Known Technical Debt
 

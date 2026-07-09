@@ -35,6 +35,16 @@
 | `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md` | Phase 3 결정사항 반영 |
 | `docs/planning/PROJECT_STATE.md` | 현재 Phase를 오벵마을 정합성 단계로 갱신 |
 
+## Phase 4A 처리 완료
+
+| 대상 | 처리 결과 |
+|---|---|
+| `Wiki/02_World/Locations/LOCATION_INDEX.md` | 15개 장소 상세 문서 인덱스 생성 |
+| `Wiki/02_World/Locations/*.md` | 15개 고정 지역의 상세 문서 생성 |
+| `Wiki/02_World/Obeng_Village_Lore.md` | 상위 인덱스 역할로 축소하고 상세 문서 링크 추가 |
+| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | Place 원고 상태를 `Partially Imported`로 갱신 |
+| `docs/planning/PROJECT_STATE.md` | 현재 Phase를 장소 상세 문서 분리 단계로 갱신 |
+
 ## 신규 관리 문서
 
 - `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md`
@@ -47,7 +57,7 @@
 | 대상 | 현재 문제 | 후속 처리 |
 |---|---|---|
 | `Wiki/00_Templates/EVT_NotificationTest.md` | frontmatter 없음, 테스트 샘플 | 테스트 데이터 전용 경로 또는 Archive 결정 |
-| 장소 세부 원고 | Wiki 정본에 세부 공간과 이상현상 시드가 모두 반영되지는 않음 | Place 원고별 세부 Import 여부 결정 |
+| 장소 세부 원고 | 장소 상세 문서는 생성됐으나 원고의 모든 세부 문장이 검수·반영된 것은 아님 | Place 원고별 세부 Import 패스 수행 |
 | Combat 관련 문서 | 상위 문서에 세부 규칙·DB가 혼재 | 전투 허브와 세부 문서 분리 설계 |
 | R18 관련 문서 | Core와 같은 폴더에 혼재 | `Wiki/90_Modules/R18/` 이동 계획 작성 |
 | Survivor ConfigureBook 원고 | Wiki 등록본과 중복 가능성 | 원고별 Import 상태 조사 |
