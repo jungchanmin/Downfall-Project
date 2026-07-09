@@ -1,6 +1,6 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-07-09T13:00:30*  
+*Auto-generated on 2026-07-09T13:48:33*  
 *Total entries: 46*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
@@ -199,11 +199,11 @@
 - **Depends on:** `LORE_WORLD_Ritual_25_Days`
 
 ### 🟡 `Obeng_Village_Lore.md`
-- **Title:** 오뱅마을 15구역 로어
-- **ID:** `LORE_LOC_Oebeng` | **Type:** `lore_world`
-- **Summary:** 오뱅마을 15개 구역(성당·상점가·폐가 등)의 분위기·위험도·고유 이벤트 시드.
-- **Keywords:** 오뱅마을, 성당, 상점가, 폐가
-- **Depends on:** `SYS_Manifest`
+- **Title:** 오벵마을 15구역 로어
+- **ID:** `LORE_LOC_Obeng` | **Type:** `lore_world`
+- **Summary:** 오벵마을 15개 고정 구역의 위험도, 세력 영향, 환경과 세부 구역을 정의한다.
+- **Keywords:** 오벵마을, Obeng Village, 성당, 상점가, 폐가, 아지트, 위험도
+- **Depends on:** `LORE_WORLD_Overview`, `LORE_WORLD_Ritual_25_Days`
 
 ### ⚪ `RITUAL_OF_25_DAYS.md`
 - **Title:** 25일 의식과 오벵마을의 제련 구조
@@ -215,8 +215,8 @@
 ### ⚪ `WORLD_OVERVIEW.md`
 - **Title:** Downfall 세계관 개요
 - **ID:** `LORE_WORLD_Overview` | **Type:** `lore_world`
-- **Summary:** 오벵마을의 고립, 외부 세계, 괴물과 광신도, 공포 톤의 공통 세계 규칙을 정의한다.
-- **Keywords:** 오벵마을, 휴양도시, 고립, 광신도, 괴물, 이상현상
+- **Summary:** 오벵마을의 고립, 고정 지리, 외부 세계, 괴물과 광신도, 공포 톤의 공통 세계 규칙을 정의한다.
+- **Keywords:** 오벵마을, Obeng Village, 휴양도시, 고립, 고정 지리, 광신도, 괴물, 이상현상
 - **Depends on:** `SYS_Project_Canon`
 
 
