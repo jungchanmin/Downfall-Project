@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-07-06T13:59:14*  
-*Total entries: 47*  
+*Auto-generated on 2026-07-09T13:00:30*  
+*Total entries: 46*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -44,15 +44,6 @@
 - **Summary:** Downfall의 장르, 플레이어 목표, 고정 세계 규칙과 문서 우선순위를 정의하는 최상위 정본 문서.
 - **Keywords:** Downfall, 오벵마을, 25일, 생존, 로그라이크, TRPG
 - **Depends on:** `SYS_Manifest`
-
-
-## 📁 `00_System/Planning/`
-
-### ⚪ `01_AI_Event_Pipeline_Roadmap.md`
-- **Title:** AI 이벤트 파이프라인 로드맵
-- **ID:** `PLAN_AI_Event_Pipeline_Roadmap` | **Type:** `planning`
-- **Summary:** Downfall 프로젝트의 AI 이벤트 제작 및 검수 파이프라인 구축 계획.
-- **Keywords:** AI, 이벤트, 파이프라인, 로드맵
 
 
 ## 📁 `00_Templates/`
