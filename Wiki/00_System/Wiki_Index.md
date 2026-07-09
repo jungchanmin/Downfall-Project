@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-07-09T13:48:33*  
-*Total entries: 46*  
+*Auto-generated on 2026-07-09T14:18:36*  
+*Total entries: 62*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -201,9 +201,9 @@
 ### 🟡 `Obeng_Village_Lore.md`
 - **Title:** 오벵마을 15구역 로어
 - **ID:** `LORE_LOC_Obeng` | **Type:** `lore_world`
-- **Summary:** 오벵마을 15개 고정 구역의 위험도, 세력 영향, 환경과 세부 구역을 정의한다.
-- **Keywords:** 오벵마을, Obeng Village, 성당, 상점가, 폐가, 아지트, 위험도
-- **Depends on:** `LORE_WORLD_Overview`, `LORE_WORLD_Ritual_25_Days`
+- **Summary:** 오벵마을 15개 고정 구역의 위험도, 세력 영향, 환경과 상세 문서 진입점을 정의한다.
+- **Keywords:** 오벵마을, Obeng Village, 성당, 상점가, 폐가, 아지트, 위험도, Locations
+- **Depends on:** `LORE_WORLD_Overview`, `LORE_WORLD_Ritual_25_Days`, `LORE_LOC_Index`
 
 ### ⚪ `RITUAL_OF_25_DAYS.md`
 - **Title:** 25일 의식과 오벵마을의 제련 구조
@@ -218,6 +218,121 @@
 - **Summary:** 오벵마을의 고립, 고정 지리, 외부 세계, 괴물과 광신도, 공포 톤의 공통 세계 규칙을 정의한다.
 - **Keywords:** 오벵마을, Obeng Village, 휴양도시, 고립, 고정 지리, 광신도, 괴물, 이상현상
 - **Depends on:** `SYS_Project_Canon`
+
+
+## 📁 `02_World/Locations/`
+
+### 🟡 `Abandoned_Cabins.md`
+- **Title:** 버려진 폐가 상세 설정
+- **ID:** `LORE_LOC_Abandoned_Cabins` | **Type:** `lore_world`
+- **Summary:** 중심부 근처 폐가 단지의 은신성, 기습 위험과 납치 시드를 정의한다.
+- **Keywords:** 버려진 폐가, Abandoned Cabins, 방랑자, 납치꾼
+- **Depends on:** `LORE_LOC_Obeng`
+
+### 🟡 `Cathedral.md`
+- **Title:** 성당 상세 설정
+- **ID:** `LORE_LOC_Cathedral` | **Type:** `lore_world`
+- **Summary:** 중심부 근처 중립 지대인 성당의 구조, 역할과 불길한 종교적 전조를 정의한다.
+- **Keywords:** 성당, Cathedral, 중립 지대, 중심부 근처
+- **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Mother`
+
+### 🟡 `Department_Store.md`
+- **Title:** 백화점 상세 설정
+- **ID:** `LORE_LOC_Department_Store` | **Type:** `lore_world`
+- **Summary:** 괴생명체 둥지이자 광신도의 시험장으로 변한 상업 폐허 백화점을 정의한다.
+- **Keywords:** 백화점, Department Store, 광신도, 괴물 둥지, 시험
+- **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Mother`
+
+### 🟡 `Dockyard.md`
+- **Title:** 선착장 상세 설정
+- **ID:** `LORE_LOC_Dockyard` | **Type:** `lore_world`
+- **Summary:** 외곽 봉쇄선이자 고위험 자원 밀집지인 선착장의 구조와 탈출 실패 시드를 정의한다.
+- **Keywords:** 선착장, Dockyard, Wharf, 봉쇄선, 물류창고, 폐선박
+- **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Overview`
+
+### 🟡 `Factory.md`
+- **Title:** 공장 상세 설정
+- **ID:** `LORE_LOC_Factory` | **Type:** `lore_world`
+- **Summary:** 악마 조직의 병기창이자 멸망의 괴물 출현 가능성이 있는 외곽 심부 공장을 정의한다.
+- **Keywords:** 공장, Factory, 악마 조직, 병기창, 멸망의 괴물
+- **Depends on:** `LORE_LOC_Obeng`, `MONSTER_DB`
+
+### 🟡 `Foggy_Park.md`
+- **Title:** 공원 상세 설정
+- **ID:** `LORE_LOC_Foggy_Park` | **Type:** `lore_world`
+- **Summary:** 안개 낀 공원의 방랑자 은신처, 암상인 접촉과 호수 주변 이상현상을 정의한다.
+- **Keywords:** 공원, Foggy Park, 방랑자, 암상인, 호수
+- **Depends on:** `LORE_LOC_Obeng`
+
+### 🟡 `Hardware_Store.md`
+- **Title:** 철물점 상세 설정
+- **ID:** `LORE_LOC_Hardware_Store` | **Type:** `lore_world`
+- **Summary:** 자경단이 관리하는 무기·부품·제작 거점인 철물점을 정의한다.
+- **Keywords:** 철물점, Hardware Store, SteelFort, 제작, 부품, 무기
+- **Depends on:** `LORE_LOC_Obeng`, `MECH_Resource_System`
+
+### 🟡 `Hideout.md`
+- **Title:** 아지트 상세 설정
+- **ID:** `LORE_LOC_Hideout` | **Type:** `lore_world`
+- **Summary:** 플레이어 생존자 무리의 고정 거점인 아지트의 구조, 역할, 위험과 이벤트 시드를 정의한다.
+- **Keywords:** 아지트, Hideout, 중심부, 거점, 생존자
+- **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Ritual_25_Days`
+
+### 🟡 `Hospital.md`
+- **Title:** 병원 상세 설정
+- **ID:** `LORE_LOC_Hospital` | **Type:** `lore_world`
+- **Summary:** 의약품과 의료 장비가 남아 있지만 내부 오염과 변이 생물이 위협하는 병원을 정의한다.
+- **Keywords:** 병원, Hospital, 자경단, 의약품, 변이 생물
+- **Depends on:** `LORE_LOC_Obeng`, `MECH_Resource_System`
+
+### 🟡 `LOCATION_INDEX.md`
+- **Title:** 오벵마을 장소 상세 인덱스
+- **ID:** `LORE_LOC_Index` | **Type:** `lore_world`
+- **Summary:** 오벵마을 15개 고정 지역의 상세 문서 진입점을 제공한다.
+- **Keywords:** 오벵마을, 장소, 지역, 인덱스, 고정 지리
+- **Depends on:** `LORE_LOC_Obeng`
+
+### 🟡 `Nightlife_District.md`
+- **Title:** 유흥가 상세 설정
+- **ID:** `LORE_LOC_Nightlife_District` | **Type:** `lore_world`
+- **Summary:** 악마 조직이 통제하는 유흥가의 불법 거래, 투기장, 암시장과 함정 시드를 정의한다.
+- **Keywords:** 유흥가, Nightlife District, 악마 조직, 암시장, 투기장
+- **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
+
+### 🟡 `Police_Station.md`
+- **Title:** 경찰서 상세 설정
+- **ID:** `LORE_LOC_Police_Station` | **Type:** `lore_world`
+- **Summary:** 악마 조직이 점거한 옛 치안 중심지이자 무기 확보 위험 지역인 경찰서를 정의한다.
+- **Keywords:** 경찰서, Police Station, PoliceOffice, 악마 조직, 무기창고
+- **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
+
+### 🟡 `Research_Lab.md`
+- **Title:** 연구소 상세 설정
+- **ID:** `LORE_LOC_Research_Lab` | **Type:** `lore_world`
+- **Summary:** 괴물, 유물, 의식의 진실과 연결된 외곽 심부 비밀연구소를 정의한다.
+- **Keywords:** 연구소, Research Lab, LAB, 유물, 괴물, 광신도, 진실
+- **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Mother`, `MONSTER_DB`
+
+### 🟡 `Residential_Area.md`
+- **Title:** 주거단지 상세 설정
+- **ID:** `LORE_LOC_Residential_Area` | **Type:** `lore_world`
+- **Summary:** 광신도 의식 흔적과 생필품 탐색이 공존하는 외곽 주거단지를 정의한다.
+- **Keywords:** 주거단지, Residential Area, DownTown, 광신도, 생필품
+- **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Ritual_25_Days`
+
+### 🟡 `Shopping_District.md`
+- **Title:** 상점가 상세 설정
+- **ID:** `LORE_LOC_Shopping_District` | **Type:** `lore_world`
+- **Summary:** 자원 밀집지이자 자경단과 악마 조직의 분쟁 지대인 상점가를 정의한다.
+- **Keywords:** 상점가, Shopping District, Market District, 자원, 분쟁
+- **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
+
+### 🟡 `Town_Hall.md`
+- **Title:** 마을회관 상세 설정
+- **ID:** `LORE_LOC_Town_Hall` | **Type:** `lore_world`
+- **Summary:** 자경단 본부로 쓰이는 마을회관의 통제, 보호와 강압 이벤트 시드를 정의한다.
+- **Keywords:** 마을회관, Town Hall, 자경단, 통제
+- **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
 
 
 ## 📁 `03_Entities/Monsters/`
