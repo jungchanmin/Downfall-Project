@@ -45,6 +45,17 @@
 | `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | Place 원고 상태를 `Partially Imported`로 갱신 |
 | `docs/planning/PROJECT_STATE.md` | 현재 Phase를 장소 상세 문서 분리 단계로 갱신 |
 
+## Phase 4B 처리 완료
+
+| 대상 | 처리 결과 |
+|---|---|
+| `Wiki/02_World/Locations/Hideout.md` | 아지트 원고의 세부 공간·상호작용·이상현상 후보 반영 |
+| `Wiki/02_World/Locations/Cathedral.md` | 성당 원고의 지상·지하 금기 구역 후보 반영 |
+| `Wiki/02_World/Locations/Foggy_Park.md` | 공원 원고의 방랑자 캠프·안개·호수·온실 후보 반영 |
+| `Wiki/02_World/Locations/Abandoned_Cabins.md` | 폐가 원고의 납치·함정·폐가 내부 후보 반영 |
+| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 중심부 4개 원고 상태를 `Imported Candidates Added`로 갱신 |
+| `docs/planning/PROJECT_STATE.md` | 현재 Phase를 중심부 장소 원고 세부 Import로 갱신 |
+
 ## 신규 관리 문서
 
 - `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md`
@@ -57,7 +68,10 @@
 | 대상 | 현재 문제 | 후속 처리 |
 |---|---|---|
 | `Wiki/00_Templates/EVT_NotificationTest.md` | frontmatter 없음, 테스트 샘플 | 테스트 데이터 전용 경로 또는 Archive 결정 |
-| 장소 세부 원고 | 장소 상세 문서는 생성됐으나 원고의 모든 세부 문장이 검수·반영된 것은 아님 | Place 원고별 세부 Import 패스 수행 |
+| 장소별 자원 후보 | ConfigureBook 원고에 실제 게임 미등장 자원 후보가 섞일 수 있음 | Resource System 또는 Item DB 정리 후 장소별 후보 등록 |
+| 장소별 괴물/세력 후보 | ConfigureBook 원고에 미확정 괴물명과 세력 후보가 섞일 수 있음 | Monster DB 및 Entity 문서 대조 후 등록 |
+| 중간 지대 Place 원고 | 세부 공간·상호작용·이상현상 후보가 아직 미반영 | Town Hall, Shopping District, Hardware Store, Police Station Import 패스 수행 |
+| 외곽 Place 원고 | 세부 공간·상호작용·이상현상 후보가 아직 미반영 | Residential Area 이후 외곽 Import 패스 수행 |
 | Combat 관련 문서 | 상위 문서에 세부 규칙·DB가 혼재 | 전투 허브와 세부 문서 분리 설계 |
 | R18 관련 문서 | Core와 같은 폴더에 혼재 | `Wiki/90_Modules/R18/` 이동 계획 작성 |
 | Survivor ConfigureBook 원고 | Wiki 등록본과 중복 가능성 | 원고별 Import 상태 조사 |
