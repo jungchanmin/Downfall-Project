@@ -1,6 +1,6 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-07-09T14:18:36*  
+*Auto-generated on 2026-07-12T06:25:25*  
 *Total entries: 62*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
@@ -226,14 +226,14 @@
 - **Title:** 버려진 폐가 상세 설정
 - **ID:** `LORE_LOC_Abandoned_Cabins` | **Type:** `lore_world`
 - **Summary:** 중심부 근처 폐가 단지의 은신성, 기습 위험과 납치 시드를 정의한다.
-- **Keywords:** 버려진 폐가, Abandoned Cabins, 방랑자, 납치꾼
+- **Keywords:** 버려진 폐가, Abandoned Cabins, 방랑자, 납치꾼, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`
 
 ### 🟡 `Cathedral.md`
 - **Title:** 성당 상세 설정
 - **ID:** `LORE_LOC_Cathedral` | **Type:** `lore_world`
 - **Summary:** 중심부 근처 중립 지대인 성당의 구조, 역할과 불길한 종교적 전조를 정의한다.
-- **Keywords:** 성당, Cathedral, 중립 지대, 중심부 근처
+- **Keywords:** 성당, Cathedral, 중립 지대, 중심부 근처, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Mother`
 
 ### 🟡 `Department_Store.md`
@@ -261,7 +261,7 @@
 - **Title:** 공원 상세 설정
 - **ID:** `LORE_LOC_Foggy_Park` | **Type:** `lore_world`
 - **Summary:** 안개 낀 공원의 방랑자 은신처, 암상인 접촉과 호수 주변 이상현상을 정의한다.
-- **Keywords:** 공원, Foggy Park, 방랑자, 암상인, 호수
+- **Keywords:** 공원, Foggy Park, 방랑자, 암상인, 호수, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`
 
 ### 🟡 `Hardware_Store.md`
@@ -275,7 +275,7 @@
 - **Title:** 아지트 상세 설정
 - **ID:** `LORE_LOC_Hideout` | **Type:** `lore_world`
 - **Summary:** 플레이어 생존자 무리의 고정 거점인 아지트의 구조, 역할, 위험과 이벤트 시드를 정의한다.
-- **Keywords:** 아지트, Hideout, 중심부, 거점, 생존자
+- **Keywords:** 아지트, Hideout, 중심부, 거점, 생존자, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Ritual_25_Days`
 
 ### 🟡 `Hospital.md`
