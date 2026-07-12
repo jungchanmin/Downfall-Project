@@ -4,26 +4,26 @@
 
 ## Repository summary
 
-- Total tracked candidates: 109
-- Text/config candidates: 95
+- Total tracked candidates: 129
+- Text/config candidates: 115
 - Binary/other candidates: 14
 
 ## Category summary
 
 | Category | Files |
 |---|---:|
-| Documentation | 2 |
+| Documentation | 11 |
 | GitHub automation | 2 |
 | Other | 38 |
 | Runtime code | 3 |
 | Tools | 5 |
-| Wiki | 59 |
+| Wiki | 70 |
 
 ## Extension summary
 
 | Extension | Files |
 |---|---:|
-| `.md` | 83 |
+| `.md` | 103 |
 | `(none)` | 16 |
 | `.py` | 5 |
 | `.cs` | 3 |
@@ -36,14 +36,23 @@
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
 | `docs/GITHUB_WORKFLOW.md` | 4804 | text/config | `347e6438da5e` |
-| `docs/WIKI_MIGRATION_BACKLOG.md` | 1829 | text/config | `0b018c64f760` |
+| `docs/WIKI_MIGRATION_BACKLOG.md` | 6000 | text/config | `f5f3b923c3eb` |
+| `docs/ai/SOLO_DEV_AI_TOOLS_TUTORIAL.md` | 18126 | text/config | `6aca143c1b34` |
+| `docs/archive/ai/AI_EVENT_PIPELINE_ROADMAP_legacy.md` | 8376 | text/config | `6712e6a4b966` |
+| `docs/archive/development/EVENT_QA_PROTOCOL_legacy.md` | 10315 | text/config | `5e3f32273869` |
+| `docs/archive/planning/DOWNFALL_PRD_legacy.md` | 12604 | text/config | `39b6f90844a2` |
+| `docs/archive/planning/PROJECT_STATE_legacy.md` | 2235 | text/config | `8e2af42ac678` |
+| `docs/governance/CONFIGUREBOOK_IMPORT_POLICY.md` | 1880 | text/config | `63fcc354f8be` |
+| `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md` | 3742 | text/config | `4ff569cfac75` |
+| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 4615 | text/config | `cb1567633174` |
+| `docs/planning/PROJECT_STATE.md` | 2935 | text/config | `480da3c626e1` |
 
 ### GitHub automation
 
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
 | `.github/workflows/build-wiki-index.yml` | 1872 | text/config | `70933c5c1611` |
-| `.github/workflows/project-governance.yml` | 2660 | text/config | `bb12965d3108` |
+| `.github/workflows/project-governance.yml` | 2840 | text/config | `62959d932be4` |
 
 ### Other
 
@@ -113,11 +122,7 @@
 | `Wiki/00_System/DESIGN_PILLARS.md` | 1764 | text/config | `cec8f86bd2b1` |
 | `Wiki/00_System/DOCUMENT_RULES.md` | 2706 | text/config | `d1087cbac9a9` |
 | `Wiki/00_System/PROJECT_CANON.md` | 3070 | text/config | `ddce8c4938ea` |
-| `Wiki/00_System/Planning/01_AI_Event_Pipeline_Roadmap.md` | 8376 | text/config | `6712e6a4b966` |
-| `Wiki/00_System/Planning/02_Event_QA_Protocol.md` | 10315 | text/config | `5e3f32273869` |
-| `Wiki/00_System/Planning/03_Downfall_PRD.md` | 12604 | text/config | `39b6f90844a2` |
-| `Wiki/00_System/Planning/04_Solo_Dev_AI_Tools_Tutorial.md` | 18126 | text/config | `6aca143c1b34` |
-| `Wiki/00_System/Wiki_Index.md` | 28303 | text/config | `a7a140c3cf94` |
+| `Wiki/00_System/Wiki_Index.md` | 36507 | text/config | `e6967ab9a6d7` |
 | `Wiki/00_Templates/EVT_Conveyor_Belt_Master_Prompt.md` | 10003 | text/config | `28c8d951b3c8` |
 | `Wiki/00_Templates/EVT_Interactive.md` | 12053 | text/config | `326da972ccfb` |
 | `Wiki/00_Templates/EVT_Notification.md` | 15413 | text/config | `0fe965526be4` |
@@ -139,12 +144,28 @@
 | `Wiki/01_Mechanics/MECH_Skill_Catalog.md` | 14640 | text/config | `5c41173d0542` |
 | `Wiki/01_Mechanics/MECH_Status_Effect_DB.md` | 8113 | text/config | `83fff9caf51f` |
 | `Wiki/01_Mechanics/Time_System.md` | 5339 | text/config | `9f3b21ed1631` |
+| `Wiki/02_World/Locations/Abandoned_Cabins.md` | 4703 | text/config | `53474f737f8a` |
+| `Wiki/02_World/Locations/Cathedral.md` | 6397 | text/config | `b4aa23fbecd9` |
+| `Wiki/02_World/Locations/Department_Store.md` | 1393 | text/config | `1116969a0cce` |
+| `Wiki/02_World/Locations/Dockyard.md` | 1391 | text/config | `994b6a90c320` |
+| `Wiki/02_World/Locations/Factory.md` | 1328 | text/config | `c276e14e583b` |
+| `Wiki/02_World/Locations/Foggy_Park.md` | 4315 | text/config | `027ac9439b35` |
+| `Wiki/02_World/Locations/Hardware_Store.md` | 5454 | text/config | `e45a6a16456b` |
+| `Wiki/02_World/Locations/Hideout.md` | 7298 | text/config | `11f1554924a2` |
+| `Wiki/02_World/Locations/Hospital.md` | 1410 | text/config | `2a85aaa538e6` |
+| `Wiki/02_World/Locations/LOCATION_INDEX.md` | 2507 | text/config | `eee66bc9c976` |
+| `Wiki/02_World/Locations/Nightlife_District.md` | 1425 | text/config | `81b0cb779380` |
+| `Wiki/02_World/Locations/Police_Station.md` | 5858 | text/config | `5ba12d3508bf` |
+| `Wiki/02_World/Locations/Research_Lab.md` | 1416 | text/config | `bcae60419894` |
+| `Wiki/02_World/Locations/Residential_Area.md` | 1427 | text/config | `e451c03c8ac8` |
+| `Wiki/02_World/Locations/Shopping_District.md` | 5472 | text/config | `5a4efffbb616` |
+| `Wiki/02_World/Locations/Town_Hall.md` | 4779 | text/config | `9de8ecd6e782` |
 | `Wiki/02_World/MOTHER_LORE.md` | 2546 | text/config | `7642622f7d81` |
-| `Wiki/02_World/Obeng_Village_Lore.md` | 8045 | text/config | `4e7b9548c371` |
+| `Wiki/02_World/Obeng_Village_Lore.md` | 4617 | text/config | `56743b5b3e54` |
 | `Wiki/02_World/RITUAL_OF_25_DAYS.md` | 2771 | text/config | `f3ab97a68034` |
-| `Wiki/02_World/WORLD_OVERVIEW.md` | 2175 | text/config | `6f0c1b3fd840` |
-| `Wiki/02_World/World_Concept.md` | 2704 | text/config | `16cfe5e1d4e0` |
-| `Wiki/03_Entities/Entities.md` | 0 | text/config | `e3b0c44298fc` |
+| `Wiki/02_World/WORLD_OVERVIEW.md` | 2807 | text/config | `aa4d20a80116` |
+| `Wiki/02_World/World_Concept.md` | 1244 | text/config | `1cb1a3822af3` |
+| `Wiki/03_Entities/Entities.md` | 2428 | text/config | `dad02dfb8580` |
 | `Wiki/03_Entities/Monsters/MONSTER_DB.md` | 21460 | text/config | `c6a8b5af1c82` |
 | `Wiki/03_Entities/Survivors/Guide_Gavin_Jackson.md` | 18406 | text/config | `188e9e4692a3` |
 | `Wiki/03_Entities/Survivors/Guide_Rachel_Lopez.md` | 4399 | text/config | `a109a4f46e4f` |
@@ -167,7 +188,6 @@
 | `Wiki/Garbage/Downfall_AI_Writing_8.0.md` | 12466 | text/config | `ea7d5a910eb1` |
 | `Wiki/Garbage/Mental_Aliments.md` | 5674 | text/config | `4860ebace4ea` |
 | `Wiki/Garbage/Resources_Logic.md` | 4025 | text/config | `b591086c2960` |
-| `Wiki/PROJECT_STATE.md` | 2235 | text/config | `8e2af42ac678` |
 | `Wiki/Wiki_Operations.md` | 3170 | text/config | `50e5a430998c` |
 
 ## Management notes
