@@ -36,7 +36,7 @@
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
 | `docs/GITHUB_WORKFLOW.md` | 4804 | text/config | `347e6438da5e` |
-| `docs/WIKI_MIGRATION_BACKLOG.md` | 6000 | text/config | `f5f3b923c3eb` |
+| `docs/WIKI_MIGRATION_BACKLOG.md` | 3457 | text/config | `bc05ffab6f4f` |
 | `docs/ai/SOLO_DEV_AI_TOOLS_TUTORIAL.md` | 18126 | text/config | `6aca143c1b34` |
 | `docs/archive/ai/AI_EVENT_PIPELINE_ROADMAP_legacy.md` | 8376 | text/config | `6712e6a4b966` |
 | `docs/archive/development/EVENT_QA_PROTOCOL_legacy.md` | 10315 | text/config | `5e3f32273869` |
@@ -44,8 +44,8 @@
 | `docs/archive/planning/PROJECT_STATE_legacy.md` | 2235 | text/config | `8e2af42ac678` |
 | `docs/governance/CONFIGUREBOOK_IMPORT_POLICY.md` | 1880 | text/config | `63fcc354f8be` |
 | `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md` | 3742 | text/config | `4ff569cfac75` |
-| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 4615 | text/config | `cb1567633174` |
-| `docs/planning/PROJECT_STATE.md` | 2935 | text/config | `480da3c626e1` |
+| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 4480 | text/config | `065d03f77b30` |
+| `docs/planning/PROJECT_STATE.md` | 2659 | text/config | `1be38f3c99ff` |
 
 ### GitHub automation
 
@@ -146,18 +146,18 @@
 | `Wiki/01_Mechanics/Time_System.md` | 5339 | text/config | `9f3b21ed1631` |
 | `Wiki/02_World/Locations/Abandoned_Cabins.md` | 4703 | text/config | `53474f737f8a` |
 | `Wiki/02_World/Locations/Cathedral.md` | 6397 | text/config | `b4aa23fbecd9` |
-| `Wiki/02_World/Locations/Department_Store.md` | 1393 | text/config | `1116969a0cce` |
-| `Wiki/02_World/Locations/Dockyard.md` | 1391 | text/config | `994b6a90c320` |
-| `Wiki/02_World/Locations/Factory.md` | 1328 | text/config | `c276e14e583b` |
+| `Wiki/02_World/Locations/Department_Store.md` | 4402 | text/config | `d7b589217219` |
+| `Wiki/02_World/Locations/Dockyard.md` | 3775 | text/config | `fdab330469d8` |
+| `Wiki/02_World/Locations/Factory.md` | 4157 | text/config | `462acdf8ff51` |
 | `Wiki/02_World/Locations/Foggy_Park.md` | 4315 | text/config | `027ac9439b35` |
 | `Wiki/02_World/Locations/Hardware_Store.md` | 5454 | text/config | `e45a6a16456b` |
 | `Wiki/02_World/Locations/Hideout.md` | 7298 | text/config | `11f1554924a2` |
-| `Wiki/02_World/Locations/Hospital.md` | 1410 | text/config | `2a85aaa538e6` |
+| `Wiki/02_World/Locations/Hospital.md` | 3416 | text/config | `000dfaf3d91a` |
 | `Wiki/02_World/Locations/LOCATION_INDEX.md` | 2507 | text/config | `eee66bc9c976` |
-| `Wiki/02_World/Locations/Nightlife_District.md` | 1425 | text/config | `81b0cb779380` |
+| `Wiki/02_World/Locations/Nightlife_District.md` | 4549 | text/config | `7a9134fec454` |
 | `Wiki/02_World/Locations/Police_Station.md` | 5858 | text/config | `5ba12d3508bf` |
-| `Wiki/02_World/Locations/Research_Lab.md` | 1416 | text/config | `bcae60419894` |
-| `Wiki/02_World/Locations/Residential_Area.md` | 1427 | text/config | `e451c03c8ac8` |
+| `Wiki/02_World/Locations/Research_Lab.md` | 4828 | text/config | `11edc47c3f7a` |
+| `Wiki/02_World/Locations/Residential_Area.md` | 3723 | text/config | `98ad88ea070c` |
 | `Wiki/02_World/Locations/Shopping_District.md` | 5472 | text/config | `5a4efffbb616` |
 | `Wiki/02_World/Locations/Town_Hall.md` | 4779 | text/config | `9de8ecd6e782` |
 | `Wiki/02_World/MOTHER_LORE.md` | 2546 | text/config | `7642622f7d81` |
