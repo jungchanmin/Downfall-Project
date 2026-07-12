@@ -56,6 +56,17 @@
 | `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 중심부 4개 원고 상태를 `Imported Candidates Added`로 갱신 |
 | `docs/planning/PROJECT_STATE.md` | 현재 Phase를 중심부 장소 원고 세부 Import로 갱신 |
 
+## Phase 4C 처리 완료
+
+| 대상 | 처리 결과 |
+|---|---|
+| `Wiki/02_World/Locations/Town_Hall.md` | 마을회관 원고의 자경단 통제·거주구역·지휘/처벌 구역 후보 반영 |
+| `Wiki/02_World/Locations/Shopping_District.md` | 상점가 원고의 대로·보급 거점·특수 구역 후보 반영 |
+| `Wiki/02_World/Locations/Hardware_Store.md` | 철물점 원고의 검문소·하역장·공구/화학/창고 후보 반영 |
+| `Wiki/02_World/Locations/Police_Station.md` | 경찰서 원고의 로비·증거물 보관실·격리/교육 구역 후보 반영 |
+| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 중간 지대 4개 원고 상태를 `Imported Candidates Added`로 갱신 |
+| `docs/planning/PROJECT_STATE.md` | 현재 Phase를 중간 지대 장소 원고 세부 Import로 갱신 |
+
 ## 신규 관리 문서
 
 - `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md`
@@ -70,7 +81,6 @@
 | `Wiki/00_Templates/EVT_NotificationTest.md` | frontmatter 없음, 테스트 샘플 | 테스트 데이터 전용 경로 또는 Archive 결정 |
 | 장소별 자원 후보 | ConfigureBook 원고에 실제 게임 미등장 자원 후보가 섞일 수 있음 | Resource System 또는 Item DB 정리 후 장소별 후보 등록 |
 | 장소별 괴물/세력 후보 | ConfigureBook 원고에 미확정 괴물명과 세력 후보가 섞일 수 있음 | Monster DB 및 Entity 문서 대조 후 등록 |
-| 중간 지대 Place 원고 | 세부 공간·상호작용·이상현상 후보가 아직 미반영 | Town Hall, Shopping District, Hardware Store, Police Station Import 패스 수행 |
 | 외곽 Place 원고 | 세부 공간·상호작용·이상현상 후보가 아직 미반영 | Residential Area 이후 외곽 Import 패스 수행 |
 | Combat 관련 문서 | 상위 문서에 세부 규칙·DB가 혼재 | 전투 허브와 세부 문서 분리 설계 |
 | R18 관련 문서 | Core와 같은 폴더에 혼재 | `Wiki/90_Modules/R18/` 이동 계획 작성 |
