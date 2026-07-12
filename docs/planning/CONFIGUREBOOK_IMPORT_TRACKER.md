@@ -11,6 +11,7 @@
 | Draft | 원고만 존재 |
 | Reviewing | 등록 검토 중 |
 | Partially Imported | 핵심 구조는 Wiki에 반영됐지만 세부 원고 전체 검수는 남아 있음 |
+| Imported Candidates Added | 세부 공간·상호작용·이상현상 후보가 Wiki에 반영됐으나 자원/괴물/수치 검증이 남아 있음 |
 | Imported | Wiki 또는 런타임 데이터에 등록됨 |
 | Superseded | 더 최신 정본으로 대체됨 |
 | Archived | 보존 처리됨 |
@@ -19,10 +20,10 @@
 
 | ConfigureBook 원고 | 대응 Wiki 문서 | 상태 | 메모 |
 |---|---|---|---|
-| `ConfigureBook/Place/Azit.md` | `Wiki/02_World/Locations/Hideout.md` | Partially Imported | 고정 장소·세부 구역 반영. 세부 이상현상 시드 검수 필요 |
-| `ConfigureBook/Place/Cathedral.md` | `Wiki/02_World/Locations/Cathedral.md` | Partially Imported | 중심부 근처 안전 구역 반영. 지하/공동묘지 시드 검수 필요 |
-| `ConfigureBook/Place/Park.md` | `Wiki/02_World/Locations/Foggy_Park.md` | Partially Imported | 방랑자·암상인 역할 반영. 호수/안개 시드 검수 필요 |
-| `ConfigureBook/Place/Abandoned_Houses.md` | `Wiki/02_World/Locations/Abandoned_Cabins.md` | Partially Imported | 폐가·납치 위험 반영. 세부 구조 검수 필요 |
+| `ConfigureBook/Place/Azit.md` | `Wiki/02_World/Locations/Hideout.md` | Imported Candidates Added | 세부 공간·상호작용·이상현상 후보 반영. 자원 후보와 괴물 후보는 DB 대조 후 등록 |
+| `ConfigureBook/Place/Cathedral.md` | `Wiki/02_World/Locations/Cathedral.md` | Imported Candidates Added | 지상·지하 금기 구역 후보 반영. 고유 인물/보스/침식 수치/자원은 후속 검증 |
+| `ConfigureBook/Place/Park.md` | `Wiki/02_World/Locations/Foggy_Park.md` | Imported Candidates Added | 방랑자 캠프·안개·호수·온실 시드 반영. 자원/괴물 후보는 후속 검증 |
+| `ConfigureBook/Place/Abandoned_Houses.md` | `Wiki/02_World/Locations/Abandoned_Cabins.md` | Imported Candidates Added | 납치·함정·폐가 내부 시드 반영. 약품/장비/괴물명은 후속 검증 |
 | `ConfigureBook/Place/Town_Hall.md` | `Wiki/02_World/Locations/Town_Hall.md` | Partially Imported | 자경단 본부 반영. 행정 공간 세부 검수 필요 |
 | `ConfigureBook/Place/Market_District.md` | `Wiki/02_World/Locations/Shopping_District.md` | Partially Imported | 디렉터 결정에 따라 상점가로 확정 |
 | `ConfigureBook/Place/SteelFort.md` | `Wiki/02_World/Locations/Hardware_Store.md` | Partially Imported | 디렉터 결정에 따라 철물점으로 확정 |
@@ -52,7 +53,9 @@
 
 ## 6. 다음 검토 순서
 
-1. Place 원고의 세부 공간·이상현상 시드 전체 Import 여부 판단
-2. Imported 판정된 원고의 Archive 이동 승인
-3. Survivor 원고와 Wiki 생존자 문서 대응
-4. Event 원고의 ID·파일명 정규화
+1. Resource System 또는 Item DB 기준 자원 후보 정리
+2. Monster DB 및 Entity 문서 기준 등장 후보 정리
+3. 중심부 4개 원고의 Archive 이동 승인 여부 판단
+4. 중간 지대 Place 원고 세부 Import 패스
+5. Survivor 원고와 Wiki 생존자 문서 대응
+6. Event 원고의 ID·파일명 정규화
