@@ -14,74 +14,54 @@
 
 ## Phase 2 처리 완료
 
-| 기존 경로 | 처리 결과 |
-|---|---|
-| `Wiki/00_System/Planning/01_AI_Event_Pipeline_Roadmap.md` | `docs/archive/ai/AI_EVENT_PIPELINE_ROADMAP_legacy.md` |
-| `Wiki/00_System/Planning/02_Event_QA_Protocol.md` | `docs/archive/development/EVENT_QA_PROTOCOL_legacy.md` |
-| `Wiki/00_System/Planning/03_Downfall_PRD.md` | `docs/archive/planning/DOWNFALL_PRD_legacy.md` |
-| `Wiki/00_System/Planning/04_Solo_Dev_AI_Tools_Tutorial.md` | `docs/ai/SOLO_DEV_AI_TOOLS_TUTORIAL.md` |
-| `Wiki/02_World/World_Concept.md` | deprecated 대체 문서 안내로 전환 |
-| `Wiki/PROJECT_STATE.md` | `docs/archive/planning/PROJECT_STATE_legacy.md`로 보존 |
-| `Wiki/03_Entities/Entities.md` | 정본 엔티티 인덱스로 개편 |
+- Planning 문서의 `docs/` 및 `docs/archive/` 이동
+- `World_Concept.md` deprecated 전환
+- 구형 `PROJECT_STATE.md` Archive
+- `Entities.md` 인덱스 개편
 
 ## Phase 3 처리 완료
 
-| 대상 | 처리 결과 |
-|---|---|
-| `Wiki/02_World/WORLD_OVERVIEW.md` | 오벵마을 공식 표기, 중소형 관광도시, 고정 지리, 고정 아지트 원칙 반영 |
-| `Wiki/02_World/Obeng_Village_Lore.md` | 오벵마을 표기 통일, 15개 고정 지역, 중심성·위험도 정리 |
-| `docs/governance/CONFIGUREBOOK_IMPORT_POLICY.md` | ConfigureBook 원고 등록·Archive 정책 작성 |
-| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 원고와 Wiki 등록본 대응표 초안 작성 |
-| `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md` | Phase 3 결정사항 반영 |
-| `docs/planning/PROJECT_STATE.md` | 현재 Phase를 오벵마을 정합성 단계로 갱신 |
+- 오벵마을 공식 표기·중소형 관광도시·고정 지리·고정 아지트 정본화
+- ConfigureBook Import 정책 및 Tracker 작성
 
 ## Phase 4A 처리 완료
 
-| 대상 | 처리 결과 |
-|---|---|
-| `Wiki/02_World/Locations/LOCATION_INDEX.md` | 15개 장소 상세 문서 인덱스 생성 |
-| `Wiki/02_World/Locations/*.md` | 15개 고정 지역의 상세 문서 생성 |
-| `Wiki/02_World/Obeng_Village_Lore.md` | 상위 인덱스 역할로 축소하고 상세 문서 링크 추가 |
-| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | Place 원고 상태를 `Partially Imported`로 갱신 |
-| `docs/planning/PROJECT_STATE.md` | 현재 Phase를 장소 상세 문서 분리 단계로 갱신 |
+- `Wiki/02_World/Locations/`와 15개 장소 상세 문서 생성
+- `Obeng_Village_Lore.md`를 상위 인덱스로 개편
 
-## Phase 4B 처리 완료
+## Phase 4B 처리 완료 — 중심부 4개
 
-| 대상 | 처리 결과 |
-|---|---|
-| `Wiki/02_World/Locations/Hideout.md` | 아지트 원고의 세부 공간·상호작용·이상현상 후보 반영 |
-| `Wiki/02_World/Locations/Cathedral.md` | 성당 원고의 지상·지하 금기 구역 후보 반영 |
-| `Wiki/02_World/Locations/Foggy_Park.md` | 공원 원고의 방랑자 캠프·안개·호수·온실 후보 반영 |
-| `Wiki/02_World/Locations/Abandoned_Cabins.md` | 폐가 원고의 납치·함정·폐가 내부 후보 반영 |
-| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 중심부 4개 원고 상태를 `Imported Candidates Added`로 갱신 |
-| `docs/planning/PROJECT_STATE.md` | 현재 Phase를 중심부 장소 원고 세부 Import로 갱신 |
+- 아지트, 성당, 공원, 버려진 폐가의 세부 공간·상호작용·이상현상 후보 반영
 
-## Phase 4C 처리 완료
+## Phase 4C 처리 완료 — 중간 지대 4개
+
+- 마을회관, 상점가, 철물점, 경찰서의 세부 공간·상호작용·위협 후보 반영
+- 공통 장소 정본과 R18 전용 요소 분리
+
+## Phase 4D 처리 완료 — 외곽 및 외곽 심부 7개
 
 | 대상 | 처리 결과 |
 |---|---|
-| `Wiki/02_World/Locations/Town_Hall.md` | 마을회관 원고의 자경단 통제·거주구역·지휘/처벌 구역 후보 반영 |
-| `Wiki/02_World/Locations/Shopping_District.md` | 상점가 원고의 대로·보급 거점·특수 구역 후보 반영 |
-| `Wiki/02_World/Locations/Hardware_Store.md` | 철물점 원고의 검문소·하역장·공구/화학/창고 후보 반영 |
-| `Wiki/02_World/Locations/Police_Station.md` | 경찰서 원고의 로비·증거물 보관실·격리/교육 구역 후보 반영 |
-| `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 중간 지대 4개 원고 상태를 `Imported Candidates Added`로 갱신 |
-| `docs/planning/PROJECT_STATE.md` | 현재 Phase를 중간 지대 장소 원고 세부 Import로 갱신 |
-
-## 신규 관리 문서
-
-- `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md`
-- `docs/governance/CONFIGUREBOOK_IMPORT_POLICY.md`
-- `docs/planning/PROJECT_STATE.md`
-- `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md`
+| `Residential_Area.md` | A/B/C동 구조, 광신도 감시, 주거지 변질 후보 반영 |
+| `Nightlife_District.md` | 범죄·거래·투기장·납치 후보 반영, R18 전용 내용 분리 |
+| `Dockyard.md` | 컨테이너·해안·폐선박·탈출 실패 후보 반영 |
+| `Hospital.md` | 병동·수술실·영안실·의료 윤리 후보 반영 |
+| `Factory.md` | 생산·배양·금고·지휘 구역 후보 반영, 인형화 게임오버·수치 보류 |
+| `Department_Store.md` | 층별 전시장·테마파크·광신도 시험 후보 반영, 구형 중심부 표기 폐기 |
+| `Research_Lab.md` | 연구·그릇·금단 아카이브 후보 반영, 확정 진엔딩·고유 간부·강제 침식 보류 |
+| `CONFIGUREBOOK_IMPORT_TRACKER.md` | Place 원고 15개를 `Imported Candidates Added`로 갱신 |
+| `PROJECT_STATE.md` | 현재 Phase를 외곽 장소 Import로 갱신 |
 
 ## 잔여 검토 대상
 
 | 대상 | 현재 문제 | 후속 처리 |
 |---|---|---|
+| Place Import 종합 검토 | 후보는 반영됐으나 자원·괴물·수치·고유 인물은 미확정 | 15개 장소 후보 감사 문서 또는 검토표 작성 |
+| 장소별 자원 후보 | 실제 게임 미등장 자원 후보가 섞일 수 있음 | Resource System 또는 Item DB 정리 후 등록 |
+| 장소별 괴물/세력 후보 | 미확정 괴물명과 세력 후보가 섞일 수 있음 | Monster DB 및 Entity 문서 대조 후 등록 |
+| 고유 NPC·보상·엔딩 후보 | ConfigureBook 원고와 최신 정본의 충돌 가능성 | Entity/Faction/Achievement/Ending 문서와 비교 |
+| ConfigureBook Place 원고 | 후보 Import는 완료됐으나 최종 `Imported` 판정 전 | 검증 완료 후 Archive 이동 승인 요청 |
 | `Wiki/00_Templates/EVT_NotificationTest.md` | frontmatter 없음, 테스트 샘플 | 테스트 데이터 전용 경로 또는 Archive 결정 |
-| 장소별 자원 후보 | ConfigureBook 원고에 실제 게임 미등장 자원 후보가 섞일 수 있음 | Resource System 또는 Item DB 정리 후 장소별 후보 등록 |
-| 장소별 괴물/세력 후보 | ConfigureBook 원고에 미확정 괴물명과 세력 후보가 섞일 수 있음 | Monster DB 및 Entity 문서 대조 후 등록 |
-| 외곽 Place 원고 | 세부 공간·상호작용·이상현상 후보가 아직 미반영 | Residential Area 이후 외곽 Import 패스 수행 |
 | Combat 관련 문서 | 상위 문서에 세부 규칙·DB가 혼재 | 전투 허브와 세부 문서 분리 설계 |
 | R18 관련 문서 | Core와 같은 폴더에 혼재 | `Wiki/90_Modules/R18/` 이동 계획 작성 |
 | Survivor ConfigureBook 원고 | Wiki 등록본과 중복 가능성 | 원고별 Import 상태 조사 |
