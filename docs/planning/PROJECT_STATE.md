@@ -2,9 +2,9 @@
 
 ## Current Phase
 
-**Phase 5K-3: 생존자 굴복 대표 기술 5종 정본 필드 적용**
+**Phase 5K-4: R18 신규 기벽 개발 우선순위·Proficiency 대표 변종 설계**
 
-Phase 5K-2에서 R18 기술 정본 데이터 계약과 레거시 마이그레이션 원칙을 확정했다. 현재는 기존 전투 커맨드·상성·자세 콘텐츠를 보존하면서 생존자 공용 대표 기술 5종에 영문 정본 키, Return 해금 슬롯, 기벽 변종 슬롯과 완화 중 비활성 정책을 실제 적용하는 단계다.
+Phase 5K-3에서 생존자 대표 기술 5종에 정본 스키마를 적용했다. 현재는 신규 R18 기벽을 기술 분포와 전술 역할 기준으로 우선순위화하고, 5대 기술 분류에 각 1종의 Proficiency 대표 변종을 배치하는 단계다.
 
 ## Completed
 
@@ -20,26 +20,28 @@ Phase 5K-2에서 R18 기술 정본 데이터 계약과 레거시 마이그레이
 - R18 기벽 24종 로그·획득·고착 조건 정합성
 - R18 완화 행동·설비·일일 이용 제한
 - R18 기벽 Return과 굴복 기술 5대분류 연결
-- R18 기술 정본 데이터 계약과 레거시 키 치환 정책
-- 기벽별 Proficiency 대표 변종 1개·Milestone 추가 해금 원칙 확정
+- R18 기술 정본 데이터 계약과 생존자 대표 기술 5종 샤드
+- 기벽별 Proficiency 대표 변종 1개·Milestone 추가 해금 원칙
 
 ## In Progress
 
-- `SB_Service_Kiss / SB_Tease_Caress / SB_Dom_Ride / SB_Absorb_Drink / SB_Defiance_Focus` 정본 샤드 적용
-- `Mouth / Chest / LowerBody / Rear / WholeBody` 영문 부위 키 적용
-- 대상 부위와 시전자 행위 부위 분리
-- `base_skill_id / variant_id / variant_source_quirks` 슬롯 적용
-- Memory Log 기반 Return 해금 슬롯 적용
-- 완화 중 기본 기술 유지·기벽 전용 변종 비활성 정책 적용
-- Proficiency 변종 1개 제한과 Milestone 추가 해금 저장 구조
+- 기술 분류·역할 분포 기반 신규 기벽 개발 우선순위
+- 농락형 과밀 시 다른 분류 보완 우선 원칙
+- 신규 기벽 승인 체크리스트
+- 봉사형 `SBV_Service_TactileAnchor`
+- 유혹형 `SBV_Tease_ChestFeint`
+- 농락형 `SBV_Dom_CruelCommand`
+- 흡수형 `SBV_Absorb_DependencyCycle`
+- 저항형 `SBV_Defiance_XenoRestraint`
+- 단순 위력 증가가 아닌 지원·패링·제압·자원 전환·실패 완충 역할 분산
 
 ## Blockers
 
-- 대표 기술별 실제 변종 ID와 표시명 미작성
+- 대표 변종 실제 effect_id 미작성
 - 기벽별 실제 수치 보정 미확정
 - 기술 사용 시 로그 증가량 미확정
 - 침식·욕구불만 추가 비용 미확정
-- 완화 중 정지되는 세부 effect_id 미작성
+- Milestone 확장 선택 방식 미확정
 - 기존 Skill Catalog SECTION 4와 정본 샤드의 최종 병합·교체 검증 필요
 - 괴물 공유 기술의 영문 부위 키 치환 미완료
 - 굴복 커맨드의 자세·행위 부위 키 치환 미완료
@@ -47,12 +49,12 @@ Phase 5K-2에서 R18 기술 정본 데이터 계약과 레거시 마이그레이
 - 단계 하향·일시 억제 실제 난이도 미확정
 - R18 설비의 획득 장소와 희귀도 미확정
 - 실제 사건 ID와 플래그명 미작성
-- 선행 PR #15~#30이 Draft 상태라 Phase 5K-3도 stacked 상태로 관리 중
+- 선행 PR #15~#30이 Draft 상태라 Phase 5K-4도 stacked 상태로 관리 중
 
 ## Next Priorities
 
-1. 생존자 코어 기술 샤드 검토
-2. Phase 5K-4 대표 Proficiency 변종 5종 ID·역할 초안
+1. Proficiency 대표 변종 5종 검토
+2. 변종별 effect_id와 발동·실패 처리 계약
 3. 기존 Skill Catalog 제목 버전 정합
 4. 괴물 공유 기술의 영문 부위 키 순차 치환
 5. 굴복 커맨드의 자세·행위 부위 키 치환
