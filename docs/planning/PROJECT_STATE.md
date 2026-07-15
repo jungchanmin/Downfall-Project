@@ -2,9 +2,9 @@
 
 ## Current Phase
 
-**Phase 5L-2: R18 Proficiency 대표 변종 역할·주도권 계약 재정렬**
+**Phase 5M-1: R18 기술 접근·회상 규칙과 전조 Bark 제작 확장성 정책**
 
-Phase 5L-1에서 굴복 페이즈의 주도권·전조·게이팅·카운터 코어를 정본화했다. 현재는 기존 Proficiency 대표 변종 5종을 Service·Tease·Domination·Absorption·Defiance의 정확한 전술 역할에 맞춰 재배치하고, 성공·부분 성공·실패·주도권·완화 중 비활성 계약을 정리하는 단계다.
+Phase 5L에서 굴복 페이즈 코어와 대표 변종 역할을 재정렬했다. 현재는 생존자별 개별 기술 소유를 유지하면서 고정 장착 슬롯 없이 전투 상황에 맞는 기술을 우선 노출하는 접근 구조와, 전조 Bark 콘텐츠 폭증을 막는 Narration 중심 재사용 정책을 정본화하는 단계다.
 
 ## Completed
 
@@ -16,63 +16,65 @@ Phase 5L-1에서 굴복 페이즈의 주도권·전조·게이팅·카운터 코
 - 일반 기벽 치료와 R18 Risk & Return·완화·고착 상위 규격
 - 일반 육체 16종·정신 24종 분류 정합성
 - R18 메모리 로그의 획득·재획득·고착·기록 보존 구조
-- 공통 축 단계 + 기벽별 개별 조건의 혼합형 임계값 구조
 - R18 기벽 24종 로그·획득·고착 조건 정합성
 - R18 완화 행동·설비·일일 이용 제한
-- R18 기벽 Return과 굴복 기술 5대분류 연결
-- R18 기술 정본 데이터 계약과 생존자 대표 기술 5종 샤드
+- R18 기벽 Return과 굴복 기술 연결
+- R18 기술 정본 데이터 계약
 - 신규 기벽 개발 우선순위
-- 굴복 페이즈 주도권·전조·게이팅 코어 규칙
+- 굴복 페이즈 주도권·전조·게이팅 코어
+- Proficiency 대표 변종 역할 재정렬
 
 ## In Progress
 
-- Service 대표 변종을 저부담 능동 견제·점유 준비 방해로 재정렬
-- Tease 대표 변종을 현재 공격 즉응 패링·카운터로 재정렬
-- Domination 대표 변종을 상태 제압에서 조건부 고위력 역전기로 교체
-- Absorption 대표 변종을 Fluid 카운터 증폭형으로 정리
-- Defiance 대표 변종을 기본 방어 위 원천 기벽 전용 추가 효과로 축소
-- 변종별 발동 시점·게이트·성공·부분 성공·실패 계약
-- 주도권 탈취·유지·비탈취 조건 명시
-- effect 태그 후보 작성
+- 생존자별 `known_skills`와 초기 기술 2~4개 구조
+- 공용 커맨드 기술 대신 공용 안전 행동 분리
+- 고정 장착 슬롯 폐기
+- 자세·부위·상태·전조 기반 기술 우선 노출
+- `Instinctive / Practiced / Known` 회상 단계
+- 사용 제한 없는 전투 전 `preparation_focus` 후보
+- 전조 아키타입 기반 Narration 재사용
+- Bark를 첫 조우·시그니처·카운터 가능·치명적 오판 등 고가치 순간으로 제한
+- 공용 Narration·직업 Bark·캐릭터 고유 Bark 제작 예산 분리
+- 최근 출력 기록·화자 쿨다운·침묵 허용
 
 ## Blockers
 
+- 초기 기술 수의 최종 범위 미확정
+- 회상 단계 승급 조건 미확정
+- `preparation_focus` 실제 효과 미확정
+- 기술 학습 이벤트 빈도 미확정
+- 전조 아키타입 최종 목록 미확정
+- Bark 실제 출력 확률·화자 우선순위 미확정
+- 조합형 문장 엔진 적용 범위 미확정
 - 대표 변종 실제 `effect_id` 미확정
 - 실제 게이지·로그·침식 수치 미확정
-- 반복 사용·쿨타임 제한 미확정
-- Domination 역전 조건의 실제 임계 미확정
 - 기본 `combo_chain_limit` 실제 수치 미확정
-- 중립 상성 결과 차이 임계 미확정
-- 전조 판정식과 경험·기록 보정값 미확정
-- 상태이상별 내성 증가·감쇠량 미확정
-- 교대 가능 시점과 구속 중 구조 규칙 미확정
-- 기존 Skill Catalog SECTION 4와 정본 샤드 최종 병합 필요
-- 괴물 공유 기술과 굴복 커맨드 영문 키 치환 미완료
-- 선행 PR #15~#32가 Draft 상태라 Phase 5L-2도 stacked 상태로 관리 중
+- 상태이상별 내성 수치 미확정
+- 기존 Skill Catalog 공용 풀 규칙과 정합성 패스 필요
+- 선행 PR #15~#33이 Draft 상태라 Phase 5M-1도 stacked 상태로 관리 중
 
 ## Next Priorities
 
-1. `MECH_R18_Proficiency_Variant_Catalog` v1.1 검토
-2. Phase 5L-3 상태이상·내성 데이터 계약
-3. 전조 판정·정보 신뢰도 UI 계약
-4. 태그 교대·지원 행동 초안
-5. 기존 Skill Catalog SECTION 11·SECTION 4 정합성 패스
-6. 중립 상성·콤보 상한 밸런스 테스트 계획
-7. 실제 effect_id 발급과 기술 데이터 연결
+1. `MECH_R18_Skill_Access_And_Recall_System` 검토
+2. `MECH_R18_Telegraph_Bark_Content_Policy` 검토
+3. Phase 5M-2 생존자·괴물 기술 소유·해금 데이터 계약
+4. 유혹형을 자세·부위·행동 게이팅 카운터로 정본화
+5. 괴물 기술별 `telegraph_profile / counter_tags / cooldown / combo` 스키마
+6. 기존 Skill Catalog 공용 풀·축 상성표 정합성 패스
+7. 상태이상·내성 데이터 계약
 
 ## Known Technical Debt
 
+- 기존 `MECH_R18_Skill_Catalog`은 생존자 굴복 기술을 전원 공용 풀로 규정함
+- 기존 축×분류 상성표는 유혹형을 Contact 카운터로 직접 연결함
 - 기존 `MECH_Combat_System` SECTION 11은 완전 정보 공개와 구형 커맨드 역할을 포함함
-- `SBV_Dom_CruelCommand`는 대표 변종이 아닌 후순위 상태 제압 변종으로 이동 필요
-- `MECH_R18_Mitigation_System` v1.0 반복 완화 내성 후보 문구 직접 교체 필요
-- `MECH_R18_Skill_Catalog` 제목 `v1.0`과 frontmatter `v1.4.0` 불일치
-- 기존 Skill Catalog SECTION 4와 생존자 코어 기술 샤드가 동일 ID를 임시 중복 소유
-- Skill Catalog의 한글 부위·자세 키가 Memory Log 영문 키와 불일치
+- `SBV_Dom_CruelCommand` 후순위 변종 이동 필요
+- `MECH_R18_Mitigation_System` 반복 완화 내성 후보 문구 직접 교체 필요
+- `MECH_R18_Skill_Catalog` 제목·frontmatter 버전 불일치
+- Skill Catalog의 한글 부위·자세 키와 Memory Log 영문 키 불일치
 - 레거시 문서의 과거 29일·30일 설정
 - 구형 파일명과 문서 경로 참조
 - 미해결 `depends_on`
-- Event ID 및 파일명 불일치
-- 일부 문서의 frontmatter 부재
 
 ## Update Rule
 
