@@ -2,9 +2,9 @@
 
 ## Current Phase
 
-**Phase 5M-5: R18 Skill Catalog 규칙 코어 분리·정본 승격**
+**Phase 5N-1: 광신도 굴복 기술 6종 실제 마이그레이션**
 
-Phase 5M-4에서 기존 Skill Catalog의 구형 규칙을 오버라이드했다. 원문은 486줄의 기술 예시·세력별 연출·effect 목록과 규칙을 한 파일에 함께 소유해 전체 교체 시 콘텐츠 누락 위험이 높았다. 현재는 규칙 골격을 `MECH_R18_Skill_Catalog_Core`로 분리해 정본으로 승격하고, 기존 카탈로그를 기술·연출 데이터 원본으로 축소하는 단계다.
+Phase 5M-5에서 R18 Skill Catalog 규칙 코어를 별도 정본으로 분리했다. 현재는 기존 기술 데이터를 최신 `R18SkillDef`, Gate Tag, 전조, 쿨타임, AI 조건, 콤보·피니셔 계약에 맞춰 실제 변환하는 첫 수직 마이그레이션 단계다.
 
 ## Completed
 
@@ -24,47 +24,49 @@ Phase 5M-4에서 기존 Skill Catalog의 구형 규칙을 오버라이드했다.
 - Narration 중심 Bark 제작 확장성 정책
 - 생존자·괴물별 기술 소유·해금·키트 데이터 계약
 - 최소 조합형 Gate Tag 정본
-- Skill Catalog SECTION 0·1·5·7·8 규칙 골격 오버라이드
-- `MECH_R18_Skill_Catalog_Core` 정본 분리
+- Skill Catalog 규칙 코어 정본 분리
 
 ## In Progress
 
-- 기존 Skill Catalog를 기술 ID·effect 의도·Narration 콘텐츠 원본으로 축소
-- 규칙 코어와 콘텐츠 카탈로그의 책임 경계 정리
-- 기존 대표 5종을 전원 공용 기술에서 분류 템플릿으로 재해석
-- 레거시 한글 자세·부위 키 읽기 호환
-- 레거시 `required_parts`를 대상 부위·행동 부위로 분리할 기술별 마이그레이션
-- 괴물 랜덤 축 풀을 고정 시그니처·코어 키트 중심으로 전환
+- 광신도 인지 기술 3종 최신 스키마 마이그레이션
+- 광신도 함락 기술 3종 최신 스키마 마이그레이션
+- 기술별 `base_power / stability / cooldown` 임시 등급
+- 대상 부위와 행동 부위 분리
+- Gate Attack·전조 프로필·AI 조건 배정
+- 인지 교란 → 구속 → 함락 피니셔 콤보 구조
+- `SR_Sub_Pin` 주도권 유지와 콤보 상한 소비
+- `SR_Sub_Thrust` 복수 피니셔 조건
+- 광신도 고정 시그니처·코어·조건부 기술 키트
 
 ## Blockers
 
-- 기존 개별 기술의 `required_parts` 의미 분리 미완료
-- 개별 괴물 기술 Gate Tag·전조 프로필 배정 미완료
-- 부분 일치 카운터의 실제 경감 범위 미확정
+- 실제 `base_power` 수치 범위 미확정
+- 실제 쿨타임 턴 수 미확정
+- `ST_Trance / ST_Enthrall / ST_Afterglow` 세부 데이터 계약 미완료
+- `combo_chain_limit` 실제 수치 미확정
+- 부분 일치 Tease의 실제 경감 범위 미확정
 - Gate Tag별 실제 `gate_strength` 수치 미확정
+- 광신도 등급별 기술 키트 차이 미확정
+- Unity effect ID 최종 명명 미완료
 - 생존자 초기 기술 최종 개수 미확정
 - 분류·기술 숙련 범위와 성장식 미확정
-- 기술별 실제 기본 위력 수치 미확정
-- 괴물 등급별 키트 크기 미확정
-- 쿨타임 기본 범위 미확정
-- 대표 변종 실제 `effect_id` 미확정
-- 기본 `combo_chain_limit` 실제 수치 미확정
-- 상태이상별 내성 수치 미확정
-- 선행 PR #15~#36이 Draft 상태라 Phase 5M-5도 stacked 상태로 관리 중
+- 기존 Skill Catalog frontmatter 콘텐츠 원본 축소 미완료
+- 선행 PR #15~#37이 Draft 상태라 Phase 5N-1도 stacked 상태로 관리 중
 
 ## Next Priorities
 
-1. 기존 기술별 대상 부위·행동 부위 마이그레이션 표
-2. 괴물 기술 Gate Tag·전조 아키타입 샘플 적용
-3. 생존자 1명·괴물 1종 실제 기술 키트 수직 슬라이스
-4. 상태이상·내성 데이터 계약
-5. 중립 상성·콤보 상한·쿨타임 밸런스 테스트 계획
-6. 기존 Skill Catalog frontmatter를 콘텐츠 원본 역할로 축소
-7. 대표 변종 실제 `effect_id` 발급
+1. `MECH_R18_Cultist_Submission_Skill_Migration` 검토
+2. 광신도 기술 전조 아키타입 6종 정본화
+3. 광신도 기술을 실제 Monster DB 개체·등급에 배정
+4. 광신도 대응용 생존자 1명의 초기 기술 수직 슬라이스
+5. 상태이상·내성 데이터 계약
+6. 중립 상성·콤보 상한·쿨타임 밸런스 테스트 계획
+7. 기존 Skill Catalog frontmatter를 콘텐츠 원본 역할로 축소
 
 ## Known Technical Debt
 
 - 기존 `MECH_R18_Skill_Catalog` 본문은 구형 규칙 문구를 포함하지만 `MECH_R18_Skill_Catalog_Core`가 최신 정본을 소유함
+- 기존 광신도 기술 예시는 레거시 필드를 유지하며 신규 마이그레이션 문서가 최신 데이터를 소유함
 - 기존 괴물 기술 운용은 랜덤 축 풀 비중이 큼
 - 기존 `MECH_Combat_System` SECTION 11은 완전 정보 공개와 구형 커맨드 역할을 포함함
 - `SBV_Dom_CruelCommand` 후순위 변종 이동 필요
