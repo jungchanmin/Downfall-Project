@@ -2,9 +2,9 @@
 
 ## Current Phase
 
-**Phase 5N-4: 생존자 굴복 전용 기술 작성 규칙 정본화**
+**Phase 5N-5: 레이첼 굴복 기술 수직 슬라이스**
 
-Phase 5N-2에서 굴복도·탈진력·절정도 자원을, Phase 5N-3에서 부위 계층·약점·감응·반복 공략 규칙을 별도 정본으로 분리했다. 현재는 해당 규칙을 실제 생존자 기술과 향후 기술 도감에 일관되게 적용하기 위해, 굴복 전용 기술 판별 기준과 Service·Tease·Domination·Absorption·Defiance 작성·검수 절차를 정본화하는 단계다.
+Phase 5N-4에서 굴복 전용 생존자 기술의 판별 기준과 Service·Tease·Domination·Absorption·Defiance 작성 규칙을 정본화했다. 현재는 해당 작성 규칙을 레이첼 로페즈와 인간형 광신도에게 실제 적용해 기술 7종, 전투 정체성, 자원·부위·게이트·Bark 계약을 수직 검증하는 단계다.
 
 ## Completed
 
@@ -34,29 +34,32 @@ Phase 5N-2에서 굴복도·탈진력·절정도 자원을, Phase 5N-3에서 부
 - `Exhaustion / Control / ClimaxSensitivity` 약점 유형
 - `Unknown / Suspected / Confirmed / Mastered` 약점 공개 단계
 - 반복 공략과 보호 행동·비인간형 `SpecialOrgan` 계약
+- 생존자 굴복 전용 기술 작성 규칙과 기술 도감 표준 항목
 
 ## In Progress
 
-- 굴복 전용 기술 판별 기준과 일반전투 기술 경계
-- Service·Tease·Domination·Absorption·Defiance 역할·금지사항
-- 직접 효과·자기 비용·감응 진행 필드 작성 규칙
-- 기술명과 목표 부위·행동 부위 표시 원칙
-- 자세·점유·Gate Attack·Tease Counter 작성 계약
-- 전조·Narration·Bark 의미 태그
-- 기술 도감 표준 항목과 12단계 작성 절차
-- 커맨드별 자동 검증 규칙과 품질 검수표
-- 생존자 1명 기준 1차 기술 수직 슬라이스 범위
+- 레이첼 `CounterGambler` 전투 정체성 수직 검증
+- Service 2종: 가슴 주무르기·핸드잡
+- Tease 2종: 가슴 유혹·하체 유혹
+- Domination 1종: 기승위 역전
+- Defiance 1종: 호흡 정돈
+- Absorption 1종: FluidPayload 체액 공격 역이용
+- 기술별 성공·실패·대실패 자기 절정 비용
+- 굴복도 60% 이하 Domination 조건과 반복 사용 통제
+- 정면 전용 Tease와 후방 공격 취약성
+- 광신도의 광적 신앙 Bark 어휘·출력 조건
+- 기본 루프·Domination·Defiance·Absorption 페이퍼 테스트 계획
 
 ## Blockers
 
-- 생존자 1차 수직 슬라이스 대상 최종 선정
-- 기술별 실제 `base_power` 수치 미확정
-- 기술별 실제 쿨타임 미확정
+- 레이첼 기술 최종 표시명 미확정
+- 실제 `base_power` 환산 공식 미확정
+- 쿨타임의 합·행동 단위 미확정
+- 부분 성공 Tease의 실제 경감 범위 미확정
 - 탈진력 피해 등급별 최종 상한 미확정
-- 부분 일치 Tease의 실제 경감 범위 미확정
-- Major 기술의 감응 즉시 단계 상승 범위 미확정
-- Absorption·Fluid·Mutation 페이퍼 테스트 부족
-- Defiance 굴복도 회복의 판정·주도권 비용 미확정
+- Absorption 오염·Mutation 장기 공식 미확정
+- FluidPayload 광신도 기술의 정식 ID 미확정
+- 레이첼 초기 보유 기술과 학습 기술 구분 미확정
 - 의복 상태와 부위 접근 Gate 정식 계약 미완료
 - 다대일 지원·교대 기술 규칙 미완료
 - 기술별 Narration 조건 블록과 Bark DB 미작성
@@ -68,16 +71,16 @@ Phase 5N-2에서 굴복도·탈진력·절정도 자원을, Phase 5N-3에서 부
 
 ## Next Priorities
 
-1. `MECH_R18_Survivor_Submission_Skill_Design_Rules` 검토
-2. 성인 생존자 1명의 1차 굴복 기술 수직 슬라이스
-3. Service 2 / Tease 2 / Domination 1 / Defiance 1 임시 기술 데이터 작성
-4. 기술 수직 슬라이스 기반 `base_power / stability / cooldown` 1차 수치
-5. 의복 상태·부위 접근 Gate 정본
-6. Combat Narration 조건 블록과 상태 우선순위
-7. 전투 시나리오 기반 재사용 Bark 후보 추출
-8. Absorption·Fluid·Mutation 페이퍼 전투 테스트
-9. 광신도 6종 기술에 자원·부위·감응 필드 재배정
-10. 비인간형 괴물 1종 SpecialOrgan 수직 테스트
+1. `MECH_R18_Rachel_Submission_Vertical_Slice` 검토
+2. 레이첼 기술 7종 기본 루프 페이퍼 테스트
+3. 기승위 역전 반복 사용·실패 비용 테스트
+4. 호흡 정돈의 주도권 비용과 다음 반응 +1 테스트
+5. FluidPayload 강제 키스와 Absorption 입력·출력 테스트
+6. 광신도 광기 Bark의 정보성·반복도·화자 구분 평가
+7. 레이첼 기술 최종 표시명 재작명
+8. 의복 상태·부위 접근 Gate 정본
+9. Combat Narration 조건 블록과 상태 우선순위
+10. 광신도 6종 기술에 자원·부위·감응 필드 재배정
 
 ## Known Technical Debt
 
