@@ -210,29 +210,11 @@ Path:
 
 `Wiki/00_System/PROJECT_CANON.md`
 
-Authority:
-
-CURRENT_CANDIDATE
-
-Legacy Status:
-
-draft
-
-Review State:
-
-Director review required.
-
-Purpose:
-
-Downfall의 프로젝트 정의, 플레이어 전제와 고정 세계 규칙.
-
-Notes:
-
-현재 프로젝트 방향과 높은 정합성을 보이나 신규 Governance 기준의 공식 승격 검토가 아직 완료되지 않았다.
-
-Implementation:
-
-Do not use as sole implementation requirement until promoted to CURRENT / APPROVED.
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
+Audit Result: PROMOTE / REFACTOR COMPLETE
+Purpose:Downfall의 프로젝트 정의, 플레이어 전제와 고정 세계 규칙.
 
 ---
 
@@ -246,21 +228,10 @@ Path:
 
 `Wiki/00_System/DESIGN_PILLARS.md`
 
-Authority:
-
-CURRENT_CANDIDATE
-
-Legacy Status:
-
-draft
-
-Purpose:
-
-Downfall의 핵심 플레이 경험과 디자인 우선순위를 정의한다.
-
-Review State:
-
-Director review required.
+Authority:CURRENT
+Status: APPROVED
+Version: 1.0.0
+Purpose:Downfall의 핵심 플레이 경험과 디자인 우선순위를 정의한다.
 
 ---
 
