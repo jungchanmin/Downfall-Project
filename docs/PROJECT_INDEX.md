@@ -214,7 +214,7 @@ Authority: CURRENT
 Status: APPROVED
 Version: 1.0.0
 Audit Result: PROMOTE / REFACTOR COMPLETE
-Purpose:Downfall의 프로젝트 정의, 플레이어 전제와 고정 세계 규칙.
+Purpose: Downfall의 프로젝트 정의, 플레이어 전제와 고정 세계 규칙.
 
 ---
 
@@ -228,10 +228,11 @@ Path:
 
 `Wiki/00_System/DESIGN_PILLARS.md`
 
-Authority:CURRENT
+Authority: CURRENT
 Status: APPROVED
 Version: 1.0.0
-Purpose:Downfall의 핵심 플레이 경험과 디자인 우선순위를 정의한다.
+Audit Result: PROMOTE / REFACTOR COMPLETE
+Purpose: Downfall의 핵심 플레이 경험과 디자인 우선순위를 정의한다.
 
 ---
 
@@ -454,32 +455,19 @@ Combat 및 다른 WIP 시스템과 연결된 세부 수치와 규칙은 재검�
 ## NPC Stats System
 
 ID:
-
-`MECH_NPC_Stats_System`
+MECH_NPC_Stats_System
 
 Path:
+Wiki/01_Mechanics/MECH_NPC_Stats_System.md
 
-`Wiki/01_Mechanics/MECH_NPC_Stats_System.md`
-
-Authority:
-
-UNKNOWN
-
-Status:
-
-UNREVIEWED
+Authority: CURRENT
+Status: APPROVED
+Version: 2.0.0
+Audit Result: REFACTOR COMPLETE
 
 Purpose:
+NPC의 현재 상태, 능력, 사회·행동 상태 및 기본 성격 데이터의 의미와 소유 경계를 정의한다.
 
-NPC 능력치 및 관련 시스템.
-
-Next Review:
-
-Core Gameplay Audit 대상.
-
-Implementation:
-
-Do not implement directly until reviewed.
 
 ---
 
