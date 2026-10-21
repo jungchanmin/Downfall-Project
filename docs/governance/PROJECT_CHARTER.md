@@ -2,8 +2,8 @@
 id: GOV_Project_Charter
 title: Downfall Project Charter
 type: governance
-authority: CURRENT_CANDIDATE
-status: REVIEW
+authority: CURRENT
+status: APPROVED
 version: 0.1.0
 summary: >
   Downfall 프로젝트의 최상위 운영 헌법.

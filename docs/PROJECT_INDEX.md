@@ -476,28 +476,22 @@ NPC의 현재 상태, 능력, 사회·행동 상태 및 기본 성격 데이터�
 ## Time System
 
 ID:
-
-`Time_System`
+MECH_Time_System
 
 Path:
+Wiki/01_Mechanics/Time_System.md
 
-`Wiki/01_Mechanics/Time_System.md`
-
-Authority:
-
-UNKNOWN
-
-Status:
-
-UNREVIEWED
+Authority: CURRENT
+Status: APPROVED
+Version: 2.0.0
+Audit Result: REFACTOR COMPLETE
 
 Purpose:
+25일 캠페인의 Day/Phase 상태, 순서, 전환과 시간 Context 경계를 정의한다.
 
-게임 시간 및 Phase 진행 관련 기존 시스템 문서.
-
-Next Review:
-
-Core Gameplay Audit 대상.
+Implementation Note:
+Existing Scripts/Core/DayCycle* implementation is LEGACY_PROTOTYPE.
+Do not extend directly before approved technical redesign.
 
 ---
 
