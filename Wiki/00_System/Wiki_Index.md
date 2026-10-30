@@ -1,7 +1,7 @@
 # 🗂️ Downfall Wiki Master Index
 
-*Auto-generated on 2026-07-12T06:25:25*  
-*Total entries: 62*  
+*Auto-generated on 2026-10-30T03:20:54*  
+*Total entries: 69*  
 *⚠️ DO NOT EDIT BY HAND — modify each file's frontmatter, then re-run build_index.py.*
 
 ---
@@ -24,12 +24,11 @@
 
 ## 📁 `00_System/`
 
-### ⚪ `DESIGN_PILLARS.md`
-- **Title:** Downfall 핵심 디자인 필러
+### ❓ `DESIGN_PILLARS.md` ⚠️
+- **Title:** Downfall Design Pillars
 - **ID:** `SYS_Design_Pillars` | **Type:** `system`
-- **Summary:** 관계 변질, 반복 생존, 씬 중심 내러티브와 성인 콘텐츠의 역할을 프로젝트 우선순위로 정의한다.
-- **Keywords:** 관계, 로그라이크, 씬, Bark, R18, 생존
-- **Depends on:** `SYS_Project_Canon`
+- **Summary:** Downfall이 플레이어에게 제공해야 하는 핵심 경험과 게임 디자인 판단의 우선순위를 정의한다.
+- **Keywords:** 관계, 25일, 반복 플레이, 생존, 불확실성, 공포, 장면
 
 ### ⚪ `DOCUMENT_RULES.md`
 - **Title:** Downfall 문서 소유권 및 폴더 규칙
@@ -38,12 +37,11 @@
 - **Keywords:** Wiki, docs, 정본, DB, 폴더, R18, Archive, depends_on
 - **Depends on:** `SYS_Project_Canon`, `SYS_Wiki_Operations`
 
-### ⚪ `PROJECT_CANON.md`
-- **Title:** Downfall 프로젝트 정본
+### ❓ `PROJECT_CANON.md` ⚠️
+- **Title:** Downfall Project Canon
 - **ID:** `SYS_Project_Canon` | **Type:** `system`
-- **Summary:** Downfall의 장르, 플레이어 목표, 고정 세계 규칙과 문서 우선순위를 정의하는 최상위 정본 문서.
-- **Keywords:** Downfall, 오벵마을, 25일, 생존, 로그라이크, TRPG
-- **Depends on:** `SYS_Manifest`
+- **Summary:** Downfall의 프로젝트 정체성, 플레이어의 기본 정본, 오벵마을의 절대 세계 전제와 25일 캠페인 구조를 정의하는 핵심 정본 문서.
+- **Keywords:** Downfall, 오벵마을, 25일, 리더, 생존, 의식
 
 
 ## 📁 `00_Templates/`
@@ -93,12 +91,47 @@
 
 ## 📁 `01_Mechanics/`
 
-### 🟡 `MECH_Combat_System.md`
-- **Title:** 핵심 시스템 사양서 — 전투 시스템 (턴제 레이드형)
+### ❓ `MECH_Check_System.md` ⚠️
+- **Title:** Downfall Check / Resolution System
+- **ID:** `MECH_Check_System` | **Type:** `mechanic`
+- **Summary:** Downfall 전역에서 사용되는 판정의 요청, 기본 Roll, 판정값 Source, Modifier 집계, Requirement 비교, 성공/실패 및 Margin 반환 규칙을 정의하는 공통 Resolution System.
+- **Keywords:** 판정, 1d12, 요구치, 성공, 실패, Margin, Modifier, 난이도
+
+### ❓ `MECH_Combat_Action_Runtime_System.md` ⚠️
+- **Title:** Downfall Combat Action Runtime System
+- **ID:** `MECH_Combat_Action_Runtime_System` | **Type:** `mechanic`
+- **Summary:** Combat Action의 전투 중 Runtime State, Round 기반 Cooldown, Prepared Action, Telegraph 연계, Fizzle, 사용 이력 및 Runtime Cleanup을 정의한다.
+- **Keywords:** Action Runtime, Cooldown, Prepared Action, Telegraph, Fizzle, Last Used Round, Activation
+
+### ❓ `MECH_Combat_Action_System.md` ⚠️
+- **Title:** Downfall Combat Action System
+- **ID:** `MECH_Combat_Action_System` | **Type:** `mechanic`
+- **Summary:** Downfall 전투에서 실행 가능한 Action의 공통 정의, 사용 가능 조건, Check 연결, Effect 처리 및 Survivor / Monster 전용 확장 경계를 정의한다.
+- **Keywords:** 전투 행동, Action, Skill, Command, Target, Requirement, Check, Effect
+
+### ❓ `MECH_Combat_Positioning_System.md` ⚠️
+- **Title:** Downfall Combat Positioning System
+- **ID:** `MECH_Combat_Positioning_System` | **Type:** `mechanic`
+- **Summary:** Close / Mid / Far의 추상 Combat Formation을 통해 전열·후열, 무기 운용 거리, 타겟 우선순위, Movement와 Line Compression을 정의한다.
+- **Keywords:** Close, Mid, Far, Formation, Movement, Line Compression, Frontline, Target Priority
+
+### ❓ `MECH_Combat_Status_Effect_System.md` ⚠️
+- **Title:** Downfall Combat Status Effect System
+- **ID:** `MECH_Combat_Status_Effect_System` | **Type:** `mechanic`
+- **Summary:** Downfall 전투에서 사용되는 Combat Status Effect의 정의, 적용, 유지, 중첩, 해제, 만료 및 다른 시스템과의 연결 경계를 정의한다.
+- **Keywords:** 전투 상태효과, Combat Status Effect, 적용, 해제, 지속, 중첩, 만료, Status ID
+
+### ❓ `MECH_Combat_System.md` ⚠️
+- **Title:** Downfall Combat Core System
 - **ID:** `MECH_Combat_System` | **Type:** `mechanic`
-- **Summary:** 다운폴 턴제 전투 시스템. d6 성공 풀 위에 8개 능력 스탯별 전투 커맨드(NPC 스탯 임계 해금), swarm 다수전(규모×개체체력), 거리·무기 약점·정밀타, 전투기벽, 격파/도주 이중 승리, 그리고 R18 전투 레이어(분노/흥분 게이지·성감/굴복도/의복·굴복 페이즈·전용 기술)를 규정. 코드 구현 가능한 데이터 구조·의사코드 포함.
-- **Keywords:** 전투, 턴제, 전투 커맨드, 스탯별 역할, swarm, 다수전, 개방 게이지, 거리, 무기 약점, 전투기벽, 격파, 도주 락, 분노 게이지, 흥분 게이지, 성감, 굴복도, 굴복 페이즈, R18, 대사 템플릿
-- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MONSTER_DB`, `MECH_Status_Effect_DB`, `MECH_Event_Reward_Appraisal`, `MECH_Quirk_Physical_DB`, `MECH_Quirk_Mental_DB`, `MECH_Quirk_R18_DB`
+- **Summary:** Downfall 전투의 Encounter Lifecycle, 참가자, 명령 전달, Action 해결 흐름과 전투 종료 조건 및 다른 시스템과의 Ownership Boundary를 정의하는 Core Combat Contract.
+- **Keywords:** 전투, 조우, 명령, 행동, 격파, 도주, 전투 상태효과, CombatResult
+
+### ❓ `MECH_Encounter_Resolution_System.md` ⚠️
+- **Title:** Downfall Encounter Resolution System
+- **ID:** `MECH_Encounter_Resolution_System` | **Type:** `mechanic`
+- **Summary:** Downfall의 Encounter 상태, 갈등 스탠스, 적대도 누적, 해결 경로 가용성, 적대/비적대 전환 및 Encounter 종료 결과를 정의한다.
+- **Keywords:** Encounter, Conflict Stance, Hostile, NonHostile, Escalation, Negotiation, Alternative Resolution, Special Resolution
 
 ### ✅ `MECH_Event_Reward_Appraisal.md`
 - **Title:** 핵심 시스템 사양서 — 이벤트 보상 책정기 (역방향 검수형)
@@ -107,19 +140,11 @@
 - **Keywords:** 보상 책정, 패널티, 강도 밴드, 성패 분기, 복합 판정, 기벽 부여, 자원 보상, 난이도, DC
 - **Depends on:** `SYS_Manifest`, `SYS_Downfall_AI_Assistant`, `MECH_NPC_Stats_System`, `MECH_Resource_System`, `MECH_Quirk_Physical_DB`, `MECH_Quirk_Mental_DB`, `MECH_Quirk_R18_DB`
 
-### 🟡 `MECH_Monster_AI.md`
-- **Title:** 핵심 시스템 사양서 — 괴물 행동 결정 (AI) 시스템
+### ❓ `MECH_Monster_AI.md` ⚠️
+- **Title:** Downfall Monster Combat AI System
 - **ID:** `MECH_Monster_AI` | **Type:** `mechanic`
-- **Summary:** 괴물의 턴 행동 선택 로직. 괴물 전용 게이지 3종(분노·흥분·위압)이 전투 진행에 따라 누적되어 행동 분포(기본기/고유기/R18 전조/방어 빈도)를 동적으로 변화시킨다. R18 ON=흥분, OFF=위압으로 배타 적용. 분노 우선 에스컬레이션. 괴물 스타일 프로파일(신중형/호전형 등) 선호율로 개체 차별화. 정의/참조 분리 — 개체는 ai_profile 참조만.
-- **Keywords:** 괴물 AI, 행동 결정, 분노 게이지, 흥분 게이지, 위압 게이지, 행동 분포, 스타일 프로파일, 신중형, 호전형, 기본 세트, 선호율, 에스컬레이션
-- **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Skill_Catalog`, `MECH_Status_Effect_DB`, `MONSTER_DB`
-
-### ✅ `MECH_NPC_Stats_System.md`
-- **Title:** NPC 생존자 스탯 시스템
-- **ID:** `MECH_NPC_Stats_System` | **Type:** `mechanic`
-- **Summary:** 다운폴 NPC 생존자의 전체 스탯 체계 정의. 기본 스탯 6종 / 능력 스탯 8종 / 감정·사회 스탯 5종 / 성격 스탯 6종. 수치 범위·상호작용·이벤트 판정 기준 포함.
-- **Keywords:** 스탯, 체력, 정신력, 스트레스, 허기, 컨디션, 피로도, 전투, 탐색, 대화, 간호, 제작, 기술, 매력, 지능, 친밀도, 침식도, 판정, DC
-- **Depends on:** `SYS_Manifest`, `MECH_Resource_System`
+- **Summary:** Hostile Encounter에서 Monster가 사용 가능한 Combat Action을 Context와 AI Profile, Action 특성 및 Weighted Random을 통해 선택하는 공통 계약을 정의한다.
+- **Keywords:** Monster AI, Action Selection, Eligibility, AI Profile, Weighted Random, Telegraph, Cooldown, Prepared Action
 
 ### ✅ `MECH_Quirk_Mental_DB.md`
 - **Title:** 핵심 시스템 사양서 — 기벽 데이터베이스: 정신적 문제 (정신이상/욕구폭발/트라우마)
@@ -161,12 +186,11 @@
 - **Keywords:** R18 기술, 굴복 기술, 굴복 페이즈, 봉사형, 유혹형, 농락형, 흡수형, 저항형, 음담패설, 주무르기, 옷찢기, 주도권, 흥분, 성감, 진척 가속, 기술 ID
 - **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Skill_Catalog`, `MECH_R18_Memory_Log`, `MECH_Quirk_R18_DB`, `MONSTER_DB`
 
-### ✅ `MECH_Resource_System.md`
-- **Title:** 자원 체계 시스템
+### ❓ `MECH_Resource_System.md` ⚠️
+- **Title:** Downfall Resource System
 - **ID:** `MECH_Resource_System` | **Type:** `mechanic`
-- **Summary:** 다운폴 자원 체계 전체 정의. 식량·부품·장비·유물·금화·명성· 단서·세력평판·동료 9종 자원의 역할·범위·관리 방식 정의. 이벤트별 획득·소비는 각 이벤트 파일에서 개별 관리.
-- **Keywords:** 자원, 식량, 부품, 장비, 유물, 금화, 명성, 단서, 세력평판, 동료, 생존자, 암시장
-- **Depends on:** `SYS_Manifest`, `MECH_NPC_Stats_System`
+- **Summary:** Downfall에서 수량 또는 진행 가치로 축적·획득·소비·전환되는 Core Resource의 종류와 관리 경계를 정의한다.
+- **Keywords:** 식량, 부품, 금화, 명성, 단서, 자원, 보상, 진행
 
 ### 🟡 `MECH_Skill_Catalog.md`
 - **Title:** 핵심 시스템 사양서 — 일반 전투 기술 카탈로그
@@ -182,11 +206,11 @@
 - **Keywords:** 상태이상, 전투기벽, 속박, 고통, 공포, 출혈, 낙인, 최면, 홀림, 광분, 타락욕망, 무방비, 비틀거림, 은신, 절정 여운, 굴복 페이즈, 단일 출처, ID 참조
 - **Depends on:** `SYS_Manifest`, `MECH_Combat_System`, `MECH_Quirk_R18_DB`
 
-### ✅ `Time_System.md`
-- **Title:** 5페이즈 시간 시스템
+### ❓ `Time_System.md` ⚠️
+- **Title:** Downfall Time System
 - **ID:** `MECH_Time_System` | **Type:** `mechanic`
-- **Summary:** 새벽·아침·점심·저녁·밤의 5단계 페이즈 정의와 각 페이즈의 가능 행동·금기 행동·종료 조건.
-- **Keywords:** 페이즈, 새벽, 아침, 점심, 저녁, 밤, 턴
+- **Summary:** Downfall의 25일 캠페인에서 현재 Day와 Phase, Phase 순서, Day 경계와 시간 전환 계약을 정의하는 Core Time System.
+- **Keywords:** 25일, 새벽, 아침, 점심, 저녁, 밤, Phase, Day
 
 
 ## 📁 `02_World/`
@@ -239,22 +263,22 @@
 ### 🟡 `Department_Store.md`
 - **Title:** 백화점 상세 설정
 - **ID:** `LORE_LOC_Department_Store` | **Type:** `lore_world`
-- **Summary:** 괴생명체 둥지이자 광신도의 시험장으로 변한 상업 폐허 백화점을 정의한다.
-- **Keywords:** 백화점, Department Store, 광신도, 괴물 둥지, 시험
+- **Summary:** 괴생명체 둥지이자 광신도의 시험장으로 변한 외곽 심부 상업 폐허를 정의한다.
+- **Keywords:** 백화점, Department Store, 광신도, 괴물 둥지, 시험, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Mother`
 
 ### 🟡 `Dockyard.md`
 - **Title:** 선착장 상세 설정
 - **ID:** `LORE_LOC_Dockyard` | **Type:** `lore_world`
 - **Summary:** 외곽 봉쇄선이자 고위험 자원 밀집지인 선착장의 구조와 탈출 실패 시드를 정의한다.
-- **Keywords:** 선착장, Dockyard, Wharf, 봉쇄선, 물류창고, 폐선박
+- **Keywords:** 선착장, Dockyard, Wharf, 봉쇄선, 폐선박, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Overview`
 
 ### 🟡 `Factory.md`
 - **Title:** 공장 상세 설정
 - **ID:** `LORE_LOC_Factory` | **Type:** `lore_world`
 - **Summary:** 악마 조직의 병기창이자 멸망의 괴물 출현 가능성이 있는 외곽 심부 공장을 정의한다.
-- **Keywords:** 공장, Factory, 악마 조직, 병기창, 멸망의 괴물
+- **Keywords:** 공장, Factory, 악마 조직, 병기창, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `MONSTER_DB`
 
 ### 🟡 `Foggy_Park.md`
@@ -268,7 +292,7 @@
 - **Title:** 철물점 상세 설정
 - **ID:** `LORE_LOC_Hardware_Store` | **Type:** `lore_world`
 - **Summary:** 자경단이 관리하는 무기·부품·제작 거점인 철물점을 정의한다.
-- **Keywords:** 철물점, Hardware Store, SteelFort, 제작, 부품, 무기
+- **Keywords:** 철물점, Hardware Store, SteelFort, 제작, 부품, 무기, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `MECH_Resource_System`
 
 ### 🟡 `Hideout.md`
@@ -282,7 +306,7 @@
 - **Title:** 병원 상세 설정
 - **ID:** `LORE_LOC_Hospital` | **Type:** `lore_world`
 - **Summary:** 의약품과 의료 장비가 남아 있지만 내부 오염과 변이 생물이 위협하는 병원을 정의한다.
-- **Keywords:** 병원, Hospital, 자경단, 의약품, 변이 생물
+- **Keywords:** 병원, Hospital, 의약품, 변이 생물, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `MECH_Resource_System`
 
 ### 🟡 `LOCATION_INDEX.md`
@@ -296,46 +320,59 @@
 - **Title:** 유흥가 상세 설정
 - **ID:** `LORE_LOC_Nightlife_District` | **Type:** `lore_world`
 - **Summary:** 악마 조직이 통제하는 유흥가의 불법 거래, 투기장, 암시장과 함정 시드를 정의한다.
-- **Keywords:** 유흥가, Nightlife District, 악마 조직, 암시장, 투기장
+- **Keywords:** 유흥가, Nightlife District, 악마 조직, 암시장, 투기장, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
 
 ### 🟡 `Police_Station.md`
 - **Title:** 경찰서 상세 설정
 - **ID:** `LORE_LOC_Police_Station` | **Type:** `lore_world`
 - **Summary:** 악마 조직이 점거한 옛 치안 중심지이자 무기 확보 위험 지역인 경찰서를 정의한다.
-- **Keywords:** 경찰서, Police Station, PoliceOffice, 악마 조직, 무기창고
+- **Keywords:** 경찰서, Police Station, PoliceOffice, 악마 조직, 무기창고, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
 
 ### 🟡 `Research_Lab.md`
 - **Title:** 연구소 상세 설정
 - **ID:** `LORE_LOC_Research_Lab` | **Type:** `lore_world`
 - **Summary:** 괴물, 유물, 의식의 진실과 연결된 외곽 심부 비밀연구소를 정의한다.
-- **Keywords:** 연구소, Research Lab, LAB, 유물, 괴물, 광신도, 진실
+- **Keywords:** 연구소, Research Lab, LAB, 유물, 괴물, 광신도, 진실, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Mother`, `MONSTER_DB`
 
 ### 🟡 `Residential_Area.md`
 - **Title:** 주거단지 상세 설정
 - **ID:** `LORE_LOC_Residential_Area` | **Type:** `lore_world`
 - **Summary:** 광신도 의식 흔적과 생필품 탐색이 공존하는 외곽 주거단지를 정의한다.
-- **Keywords:** 주거단지, Residential Area, DownTown, 광신도, 생필품
+- **Keywords:** 주거단지, Residential Area, DownTown, 광신도, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `LORE_WORLD_Ritual_25_Days`
 
 ### 🟡 `Shopping_District.md`
 - **Title:** 상점가 상세 설정
 - **ID:** `LORE_LOC_Shopping_District` | **Type:** `lore_world`
 - **Summary:** 자원 밀집지이자 자경단과 악마 조직의 분쟁 지대인 상점가를 정의한다.
-- **Keywords:** 상점가, Shopping District, Market District, 자원, 분쟁
+- **Keywords:** 상점가, Shopping District, Market District, 자원, 분쟁, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
 
 ### 🟡 `Town_Hall.md`
 - **Title:** 마을회관 상세 설정
 - **ID:** `LORE_LOC_Town_Hall` | **Type:** `lore_world`
 - **Summary:** 자경단 본부로 쓰이는 마을회관의 통제, 보호와 강압 이벤트 시드를 정의한다.
-- **Keywords:** 마을회관, Town Hall, 자경단, 통제
+- **Keywords:** 마을회관, Town Hall, 자경단, 통제, 이상현상
 - **Depends on:** `LORE_LOC_Obeng`, `ENTITY_Index`
 
 
+## 📁 `03_Entities/Combat/`
+
+### ❓ `DATA_Combat_Status_Effect_Catalog.md` ⚠️
+- **Title:** Downfall Combat Status Effect Catalog
+- **ID:** `DATA_Combat_Status_Effect_Catalog` | **Type:** `data`
+- **Summary:** Legacy Status DB의 general 전투 상태효과 13개를 공통 Status Contract에 맞게 구조화한 검토용 Definition. 수치와 미확정 Owner는 승인 정본으로 승격하지 않는다.
+
+
 ## 📁 `03_Entities/Monsters/`
+
+### ❓ `DATA_Monster_Action_Catalog.md` ⚠️
+- **Title:** Downfall Monster Action Catalog
+- **ID:** `DATA_Monster_Action_Catalog` | **Type:** `data`
+- **Summary:** Legacy Skill Catalog의 실행 Action 18개를 공통 계약에 맞게 구조화한 Migration 데이터. 기존 수치와 미확정 판정을 분리하고 Monster 고유 행동 및 Passive의 후속 이관 목록을 기록한다.
 
 ### 🟡 `MONSTER_DB.md`
 - **Title:** 핵심 시스템 사양서 — 괴물 데이터베이스
