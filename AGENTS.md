@@ -745,7 +745,7 @@ Do not load every project document for every task.
 
 Identify the domain of the task and read only the relevant authoritative documentation.
 
-A future `Docs/PROJECT_INDEX.md` should be used as the primary documentation map when present.
+Use `docs/PROJECT_INDEX.md` as the primary documentation map.
 
 Examples:
 
@@ -954,3 +954,39 @@ Treat it as a design decision and do not decide it autonomously.
 If no, and it is a localized technical implementation detail:
 
 Codex may choose the technically strongest solution consistent with the repository.
+
+---
+
+# 31. Context Recovery Protocol
+
+## Required Read Order
+
+1. `AGENTS.md`
+2. `docs/governance/PROJECT_CHARTER.md`
+3. `docs/PROJECT_INDEX.md`
+4. `docs/CONTEXT_CURRENT.md`
+5. Task authoritative Owner document
+6. Relevant CURRENT / APPROVED references
+7. Necessary Candidate / Reference / Legacy sources
+
+Use the Index and Context to select relevant documents; do not load every document indiscriminately. Read `DOCUMENT_GOVERNANCE` when document governance is relevant.
+
+## Compaction Detection and Recovery
+
+Treat these as possible context loss: an approved decision is called unresolved; a new rule is proposed despite an existing Owner; CURRENT and LEGACY are confused; task scope or decision evidence is missing; or reasoning conflicts with `CONTEXT_CURRENT`.
+
+Stop inference from conversational memory → read `CONTEXT_CURRENT` → locate the Owner through `PROJECT_INDEX` → read the Owner → compare with the current task → resume. Verify actual local documents and the latest explicit Director decisions; report unresolved conflicts under the Conflict Protocol.
+
+## Authority and Approved Decisions
+
+Use this order: latest explicit Director approval / task instruction → CURRENT / APPROVED Owner → PROJECT_INDEX → CONTEXT_CURRENT → CURRENT_CANDIDATE / REVIEW → REFERENCE → LEGACY → general model knowledge. `CONTEXT_CURRENT` is a recovery summary, not an authoritative Gameplay Owner; Index summaries do not replace detailed Owner rules.
+
+The `Do Not Reopen Without New Evidence` list records approved decisions to verify against their Owner. Do not redesign them without new evidence, a new Owner decision, or explicit Director instruction; report conflicts rather than silently resolving them.
+
+Do not reconstruct rules from compacted chat memory, change decisions without checking the Owner, promote Legacy values or Candidate documents to approved status, or guess missing numbers. Report missing information as `UNDEFINED`, `REVIEW_REQUIRED`, or `DIRECTOR_REVIEW_REQUIRED`, as appropriate.
+
+## Scope, Safety, and Handoff
+
+After compaction recheck allowed and forbidden files, Owner and Candidate documents, expected output, and approval state. Do not expand unclear scope, revert user changes, modify unrelated files, make unapproved Gameplay changes, or automatically promote Candidate to Approved. Report the need for a large refactor before undertaking it.
+
+At the end of important work, assess whether `docs/CONTEXT_CURRENT.md` needs an update: current phase, completed major work, approved decisions, blockers, and next task. Before ending a long task, when appropriate and authorized within task scope, leave a repository handoff covering current phase, completed work, approved decisions, modified files, unresolved items, and next recommended task. Do not rely on chat memory alone or expand the user's allowed file scope to create a handoff.

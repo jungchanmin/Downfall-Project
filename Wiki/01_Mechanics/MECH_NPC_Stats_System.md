@@ -36,7 +36,7 @@ keywords:
   - 욕구불만
   - 성격
 
-last_updated: 2026-10-19
+last_updated: 2026-10-30
 ---
 
 # NPC Survivor Stat System
@@ -268,7 +268,7 @@ NPC가 현재 얼마나 충분히 섭취한 상태인지 나타낸다.
 
 ---
 
-## 5.2 탐색 — Search
+## 5.2 탐색 — Exploration
 
 관찰, 위험 감지, 흔적 탐색과 정보 획득 능력.
 
@@ -292,7 +292,7 @@ NPC가 현재 얼마나 충분히 섭취한 상태인지 나타낸다.
 
 ---
 
-## 5.6 기술 — Knowledge
+## 5.6 기술 — Technique
 
 전문 지식과 기술적 문제 해결 능력.
 

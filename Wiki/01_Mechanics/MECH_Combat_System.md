@@ -1,503 +1,1065 @@
 ---
 id: MECH_Combat_System
-title: "핵심 시스템 사양서 — 전투 시스템 (턴제 레이드형)"
+title: Downfall Combat Core System
 type: mechanic
-status: wip
-version: 0.3.6
-summary: >
-  다운폴 턴제 전투 시스템. d6 성공 풀 위에 8개 능력 스탯별 전투 커맨드(NPC 스탯 임계 해금),
-  swarm 다수전(규모×개체체력), 거리·무기 약점·정밀타, 전투기벽, 격파/도주 이중 승리,
-  그리고 R18 전투 레이어(분노/흥분 게이지·성감/굴복도/의복·굴복 페이즈·전용 기술)를 규정.
-  코드 구현 가능한 데이터 구조·의사코드 포함.
-tags:
-  - mechanic
-  - system
-  - combat
-  - turn_based
-  - raid
-  - r18
-keywords:
-  - 전투, 턴제, 전투 커맨드, 스탯별 역할, swarm, 다수전, 개방 게이지, 거리,
-    무기 약점, 전투기벽, 격파, 도주 락, 분노 게이지, 흥분 게이지, 성감, 굴복도,
-    굴복 페이즈, R18, 대사 템플릿
-depends_on:
-  - SYS_Manifest
+authority: CURRENT
+status: APPROVED
+version: 1.0.0
+
+parent:
+  - SYS_Design_Pillars
+
+references:
   - MECH_NPC_Stats_System
+  - MECH_Time_System
   - MECH_Resource_System
   - MONSTER_DB
   - MECH_Status_Effect_DB
-  - MECH_Event_Reward_Appraisal
-  - MECH_Quirk_Physical_DB
-  - MECH_Quirk_Mental_DB
-  - MECH_Quirk_R18_DB
-last_updated: 2026-06-05
+  - MECH_Skill_Catalog
+
+summary: >
+  Downfall 전투의 Encounter Lifecycle, 참가자, 명령 전달,
+  Action 해결 흐름과 전투 종료 조건 및 다른 시스템과의
+  Ownership Boundary를 정의하는 Core Combat Contract.
+
+tags:
+  - mechanic
+  - combat
+  - encounter
+  - turn_based
+  - core
+
+keywords:
+  - 전투
+  - 조우
+  - 명령
+  - 행동
+  - 격파
+  - 도주
+  - 전투 상태효과
+  - CombatResult
+
+last_updated: 2026-10-21
 ---
 
-# ⚔️ DOWNFALL 전투 시스템 (v0.3 — 턴제 레이드형 / 구현 사양)
+# Downfall Combat Core System
 
-> TDD 1차 전투 + 커맨드 재설계 + 다수전 + R18 전투 레이어 반영. 코드 구현 전제.
+## 1. Purpose
 
----
+본 문서는 Downfall 전투 시스템의 가장 높은 수준의 구조를 정의한다.
 
-## SECTION 0 — 전제 (Override)
+본 시스템은 다음을 소유한다.
 
-1. 플레이어 = 리더. 생존자에게 *명령*을 내리고, 생존자가 자기 스탯·기벽·스트레스로 수행/실패.
-2. 제물의식 프레임: 괴물을 잘 쓰러뜨릴수록 생존자는 더 우수한 *그릇/제물*. 승리는 *서늘한 위화감*으로.
-3. 처치가 유일한 해결이 아니다. 일반괴물은 도주가 정석일 수 있다.
-4. **결과는 같되 과정은 다르게**: 같은 전투를 생존자 구성에 따라 다른 스탯·커맨드로 풀 수 있어야 한다.
-5. 저수치 시스템(`MECH_NPC_Stats_System` v1.2). 모든 판정 = d6 성공 풀(4+ 성공).
+- Combat Encounter의 시작과 종료
+- Combat Participant
+- 전투 진행 단계
+- 리더의 명령 전달
+- Combat Action 제출과 해결 조정
+- Combat Resolution
+- Combat Result
+- 전투 중 다른 시스템을 호출하기 위한 경계
 
----
-
-## SECTION 1 — 전투 흐름 (라운드 구조)
-
-```
-[전투 시작]
-  - 거리 초기화 (SECTION 6)
-  - 선공 판정 (속도 기반, 1회). 전투 내내 지속.
-  - (R18 토글 시) 분노/흥분 게이지·굴복도 초기화 (SECTION 11)
-
-[라운드]
-  1. 선공 순서 확정
-  2. [리더] 생존자별 명령 1개 하달 (커맨드 + 표적/거리)
-  3. 생존자 행동 해결 (선공 순서대로)   ← 격파/이탈 시 즉시 종료
-  4. 괴물 행동 (약기술 / 강기술 전조·발동)
-  5. 게이지·상태 갱신
-[승리 조건 충족 → 결착]
-```
-
-> **선공 지속 룰**: 선공이 파티면 step 3(구출·격파)이 step 4(괴물)보다 먼저 해결 → 연계(데스롤 등) 무산 가능.
-
----
-
-## SECTION 2 — 판정 (d6 성공 풀)
-
-```
-풀 = [관련 능력 스탯] 개의 d6 ; 4 이상 = 성공 1개
-성공 >= 성공 요구치 → 통과
-모디파이어 = 주사위 ±개 (성격·컨디션·피로도·거리·전투기벽·태세)
-풀 0개 이하 → 자동 실패
-```
-**적중 게이트**: 강공 0성공 = 빗나감. 무기 취약 보너스는 적중(≥1) 시에만. **약공은 필중**(SECTION 3).
+본 문서는 개별 판정 공식, Skill 효과, Monster AI, Item 수치 또는 Optional Module 규칙을 직접 소유하지 않는다.
 
 ---
 
-## SECTION 3 — 전투 커맨드 (8 능력 스탯 전부 활용)
+# 2. Combat Design Intent
 
-> 핵심 설계: 8개 능력 스탯 각각에 *겹치지 않는* 전투 역할 부여. 전투/탐색이 딜·생존의 메인 축,
-> 나머지는 *변수 창출·우회*. 모든 NPC가 8커맨드를 갖지 않는다 — **스탯 임계 이상인 커맨드만 해금**.
+Downfall의 전투는 단순한 피해량 경쟁을 목표로 하지 않는다.
 
-### 3-1. 전투 — 딜링 축 (메인)
-- **약공(Light)**: 필중. 피해 1(+무기 취약) − 방어. 개방 게이지 +1.
-- **강공(Heavy)**: 무방비 시 +2 보너스 주사위. 피해 = (성공−방어)+취약. 0성공=빗나감. 비개방 시 반격 위험.
+전투의 핵심은:
 
-### 3-2. 탐색 — 정보·생존 축 (메인)
-- **회피(Evade)**: 본인 피격 1회 무효/경감. 들어오는 공격 없으면 불발.
-- **전조 탐색(Read)**: 괴물 다음 행동 표적·범위·연계 공개 + 표적에게 즉석 회피 1회.
+> 현재 확보한 생존자들의 서로 다른 능력과 상태를 이용해
+> 위험한 Encounter를 해결하거나 살아서 빠져나오는 것
 
-### 3-3. 제작 — 전장 조작 축
-- **설비/함정(Craft)**: 엄폐물 생성(광역기 무력화)·함정·이동수단 봉쇄(도주 락/추격 차단). 전장 규칙을 트는 역할.
+이다.
 
-### 3-4. 기술 — 약점·전술 축
-- **약점 분석/전술(Knowledge)**: 약점 정밀타 요구치 영구 인하 / 1라운드 파티 명중 보정. 사령탑.
+전투에서는 파티 구성과 현재 상태에 따라 서로 다른 해결 방식이 가능해야 한다.
 
-### 3-5. 지능 — 판단·추천 축
-- **상황 판단(Intelligence)**: 무방비·전조·위협 해석 → *다른 NPC* 다음 판정에 보너스 주사위. 서포터.
+---
 
-### 3-6. 대화 — 통제·심리 축
-- **위압/교섭(Dialogue)**: 지성 적 행동 1턴 봉인 / 적대 생존자 swarm 규모 비전투 이탈. 비지성 괴물엔 무효(적 종류로 가치 변동).
+# 3. Leader Command Structure
 
-### 3-7. 간호 — 유지 축
-- **긴급 치료(Care)**: 1턴 통합. 체력 +3(의약품 1) 또는 간호 판정 회복 + 전투기벽 1개 해제. 미지정 시 최저 체력 자동 표적. 근접 필요.
+플레이어는 생존자 집단의 `리더`로서 전투에 참여한다.
 
-### 3-8. 매력 — 견제·유인 축 (+R18 확장)
-- **유인/교란(Charm)**: 적 표적 자신에게 강제 고정(약한 아군 보호) / 적 명중 1턴 저하. **R18 토글 시 교란·유혹 등 R18 커맨드로 확장**(SECTION 11).
+기본적인 상호작용은:
 
-### 3-9. 대기·경계 (Brace) — 전투기벽 자체 해제
-- 스탯 무관. 보유 전투기벽(공포·흥분·최면 등) 1개 자체 해제 시도(인내심/정신력 기반).
-
-### 3-10. NPC별 커맨드 해금
+```text
+Leader
+↓
+Command / Intent
+↓
+Survivor
+↓
+Resolved Combat Action
 ```
-커맨드는 해당 능력 스탯이 임계(기본 4) 이상일 때만 해당 NPC에게 노출.
-→ NPC당 실제 노출 커맨드 3~4개로 압축. UI 차원에서 개성·역할이 드러남.
-예) 레이첼(전투8·탐색6): 강공/약공/회피/전조  |  한나(매력 특화): 유인·교란/위압교섭/긴급치료
+
+형태를 가진다.
+
+플레이어가 모든 NPC의 행동을 직접적인 Puppet처럼 조작하는 것을 의미하지 않는다.
+
+NPC의:
+
+- 충성도
+- 불만도
+- 적응도
+- 감정
+- 기벽
+- 관계
+- 기억
+- 현재 상태
+
+등이 명령 수행 결과에 영향을 줄 수 있다.
+
+정확한 명령 수락, 변경 또는 거부 규칙은 NPC Behavior System이 소유한다.
+
+---
+
+# 4. Combat Encounter
+
+Combat은 하나의 `Encounter`로 취급한다.
+
+Combat Encounter는 최소한 다음 상태를 가진다.
+
+```text
+NotStarted
+↓
+Active
+↓
+Resolved
+```
+
+Combat은 Campaign Time과 별개의 Runtime Context를 가진다.
+
+---
+
+# 5. Combat Participants
+
+Combat에는 하나 이상의 Participant가 존재한다.
+
+대표 Participant 유형:
+
+```text
+Survivor
+Enemy Individual
+Enemy Group / Swarm
+Special Entity
+```
+
+Participant의 실제 Stat은 해당 Entity의 Owner가 소유한다.
+
+Combat System은 전투 해결에 필요한 Runtime 참조만 사용한다.
+
+---
+
+# 6. Combat Start
+
+Combat Encounter가 시작되면 다음과 같은 기본 Context를 구성할 수 있다.
+
+```text
+Participants
+Combat Environment
+Initial Position
+Available Actions
+Encounter Conditions
+```
+
+전투 시작 시 정확히 어떤 순서로:
+
+- 선공
+- 위치
+- 상태
+- 특수 규칙
+
+을 초기화하는지는 하위 Combat Specification에서 정의한다.
+
+Core Contract는 특정 Initiative 공식이나 수치를 강제하지 않는다.
+
+---
+
+# 7. Round-Based Structure
+
+Downfall의 Core Combat은 턴 / 라운드 기반으로 진행한다.
+
+개념적 Round는 다음 흐름을 가진다.
+
+```text
+Round Start
+↓
+Command / Action Selection
+↓
+Action Resolution
+↓
+Enemy Resolution
+↓
+State Update
+↓
+Resolution Check
+↓
+Round End
+```
+
+정확한 행동 순서와 Initiative 알고리즘은 별도 Combat Resolution Specification이 소유한다.
+
+---
+
+# 8. Action Submission
+
+Combat Participant는 전투 중 하나 이상의 가능한 Action을 가질 수 있다.
+
+Action은 개념적으로 다음 정보를 포함할 수 있다.
+
+```text
+Actor
+Action
+Target
+Context
+```
+
+필요한 경우:
+
+```text
+Resource Cost
+Item Requirement
+Position Requirement
+Condition Requirement
+```
+
+등이 추가될 수 있다.
+
+구체적인 Action 정의는 Combat Action / Skill Catalog가 소유한다.
+
+---
+
+# 9. Ability Use in Combat
+
+NPC의 능력 Stat은 Combat Action에서 참조될 수 있다.
+
+현재 Ability:
+
+- 전투
+- 탐색
+- 대화
+- 간호
+- 제작
+- 기술
+- 매력
+- 지능
+
+은 모두 전투 상황에서 의미를 가질 가능성이 있다.
+
+그러나:
+
+> 모든 Ability가 반드시 하나의 고정 Combat Command를 가져야 하는 것은 아니다.
+
+특정 Ability는:
+
+- 적 종류
+- 환경
+- Equipment
+- 상황
+- Character Skill
+
+등에 따라 Combat에서 사용할 수 있거나 사용할 수 없을 수 있다.
+
+Combat Core는 Ability별 고정 Command 목록을 강제하지 않는다.
+
+---
+
+# 10. Check System Boundary
+
+Combat System은 판정을 직접 정의하지 않는다.
+
+Combat Action이 판정을 요구하는 경우:
+
+```text
+Combat Action
+↓
+Check Request
+↓
+Check / Resolution System
+↓
+Check Result
+↓
+Combat Resolution
+```
+
+순서로 처리한다.
+
+Combat System은 다음을 소유하지 않는다.
+
+```text
+Dice Type
+Dice Count
+Target Number
+DC
+Success Pool
+Modifier Formula
+Critical Formula
+Automatic Success / Failure
+```
+
+따라서 Check System이 변경되어도 Combat Core Contract는 변경되지 않아야 한다.
+
+---
+
+# 11. Combat Action Boundary
+
+다음과 같은 구체적인 Action은 Core Contract의 직접 소유가 아니다.
+
+예:
+
+```text
+Light Attack
+Heavy Attack
+Evade
+Read
+Brace
+Emergency Care
+Taunt
+Trap
+Disarm
+```
+
+이러한 Action의:
+
+- 사용 조건
+- 판정
+- 효과
+- Cooldown
+- Target
+- 수치
+
+는 Combat Action / Skill Specification이 소유한다.
+
+---
+
+# 12. Combat Position
+
+Combat은 `MECH_Combat_Positioning_System`이 정의하는 추상 Formation을 사용한다.
+
+```text
+Close
+Mid
+Far
+```
+
+Band 의미, 기본 Movement와 Line Compression은 Positioning Contract가 소유한다.
+개별 Action / Weapon의 밸런스 수치와 Modifier는 해당 Data Owner가 정의한다.
+
+---
+
+# 13. Opening / Vulnerability Concept
+
+전투에서는 적의 방어를 무너뜨리고 공격 기회를 만들어내는 Mechanic을 사용할 수 있다.
+
+기존 설계의:
+
+```text
+압박
+↓
+개방
+↓
+무방비
+↓
+강한 공격 기회
+```
+
+개념은 보존 후보다.
+
+그러나 Core Contract는 다음을 확정하지 않는다.
+
+- Gauge 이름
+- Gauge 수치
+- 임계값
+- 보너스
+- 특정 Action과의 연동
+
+세부 Mechanic은 Combat Action / Enemy Specification에서 정의한다.
+
+---
+
+# 14. Weapon and Weakness Boundary
+
+Combat System은 Weapon과 Monster Weakness의 상호작용을 해결할 수 있다.
+
+하지만 데이터를 직접 소유하지 않는다.
+
+```text
+Item System
+→ Weapon properties
+
+Monster Data
+→ Weakness / Resistance
+
+Combat Resolver
+→ Interaction
+```
+
+형태를 따른다.
+
+Combat Core는 특정 무기 분류 또는 Weakness 수치를 정의하지 않는다.
+
+---
+
+# 15. Combat Status Terminology
+
+Downfall에서는 다음 두 개념을 반드시 구분한다.
+
+```text
+NPC 상태이상 Stat
+≠
+전투 상태효과
+```
+
+NPC Stats의 `상태이상`은:
+
+> 감정, 기벽 및 부정적 변화 획득에 대한 취약성
+
+을 의미한다.
+
+Combat에서 발생하는:
+
+- 속박
+- 출혈
+- 기절
+- 공포
+- 무방비
+- 마비
+
+등은 **전투 상태효과(Combat Status Effect / Combat Condition)** 라고 부른다.
+
+---
+
+# 16. Status Effect Ownership
+
+전투 상태효과의 정의는 Combat Core가 소유하지 않는다.
+
+Combat은 상태효과의:
+
+```text
+Apply
+Remove
+Query
+Expire
+```
+
+과 같은 Runtime 동작을 요청할 수 있다.
+
+실제 상태효과 정의는 Status Effect DB가 소유한다.
+
+Skill과 Monster Data는 Status Effect ID를 참조한다.
+
+---
+
+# 17. Quirk Boundary
+
+Quirk는 Combat Status Effect가 아니다.
+
+Quirk는 NPC에게 귀속될 수 있는 별도 특성 시스템이다.
+
+Combat 결과가 Quirk 획득 조건에 영향을 줄 수는 있지만,
+
+```text
+Combat
+→ Quirk 직접 생성
+```
+
+을 기본 Ownership으로 사용하지 않는다.
+
+Quirk 획득과 변화는 Quirk System이 소유한다.
+
+---
+
+# 18. Monster AI Boundary
+
+Combat System은 Enemy가 행동할 수 있는 시점을 제공한다.
+
+그러나:
+
+> Enemy가 어떤 Action을 선택하는가?
+
+는 Monster AI System이 결정한다.
+
+개념:
+
+```text
+Enemy Turn
+↓
+Monster AI
+↓
+Selected Action
+↓
+Combat Resolver
+```
+
+Combat Core는 AI의 Weight, Utility, Personality Profile 또는 Gauge를 정의하지 않는다.
+
+---
+
+# 19. Monster AI Complexity
+
+모든 Monster가 동일한 수준의 AI를 요구하지 않는다.
+
+향후 Monster AI는 최소 다음과 같이 구분할 수 있다.
+
+```text
+Simple AI
+Advanced AI
+```
+
+Simple AI:
+
+- 일반 Monster
+- 제한된 Action Pool
+- 간단한 조건 또는 Weight
+
+Advanced AI:
+
+- Named Monster
+- Mutant
+- Ruin-class Threat
+- 복잡한 Tactical Decision
+
+정확한 분류와 알고리즘은 Monster AI System이 소유한다.
+
+---
+
+# 20. Swarm Boundary
+
+다수의 동일 또는 유사 Enemy는 하나의 Group Unit으로 추상화할 수 있다.
+
+기존 `Swarm` 구조는 재사용 후보로 유지한다.
+
+Core Contract는 다음만 허용한다.
+
+```text
+Combat Participant
+= Individual
+or
+Grouped Unit
+```
+
+Swarm의:
+
+- 규모
+- 개체 체력
+- 피해 분배
+- 공격력 증가
+- 분리 승격
+
+등의 세부 공식은 별도 Swarm Specification이 소유한다.
+
+---
+
+# 21. Combat Resolution Paths
+
+적을 처치하는 것만이 Combat의 정상적인 성공 조건은 아니다.
+
+Combat Encounter는 여러 Resolution Path를 가질 수 있다.
+
+대표적인 결과:
+
+```text
+Enemy Defeated
+Escape
+Enemy Withdrawal
+Objective Completed
+Special Resolution
+Defeat
+```
+
+Encounter마다 사용 가능한 Resolution Path가 다를 수 있다.
+
+---
+
+# 22. Escape
+
+도주는 Downfall에서 정상적인 전략적 선택이다.
+
+특히 플레이어가 모든 Encounter를 제거해야 할 필요는 없다.
+
+Escape는:
+
+- Combat Action
+- Encounter Rule
+- Environment
+- Enemy Trait
+
+등에 영향을 받을 수 있다.
+
+정확한 도주 Gauge 또는 Check 공식은 Core Contract에서 정의하지 않는다.
+
+---
+
+# 23. Defeat
+
+Combat에서 패배했다고 해서 항상 동일한 결과가 발생하는 것은 아니다.
+
+Defeat 결과는 Encounter 특성에 따라:
+
+```text
+Death
+Injury
+Capture
+Loss
+Forced Withdrawal
+Special Consequence
+```
+
+등으로 이어질 수 있다.
+
+Combat System은 Defeat를 결과로 반환하고,
+
+정확한 Campaign Consequence는 해당 Owner가 처리한다.
+
+---
+
+# 24. Combat Result
+
+Combat 종료 시 `CombatResult`에 해당하는 결과 Context를 생성한다.
+
+개념적으로 포함 가능한 정보:
+
+```text
+ResolutionType
+Participants
+DefeatedEntities
+EscapedEntities
+Damage / State Changes
+Consumed Resources
+Applied Conditions
+Encounter Flags
+```
+
+정확한 Runtime / Save Schema는 Technical Specification에서 정의한다.
+
+---
+
+# 25. Reward Boundary
+
+Combat System은 Reward를 직접 지급하는 Owner가 아니다.
+
+기본 흐름:
+
+```text
+Combat Resolved
+↓
+CombatResult
+↓
+Encounter / Reward System
+↓
+Reward
+```
+
+Reward는:
+
+- Resource
+- Item
+- Fame
+- Clue
+- Recruitment Opportunity
+- Access Unlock
+
+등이 될 수 있다.
+
+---
+
+# 26. Resource Boundary
+
+Combat Action이 Resource 또는 Item을 소비할 수 있다.
+
+예:
+
+```text
+Use Medical Item
+Spend Ammunition
+Consume Special Resource
+```
+
+Combat은 해당 소비를 Resource / Inventory System에 요청한다.
+
+Combat System 자체가 Resource State를 소유하지 않는다.
+
+---
+
+# 27. Time System Boundary
+
+Combat은 Campaign Time 내부의 특정 Phase에서 시작될 수 있다.
+
+예:
+
+```text
+CurrentPhase = Noon
+↓
+Exploration Encounter
+↓
+Combat
+```
+
+Combat 시작 자체가 Campaign Phase를 자동 진행시키지는 않는다.
+
+Combat 종료 후 기존 Campaign Time Context로 복귀한다.
+
+Campaign Time 진행 여부는 Time / Encounter Coordination이 소유한다.
+
+---
+
+# 28. Combat Runtime State
+
+Combat 동안만 존재하는 Runtime State가 있을 수 있다.
+
+예:
+
+```text
+CurrentRound
+Temporary Position
+Action Availability
+Temporary Combat Condition
+Encounter-specific Gauge
+```
+
+이러한 Runtime State는 Character Definition과 구분한다.
+
+Combat 종료 후 유지되어야 하는 State만 해당 시스템으로 전달한다.
+
+---
+
+# 29. Persistent State Boundary
+
+전투 중 발생한 모든 것이 영구적으로 저장되는 것은 아니다.
+
+예:
+
+```text
+Temporary Position
+Temporary Combat Modifier
+Encounter Gauge
+```
+
+는 Combat 종료 시 폐기될 수 있다.
+
+반면:
+
+```text
+HP Change
+Injury
+Item Consumption
+Quirk Acquisition
+Relationship Effect
+```
+
+등은 관련 Owner에 따라 Campaign State에 반영될 수 있다.
+
+---
+
+# 30. Optional Module Extension
+
+Core Combat은 Optional Module의 존재를 전제로 하지 않는다.
+
+Optional Module은 승인된 Extension Point를 통해 Combat을 확장할 수 있다.
+
+개념:
+
+```text
+Core Combat
+↑
+Optional Combat Extension
+```
+
+Optional Module은 다음을 추가할 수 있다.
+
+- Action
+- Status Effect
+- Encounter Rule
+- Gauge
+- Resolution Path
+- Presentation
+
+Core Combat이 Optional Module의 데이터나 규칙을 직접 참조해서는 안 된다.
+
+---
+
+# 31. R18 Combat Boundary
+
+기존 Combat v0.3.x에 포함되어 있던 다음 내용은 Core Combat Ownership에서 제거한다.
+
+```text
+R18 Gauge
+R18 Command
+Arousal Mechanic
+Submission Phase
+Tempo System
+R18 Skill Categories
+R18 Status Effects
+R18 Resolution
+```
+
+이들은 Optional R18 Combat Module이 소유한다.
+
+Core Combat은 해당 Module이 없어도 완전하게 동작해야 한다.
+
+---
+
+# 32. Submission Phase
+
+기존의 굴복 페이즈는 단순한 Combat Action이 아니라 별도의 규칙과 승패 구조를 가진 Mini-game에 가깝다.
+
+따라서 향후:
+
+```text
+Optional R18 Combat Module
+└─ Submission / Tempo System
+```
+
+형태의 독립 하위 시스템으로 취급한다.
+
+Core Combat에는 해당 규칙을 복제하지 않는다.
+
+---
+
+# 33. Data Ownership
+
+Combat Core는 Data Definition의 중앙 저장소가 아니다.
+
+다음 데이터는 각각의 Owner가 소유한다.
+
+```text
+NPC Stats
+→ NPC Stats System
+
+Monster Stats / Weakness
+→ Monster DB
+
+Weapon
+→ Item System
+
+Combat Action
+→ Skill / Action Catalog
+
+Status Effect
+→ Status Effect DB
+
+AI Profile
+→ Monster AI
+
+Reward
+→ Reward / Encounter
+```
+
+Combat은 이 데이터를 Runtime에서 조합한다.
+
+---
+
+# 34. Implementation Boundary
+
+본 문서는 구체적인 코드 Architecture를 강제하지 않는다.
+
+예:
+
+```text
+CombatManager
+State Machine
+Command Pattern
+Event Bus
+Turn Queue
+Unity MonoBehaviour
+Plain C# Domain
+```
+
+중 어떤 구조를 사용할지는 Technical Specification에서 결정한다.
+
+다만 다음 원칙은 유지한다.
+
+- Combat Domain Logic은 테스트 가능해야 한다.
+- 데이터와 Runtime State를 구분한다.
+- 다른 시스템을 Global Singleton으로 직접 탐색하는 구조를 최소화한다.
+- Combat은 다른 Owner의 데이터를 복제하지 않는다.
+
+---
+
+# 35. Migration Notes
+
+기존 Combat v0.3.x에서 다음 철학을 보존한다.
+
+## Preserve
+
+```text
+Turn-based Combat
+Leader Command
+NPC composition matters
+Kill is not the only solution
+Escape is valid
+Opening / Vulnerability concept
+Abstract Distance concept
+Swarm concept
+Multiple resolution paths
 ```
 
 ---
 
-## SECTION 4 — 개방(무력화) 시스템
+## Move to Check System
 
+```text
+d6 Success Pool
+4+ Success
+Success Requirement
+Dice Modifier
 ```
-개방 게이지: 약공 적중 시 +1. (무기 무효라도 압박 누적)
-임계(기본 2) → 괴물 [무방비](회피 불가). 강공 +2 보너스 주사위.
-특수 트리거: 기습 개방(미포착 적 첫 강공) / 턱 묶임 개방(괴물이 속박 보유 시 타 생존자에게 무방비)
-[무방비]는 일시적 — 괴물 행동/재포지셔닝 시 만료.
+
+기존 판정 공식은 현행 판정의 정본이 아니다.
+
+---
+
+## Move to Action / Skill
+
+```text
+Light Attack
+Heavy Attack
+Evade
+Read
+Craft Action
+Knowledge Action
+Intelligence Action
+Dialogue Action
+Care Action
+Charm Action
+Brace
 ```
 
 ---
 
-## SECTION 5 — 거리 시스템
+## Move to Combat Detail
 
-```
-밴드: 근접(Melee) / 중거리(Mid) / 원거리(Ranged)
-근접: 명중 +1 주사위, 피격↑   중거리: 보정 없음   원거리: 명중 −1, 피격↓
-무기 사거리: 근접무기(검류·둔기)=근접 / 원거리무기(총·투척)=중·원거리
-이동: 행동의 일부로 1밴드 이동. 괴물 스킬도 사거리 보유.
-```
-
----
-
-## SECTION 6 — 무기 타입 & 약점 정밀타
-
-```
-무기 타입: 검류 / 둔기 / 원거리 / 특수
-취약(예 둔기) → 피해 +1
-저항(예 검류) → 완전 무효 아님. '약점 정밀타'로만 유효:
-   비보호 부위(눈·혀·복부) 정밀 조준 → 성공 요구치 +2~3, 근접 필요, 실패 시 반격 노출
-```
-
-### 6-B. 무장 해제 & 구속 게이트 (인간형 실체 대응)
-
-인간형 실체 괴물(약탈자 등)은 무기 약점 대신 **무장 해제**가 공략 약점이고,
-**대상 구속**이 적의 위험 기술을 여는 게이트다. (`MONSTER_DB` SECTION 2-B)
-
-```
-무장 해제 (적의 무장 무기 기술 잠금):
-  ① NPC 고유기술 "무기 떨어트리기" (판정: 기술) → 적중 시 확정 해제
-  ② 부수효과: 강공 적중 20~30% / 위압·교섭(대화) 성공 20~30% 무기 탈락
-구속 게이트 (적이 생존자를 [속박] 시):
-  적의 준-강기술(장비 약탈·강제 R18) 해금. → 회피/방어로 붙잡기 차단, 또는 선공 구출로 대응.
+```text
+Initiative Formula
+Distance Modifier
+Opening Gauge
+Weakness Precision Formula
+Escape Gauge
+Swarm Formula
 ```
 
 ---
 
-## SECTION 7 — 위협 벡터 & 전투기벽
+## Move to Data Owners
 
-```
-위협 벡터(C안): 생존자는 주로 상태이상→전투기벽/영구기벽 누적→처형/붕괴로 패배.
-              생체력 직접 피해는 강기술 피니셔에 한정.
-전투기벽(임시): 공포·두려움·(R18)흥분·최면. 전투 종료 시 해제.
-              단 [공포]는 누적되어 영구 기벽 전환 가능.
-              해제: 대기·경계(자체) / 긴급치료·간호(타인)
-영구 기벽 부여: MECH_Event_Reward_Appraisal SECTION 6 트리 따름.
-              계열: 물리→육체 / 코즈믹→정신 / R18 괴물→R18. Flag_Memory emit.
-```
+```text
+Weapon Type
+→ Item
 
----
+Monster Weakness
+→ Monster DB
 
-## SECTION 8 — 격파 / 도주 이중 승리 (도주 락)
+Combat Status Effect
+→ Status Effect DB
 
-| 트랙 | 사용 스탯 | 결과 |
-|---|---|---|
-| 격파 | 전투(공격)·탐색/지능·제작(약점·전장) | 격파 게이지 0 → 전리품 + 제물 진척 |
-| 도주(락) | 대화·매력·제작·기술 | 도주 게이지 충족 → 이탈. 전투 스탯 불가 |
-
-도주 게이지 요구치·조건은 `MONSTER_DB` 개체별 정의.
-
----
-
-## SECTION 9 — 다수전 & Swarm
-
-> 일반형 괴물은 동종 다수 등장이 기본. 개체별 풀을 따로 굴리지 않고 **군체(swarm) 1유닛**으로 추상화.
-
-### 9-1. 규모 × 개체 체력 (2단 게이지)
-```
-swarm 유닛 = 규모 N × 개체 체력 H
-공격 피해 → 맨 앞 개체 체력 H 차감. 0 도달 시 규모 −1.
-  들개(H=1): 사실상 규모만 깎임      자경단원(H=3): 한 명 쓰러뜨리는 데 여러 타
-규모 0 → 군체 소멸.
-```
-
-### 9-2. 위협의 규모 비례
-```
-swarm 공격력·피격 위협·표적 수 = 규모에 비례.
-규모를 줄일수록 안전 → '줄여나가는' 다수전 손맛 유지.
-광역기(설비·괴물 광역) = 규모 한 번에 2~3 감소. 단일기 = 1.
-```
-
-### 9-3. 분리 승격
-```
-우두머리·특수 개체는 군체에서 분리 → 별도 개체 유닛으로 승격(개방 게이지·상태이상 개별).
-평소엔 군체로 가볍게, 필요 시 분리로 무게 부여.
-```
-
-### 9-4. 다수전 유의
-```
-개방 게이지: swarm 유닛은 개체 개방 없음(약공 필중 피해로 직접 처치). 분리 개체만 개방 적용.
-방어(어그로)·위압(대화)·설비(제작)의 가치가 다수전에서 급등.
-표적 분산/집중 → 한 생존자에 몰리면 위험. 방어로 떠안기.
+Monster Action Selection
+→ Monster AI
 ```
 
 ---
 
-## SECTION 10 — 상태이상 (→ 단일 출처 DB 참조)
+## Move to Optional Module
 
-> **모든 상태이상·전투기벽 정의는 `MECH_Status_Effect_DB`가 소유한다.** 본 섹션은 요약·참조만.
-> 기술·괴물의 `status_inflict`는 그 DB의 ID(`ST_*`)를 참조. 신규 도입은 DB 등록 + 승인(DB SECTION 5).
-
-빠른 참조 (전체·효과는 DB):
-```
-일반(general)   : ST_Bound 속박 / ST_Pain 고통 / ST_SeverePain 심각한 고통 / ST_Fear 공포 /
-                  ST_Cower 움츠러듬 / ST_Stun 기절 / ST_Bleed 출혈 / ST_Brand 낙인 /
-                  ST_Exposed 무방비(괴물) / ST_Stagger 비틀거림 / ST_Stealth 은신(괴물)
-R18(r18)        : ST_R18_Bound / ST_Arousal 흥분 / ST_Hypnosis 최면(표적 무작위화) /
-                  ST_Enthrall 홀림(기벽저항↓·성감 가속) / ST_Frenzy 광분 / ST_CorruptDesire 타락욕망 /
-                  ST_Submission 굴종
-굴복 전용(submission): ST_Afterglow 절정 여운 / ST_Trance 홀림(굴복) / ST_Restraint 구속 / ST_Ecstasy 황홀
-```
-> ⚠️ `ST_Hypnosis`(최면)와 `ST_Enthrall`(홀림)은 **별개**. 효과 혼용 금지(DB SECTION 2 참조).
-> 굴복 페이즈 전용 상태이상의 주도권 작용은 SECTION 11-4-2.
-
----
-
-## SECTION 11 — R18 전투 레이어 (토글 모듈)
-
-> **제거 가능한 모듈.** SFW 빌드에서 r18_module OFF면 본 섹션 전체 무시, 전투 정상 작동.
-> 전용 괴물은 소수(주로 네임드). 대부분은 일반/네임드 괴물 + `r18_module`로 처리.
-
-### 11-1. 진입 게이지 — 분노 / 흥분 (경로 분기)
-```
-전투 진입 시 두 게이지 부여 (상호 경쟁, 둘 다 화면 노출):
-  분노 게이지 ← 전투적 행동(강공·약공·격파·회피 등) 시 증가
-  흥분 게이지 ← R18 피격·디버프 피격·유혹/교란 등 R18 행동 시 증가
-
-먼저 MAX 도달 측이 경로 잠금:
-  분노 先MAX → 굴종 커맨드 잠금. 전투/도주/승/패만 (끝까지 저항)
-  흥분 先MAX → 굴종 커맨드 해금 (플레이어 선택으로 굴복 페이즈 진입 가능. 강제 아님)
-```
-> 결과: 전투특화(레이첼·제인)는 분노가 차 저항 경로, 매력·유혹 플레이는 흥분이 차 굴종 경로.
-> *어떤 NPC로 어떻게 싸웠나*가 결말을 가른다.
-
-### 11-2. 일반 R18 전투 게이지 3종
-```
-의복 게이지 : 피격 시 게이지 누적(연출만 랜덤 부위 파괴). 노출↑ → 성감 누적 배율↑ (증폭기)
-성감 게이지 : 0~10. R18 공격으로 누적. MAX → [절정] 디버프 + 게이지 초기화 + 굴복도 −1
-굴복도(임시): 전투 진입 전 부여 = (체력+정신력)/2. 0 도달 → 완전 전투불능(도주·행동 불가 = R18 결착)
-```
-> 성감 게이지 = 반복 카운터, 굴복도 = 진짜 패배 시계. (의복이 성감을 증폭)
-
-### 11-3. 능동 R18 커맨드 (매력 슬롯 확장)
-```
-교란(매력)        : 괴물 다음 R18 공격 빗나감/성감 누적 감소. (R18판 회피)
-역이용(침식도)     : 침식도를 소모해 괴물에게 성감·구속 역부여. 침식 높을수록 위력↑(양날: 굴종에 근접)
-유혹 미끼(매력+침식): 괴물 표적 자신에게 고정 + 제압 집중 유도 → 타 NPC가 격파/탈출 작업. (R18판 방어)
-```
-> 매력형 NPC가 SFW에선 유인·보호, R18에선 주역. (의도된 비대칭)
-
-### 11-4. 굴복 페이즈 — 주도권(Tempo) 쟁탈 미니게임
-
-> 흥분 先MAX 시 굴종 커맨드로 진입(분노 先MAX면 잠김). 일반 전투의 '주고받기'와 달리
-> **상태이상으로 행동권을 빼앗고 연속 행동을 만드는** 주도권 싸움이 핵심.
-
-#### 11-4-1. 주도권(Tempo) 시스템
-```
-주도권: 한쪽이 보유. 보유한 쪽이 행동.
-  공세 성공        → 주도권 유지 (연속 행동 = 콤보)
-  상대 해제/저항 성공 → 주도권 탈취
-  특정 상태이상 부여   → 상대 턴 스킵 (주도권 굳히기)
-진입 시 괴물에게 흥분/탈진 게이지 부여(격파 게이지의 R18 치환).
-승패: 괴물 흥분/탈진 MAX → 상방(역전승) / NPC 굴복도 0·[절정] 누적 한계 → 하방(함락).
-→ 주도권을 더 오래 쥔 쪽이 상방/하방을 결정.
-```
-
-#### 11-4-2. 굴복 페이즈 전용 상태이상 3종 (주도권 도구)
-```
-[절정 여운] : 절정 직후 1~2턴 행동 불가 = 상대 주도권 굳히기. NPC가 괴물에 걸면 역전 콤보 기회.
-[최면/홀림] : 행동 무작위화/의지 흐려짐. 해제 판정 필요. 주도권을 쥔 채 흔드는 교란.
-[구속/속박] : 행동 선택지 제한(저항·특정 기술만). 탈출 시도로만 풀림 = 탈출 성공 시 주도권 탈환.
-```
-
-#### 11-4-3. 합(合) 단위 커맨드 충돌 (미니게임 코어)
-```
-굴복 페이즈 = 괴물 6축 커맨드 vs 생존자 5분류 커맨드가 합 단위로 충돌.
-한 합:
-  1. 주도권 보유자 커맨드 발동 (괴물=6축 / 생존자=5분류)
-  2. 상대 대응 커맨드 선택 (받아치기/흘리기/버티기)
-  3. 충돌 판정 = (발동측 위력 + 상성) vs (대응측 위력 + 상성)
-       상성 보정: ◎ +2 / ○ 0 / △ −1 주사위 (R18_Skill_Catalog SECTION 5 상성표)
-       위력 = 기본치 + 경험/초기 숙련 + 침식도·축 진척 보정 (11-4-5)
-  4. 결과: 양측 게이지 변동(차등) + 우세측 상태이상 부여 + 주도권 선취/유지
-       → 비기는 합 없음. 매 합이 의미를 가짐.
-주도권 밀당 (주도권자 역차별 해소):
-  주도권자가 커맨드 발동 = 패를 먼저 공개. 대응자 선택:
-    정공법(◎/○) 받음 → 정상 충돌 판정. 잘 받으면 주도권 탈취 가능.
-    불리(△) 받음/흐름 끊기 → 그 합은 손해(게이지 불리 + 상태이상 받음),
-                            단 다음 합 주도권을 가져옴 (손해 감수하고 흐름 전환).
-  예외 — 행동불가 상태이상([절정 여운]·[황홀]·[구속])은 대응 자체를 봉쇄
-        → 주도권자가 일방적으로 굳히기(패 공개 약점 소멸). "묶고 일방 공세"가 주도권자의 이상적 플레이.
-  → 주도권자는 '패를 먼저 깠으나' 상대가 무리(△)하면 그 합 확실히 이득. 양측 매 합 딜레마.
-  ⚠️ '불리 대응 손해'의 크기 = 밸런스 검증 대상(작으면 주도권 뺏기 남발 / 크면 흐름 못 끊음).
-승패 레이스: 괴물 흥분/탈진 MAX(상방·역전승) vs 생존자 굴복도 0(하방·함락).
-  생존자는 흥분 先MAX로 진입 = 불리한 출발. 정공법만으론 레이스 패배 →
-  상성 우위·농락형(침식 비례)으로 역전해야 함(타락 정도가 승패를 가름).
-```
-
-#### 11-4-4. 생존자 기술 5대분류 (굴복 페이즈 한정·공용 풀)
-```
-① 봉사형(Service)    : 괴물 흥분 안정 누적. 자기 흥분도 동반↑ (양날 기본기). 예 키스·구강류
-② 유혹형(Tease)      : 느림·안전 + 괴물 다음 행동 약화(견제). 예 애무·지연류
-③ 농락형(Domination) : 침식·진척 높을수록 강함. 괴물 흥분 폭증 = 역전 마무리. 예 기수위·역제압류
-④ 흡수형(Absorption) : 괴물 체액 흡수 → 게이지 회복 + 체액/변이 축 진척↑(능동 가속·양날). 예 섭취·동화류
-⑤ 저항형(Defiance)   : 굴복도 손실 완화 / 상태이상 해제 / 이탈 시도(안전판·후퇴). 예 정신집중·탈출류
-```
-> 괴물 커맨드(6축)·생존자 기술(5분류) 정의는 `MECH_R18_Skill_Catalog`. 충돌 상성은 그 SECTION 5.
-> ④흡수형이 `MECH_R18_Memory_Log`의 능동 진척 가속과 직결(회복 ↔ 변질 대가).
-> ⑤저항형이 있어 굴복 페이즈가 "들어가면 끝까지"가 아니라 발을 뺄 수 있는 전략적 진입이 됨.
-
-#### 11-4-5. 위력·성공률 의존 (양날)
-```
-판정 위력 구성: 기본치 + 경험/초기 숙련도 + 침식도·부위 민감도·축 진척 보정.
-침식도·진척 높을수록:
-  농락형 위력↑ / 상태이상 부여 성공률↑ (주도권 굳히기 쉬움)
-  단 [절정 여운]에 걸릴 확률도↑  → 타락할수록 강하지만 무너지기도 쉬움.
-→ "타락한 NPC = 굴복 페이즈 주역" (테마+밸런스 동시 충족).
-```
-
-#### 11-4-6. 심화 변수 (전술 깊이)
-```
-공격 예측(지능)    : 지능 판정 성공 시 괴물의 다음 합 커맨드(축)를 미리 공개 → 상성 대응 준비.
-                    탐색/지능 낮으면 무작위 추출에 그대로 노출(정보 비대칭 = 코즈믹 무력감).
-쿨타임             : 고위력 커맨드(농락·괴물 시그니처)는 사용 후 N합 재사용 불가 → 연발 방지.
-연계 추가공격(콤보) : 특정 커맨드 성공 → 후속 커맨드 보정/즉시 추가 합 (예 봉사 성공 → 농락 연계).
-                    주도권 유지 시에만 성립 → 주도권 굳히기의 보상.
-```
-> 위 변수는 밸런스 검증 후 수치 확정. 코드에서는 합 단위 상태머신으로 처리(11-4 전체).
-
-#### 11-4-7. 난이도 철학 (의도적 깊이 + 투명한 정보)
-```
-굴복 페이즈는 일반 전투보다 깊고 어려워도 된다 — 근거 3가지:
-  ① 선택적 진입: 흥분 先MAX + 굴복 커맨드 선택이라는 능동적 동의를 거침(강제 아님).
-  ② 사망 아님: 패배해도 포획·타락 패널티에 그침 → 시행착오로 배울 여유.
-  ③ 확실한 리턴: 거듭할수록 메모리 로그·기벽·숙련 누적 → 깊은 학습이 보상받음.
-
-단, '어려움 ≠ 불친절':
-  둬도 되는 어려움 — 깊은 의사결정(상성·주도권 밀당·쿨타임·자세 운용)
-  피해야 할 불친절 — 정보 은폐(상성·쿨타임·가능 커맨드를 안 보여줌)
-  → 굴복 페이즈는 깊되 투명. 상성표·쿨타임·가능 커맨드를 UI로 명시.
-     (일반 전투의 '전조 판정 은폐=코즈믹 무력감'과 달리, 굴복은 정보 공개형 전략 미니게임)
-```
-
-#### 11-4-8. 자세 게이팅 (강축 봉쇄 전략 레이어)
-```
-상성과 별개 차원 — 상대의 강력한 공격 커맨드를 '원천봉쇄'하는 수싸움.
-규칙① 부위 점유: 커맨드는 부위(입·가슴·하복부·후부·전신)를 점유 → 같은 부위 쓰는 상대 커맨드 봉쇄(동적).
-규칙② 자세 정합: 현재 자세(대치/정면/후배위/기승/구속)가 가능 커맨드 결정. 주도권자가 자세 강제(지속).
-결합 : 부위+자세 동시 봉쇄로 강축 원천봉쇄(예: 후배위 강제 + 입 점유 → 정면·입 커맨드 통째 봉쇄).
-주도권 사슬: 자세 변경/점유 해제 = 주도권 탈취가 선행. → '주도권→자세 통제→가능 커맨드' 사슬.
-
-안전장치(좌절 방지):
-  저항형 = 봉쇄 면역(항상 사용 가능, 탈출 보루) / 주도권 탈취 시 봉쇄 해제 / 전 부위 동시봉쇄 불가.
-탈출 2경로:
-  유혹형 = 범용 패링(모든 공격에 시도, 성공률 상성 무관). 성공→무력화+주도권, 역상성→대성공 보상.
-           실패→괴물 흥분 가산, 약상성일수록 패널티 증폭('역이용'). 고위험 역전.
-  저항형 = 안전 버티기(손해 없음, 주도권 못 가져옴, 횟수 제한). 안전 정비.
-투명성: 봉쇄된 커맨드는 회색 + 사유 표시(11-4-7 정보 공개 원칙).
-
-심리전 구도:
-  주도권 빼앗겼을 때 강함 = 유혹·저항 (수비형 NPC)
-  주도권 쥐었을 때 강함   = 봉사·농락·흡수 (공격형 NPC)
-  양쪽 다 = 만능형. → 캐릭터 초기 숙련·성향이 전투 스타일을 가름.
-```
-> 점유 부위·자세 5종·게이팅 필드 정의는 `MECH_R18_Skill_Catalog` SECTION 8.
-> ⚠️ 봉쇄 지속·전신 점유 해제 난이도·유혹 패널티 증폭폭 = 밸런스 검증 대상.
-
-### 11-5. 결착 & 연동
-```
-강제 절정/굴복도 0 → 포획/타락 결착 (사망 아님). 침식도 덩어리 지급(매턴 아님).
-당함 경험 → R18 기벽 영구 부여 + 신체부위×행위 기록(MECH_R18_Memory_Log).
-R18 기벽 ↔ 굴복 전용 기술: 특정 R18 기벽 보유 시 전용 기술 위력↑/추가 해금.
-괴물 r18_weakness: 일반 전투 무기 약점의 R18판 (특정 R18 커맨드에 취약/내성).
-```
-
-### 11-6. r18_module 토글 스키마
-```yaml
-r18_module:                  # 옵션. OFF면 전체 무시(SFW 무결성)
-  clothing_attacks: [의복 게이지 약기술 변종]
-  arousal_attacks:  [성감 누적 약기술 변종 (제압 시 활성)]
-  pin_condition:    [제압/굴복 전환 조건]
-  r18_status_pool:  [속박·흥분·최면·황홀·굴종 중 사용]
-  r18_weakness:     [취약 R18 커맨드]   # 예: 유혹 미끼에 약함
+```text
+R18 Combat
+Submission Phase
+R18 Gauge
+R18 Skills
+R18 Conditions
 ```
 
 ---
 
-## SECTION 12 — 괴물 반응·대사 템플릿
+# 36. Legacy Document Value
 
-`MONSTER_DB` 개체별. 코드가 상태별로 1줄 인출.
-```yaml
-dialogue_template:
-  on_encounter / on_hit_taken / on_telegraph / on_defeat / on_flee: ["..."]
-survivor_reads:           # 판정 성공 시 생존자 대사
-  weakness / danger / morale_low: ["..."]
+Combat v0.3.x의 세부 내용은 폐기하지 않는다.
+
+해당 내용은:
+
+```text
+REFERENCE / LEGACY DESIGN ASSET
+```
+
+으로 보존하여 하위 System을 재구축할 때 참고한다.
+
+다만 기존 세부 규칙을 현재 구현의 정본으로 직접 사용하지 않는다.
+
+---
+
+# 37. Stability Rule
+
+다음 변경은 일반적으로 Combat Core 수정이 필요하지 않다.
+
+- Check 공식 변경
+- 신규 Skill 추가
+- Weapon 추가
+- Monster 추가
+- Status Effect 추가
+- AI Weight 변경
+- Swarm 수치 변경
+- R18 Module 변경
+
+반대로 다음은 Combat Core 검토가 필요하다.
+
+- 턴제 Encounter 폐기
+- 리더 명령 구조 폐기
+- Participant Model 변경
+- Combat Resolution 구조 근본 변경
+- Combat과 Campaign Time 관계의 근본 변경
+- Optional Module이 Core 필수가 됨
+
+---
+
+# 38. Ownership Summary
+
+Combat Core owns:
+
+```text
+Encounter Lifecycle
+Participants
+Round Flow
+Leader Command Interface
+Action Resolution Coordination
+Combat End Conditions
+Resolution Paths
+CombatResult
+System Boundaries
+Extension Points
+```
+
+Combat Core does not own:
+
+```text
+Check Formula
+Skill Data
+Weapon Data
+Monster Data
+Status Effect Definitions
+Monster AI
+Reward
+Quirk
+Resource State
+Inventory State
+R18 Rules
 ```
 
 ---
 
-## SECTION 13 — 구현 데이터 구조 (Code-facing)
+# 39. Final Principle
 
-### 13-1. 행동 커맨드
-```yaml
-ActionCommand:
-  actor_id: str
-  type: light_atk | heavy_atk | evade | read | craft_field | knowledge_tactic |
-        intel_assess | dialogue_press | first_aid | charm_lure | brace |
-        r18_disrupt | r18_exploit | r18_lure | submit | submit_skill
-  target_id: str | null
-  distance_intent: melee | mid | ranged | null
-unlock_rule: actor.ability[stat] >= 4   # 커맨드별 관련 스탯 기준
-```
+Combat System의 목적은:
 
-### 13-2. Swarm 유닛
-```yaml
-SwarmUnit:
-  archetype_id: str       # MONSTER_DB 원형
-  size: int               # 규모 N
-  unit_hp: int            # 개체 체력 H
-  on_hit: dmg → front unit_hp; if <=0: size -= 1
-  defeated_when: size == 0
-  promote: [special_member → 개체 유닛 분리]
-```
+> 모든 전투 규칙과 데이터를 하나의 문서에 모으는 것
 
-### 13-3. 판정 의사코드
-```
-function light_attack(actor, target):     # 필중
-    bonus = weapon_vuln_bonus(actor.weapon, target)
-    target.take_damage(max(0, 1 + bonus - target.defense))
-    target.opening += 1
-    if target.opening >= OPENING_THRESHOLD: target.add_status(무방비)
+이 아니다.
 
-function heavy_attack(actor, target):
-    pool = actor.combat + mods(actor)
-    if target.has(무방비): pool += 2
-    s = resolve_pool(pool)
-    if s == 0: return MISS
-    target.take_damage(max(0,(s - target.defense) + weapon_vuln_bonus(actor.weapon,target)))
+목적은:
 
-function r18_gain(gauge_anger, gauge_arousal, action):
-    if action.is_combat: gauge_anger += w1
-    if action.is_r18:    gauge_arousal += w2
-    if gauge_anger.maxed(): lock(submit_command)
-    elif gauge_arousal.maxed(): unlock(submit_command)
-```
+> 서로 다른 생존자와 적이 Encounter 안에서 행동하고,
+> 다른 시스템의 규칙을 조합하여 결과를 만들며,
+> 그 결과를 Campaign에 안정적으로 반환할 수 있는
+> 전투의 공통 골격을 제공하는 것
 
----
-
-## SECTION 14 — 버전 관리
-
-- **문서 위치**: `01_Mechanics/MECH_Combat_System.md`
-- **커밋 메시지**: `feat(mechanic): combat v0.3 — 8-stat command system, swarm multi-combat, full R18 layer`
-- **Wiki_Index.md 갱신 필요 여부**: **필요 (YES)**
-
-| 버전 | 날짜 | 변경 내용 |
-|---|---|---|
-| v0.1.0 | 2026-06-03 | 최초 골격. |
-| v0.2.0 | 2026-06-04 | TDD 1차 반영. 약공 필중·강공 보너스·회피/방어 분리·긴급치료·거리·약점 정밀타·전투기벽·대사 템플릿·코드 스키마. |
-| v0.3.0 | 2026-06-05 | **8 스탯별 전투 커맨드 + NPC 스탯 임계 해금 / swarm 다수전(규모×개체체력·분리승격) / R18 전투 레이어 전체(분노·흥분 게이지 경로 분기, 성감·굴복도·의복, 능동 R18 커맨드, 굴복 페이즈·전용 기술, r18_module 토글) / 상태이상 R18 변종·흥분·최면 추가.** |
-| v0.3.1 | 2026-06-05 | SECTION 6-B 추가: 무장 해제 2경로(고유기술 '무기 떨어트리기'=기술 판정 / 강공·위압 부수효과) + 구속 게이트 처리. 약탈자 등재 연동. |
-| v0.3.2 | 2026-06-06 | **굴복 페이즈 전면 확장(11-4): 주도권(Tempo) 쟁탈 미니게임 / 전용 상태이상 3종(절정 여운·최면·구속) / 생존자 기술 5대분류(봉사·유혹·농락·흡수·저항) / 위력·성공률의 침식·진척 의존(양날) / 흡수형↔메모리 로그 능동 가속 연동.** |
-| v0.3.3 | 2026-06-08 | SECTION 10 중앙 상태이상 표를 **`MECH_Status_Effect_DB`(단일 출처)로 이전**, 본 섹션은 빠른 참조로 축약. ST_ ID 체계 도입. [최면]≠[홀림] 충돌 해소 반영. |
-| v0.3.4 | 2026-06-08 | 굴복 페이즈를 **합(合) 단위 커맨드 충돌 미니게임**으로 구체화(11-4-3): 괴물 6축 vs 생존자 5분류 + 상성 판정. 11-4-6 심화 변수 추가(지능 공격 예측·쿨타임·연계 콤보). 위력에 경험/초기 숙련 반영. 6축·5분류 정의·상성표는 `MECH_R18_Skill_Catalog` 참조. |
-| v0.3.5 | 2026-06-08 | **주도권 밀당** 추가(11-4-3): 주도권자 역차별 해소 — 불리(△) 대응 = 그 합 손해 + 다음 주도권 획득, 행동불가 상태이상은 대응 봉쇄(일방 굳히기). **11-4-7 난이도 철학** 추가: 선택적 진입·비사망·확실 리턴 근거로 의도적 깊이, 단 정보는 투명 공개. |
-| v0.3.6 | 2026-06-08 | **11-4-8 자세 게이팅** 추가: 부위 점유 + 자세 정합 이원 규칙으로 강축 원천봉쇄. 안전장치(저항 면역·주도권 해제·전부위 동시봉쇄 불가). 탈출 2경로(유혹 범용 패링·고위험 / 저항 안전). 심리전 구도(수비형/공격형/만능형). 정의는 `MECH_R18_Skill_Catalog` SECTION 8 참조. |
-
-**갱신 기준**: 거리·선공·요구치·게이지 임계 밸런스 테스트 후 수치 확정. 신규 상태이상 도입은 디렉터 승인.
+이다.

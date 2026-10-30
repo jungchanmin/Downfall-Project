@@ -341,62 +341,154 @@ Notes:
 
 # 9. Combat Domain
 
+## Encounter Resolution System
+
+ID:
+MECH_Encounter_Resolution_System
+
+Path:
+Wiki/01_Mechanics/MECH_Encounter_Resolution_System.md
+
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
+
+Purpose:
+Encounter의 상태, Conflict Stance / Intent, Escalation, Resolution Capability, Hostile / NonHostile 전환 및 Alternative Resolution 경계를 정의한다.
+
+Open Items / Review Note:
+Concrete Escalation scale and thresholds,
+Negotiation balance,
+Encounter Response Logic,
+exact Action Runtime schema and per-Action data
+remain lower-level or follow-up work.
+
+Action Runtime 공통 계약은 `MECH_Combat_Action_Runtime_System`이 소유한다.
+
+---
+
 ## Combat System
 
 ID:
-
-`MECH_Combat_System`
+MECH_Combat_System
 
 Path:
+Wiki/01_Mechanics/MECH_Combat_System.md
 
-`Wiki/01_Mechanics/MECH_Combat_System.md`
-
-Authority:
-
-REFERENCE
-
-Legacy Status:
-
-wip
-
-Version:
-
-0.3.6
-
-Review Flag:
-
-REWORK_REQUIRED
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
+Audit Result: REFACTOR / SPLIT COMPLETE
 
 Purpose:
+Combat Encounter의 Lifecycle, 참가자, 리더 명령,
+Action 해결 흐름과 Resolution 및 시스템 경계를 정의한다.
 
-기존 Downfall 전투 시스템의 주요 설계 자산.
+Migration Note:
+Combat v0.3.x detailed rules remain reference assets.
+Check / Action / Position 공통 계약은 각 Owner를 따른다. Swarm / R18 세부 규칙은 별도 검토가 필요하다.
 
-Valuable concepts include:
+---
 
-- 역할 기반 전투 행동
-- 격파 / 이탈 복수 해결 경로
-- 거리
-- Swarm
-- 약점
-- 전조
-- 상태 기반 전투
-- 데이터 중심 Skill / Monster 연계
+## Combat Action System
 
-Known Conflict:
+ID:
+MECH_Combat_Action_System
 
-기존 d6 성공 풀 판정 구조가 최신 프로젝트 판정 방향과 충돌한다.
+Path:
+Wiki/01_Mechanics/MECH_Combat_Action_System.md
 
-Known Structural Issue:
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
 
-Core Combat, 세부 계산, Monster 연계, Skill, Status 및 Optional Module 규칙이 한 문서에 과도하게 결합되어 있다.
+Purpose:
+Combat Action의 공통 Definition, Requirement, Check/Effect 연결 및 Survivor/Monster Action 확장 경계를 정의한다.
 
-Implementation:
+Migration Note:
+Monster shared Action의 1차 Migration은
+DATA_Monster_Action_Catalog v1.0에서 진행 중이다.
 
-BLOCKED as direct implementation specification.
+MECH_Skill_Catalog v1.3.0은
+Migration verification이 완료될 때까지 Legacy Action Asset Source로 유지한다.
 
-Planned Direction:
+---
 
-기존 설계 가치를 보존하면서 향후 System Contract와 세부 문서로 분리 검토.
+## Combat Action Runtime System
+
+ID:
+MECH_Combat_Action_Runtime_System
+
+Path:
+Wiki/01_Mechanics/MECH_Combat_Action_Runtime_System.md
+
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
+
+Purpose:
+Combat Action의 Cooldown, 사용 이력, Prepared Action, Telegraph 연계, Fizzle 및 Combat Runtime Cleanup을 정의한다.
+
+Open Items / Review Note:
+exact Runtime schema,
+per-Action cooldown values,
+tie-break rules,
+advanced multiple-prepared exceptions
+remain follow-up work.
+
+---
+
+## Combat Positioning System
+
+ID:
+MECH_Combat_Positioning_System
+
+Path:
+Wiki/01_Mechanics/MECH_Combat_Positioning_System.md
+
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
+
+Purpose:
+Close / Mid / Far의 추상 Combat Formation을 통해 무기 운용 거리, 전열/후열, Movement, Target Exposure와 Line Compression을 정의한다.
+
+Open Items / Review Note:
+Exact Runtime Schema,
+initial formation rules,
+weapon/action position balance,
+monster position data,
+opening placement,
+position-related TECH_SPEC
+remain follow-up work.
+
+---
+
+## Check / Resolution System
+
+ID:
+MECH_Check_System
+
+Path:
+Wiki/01_Mechanics/MECH_Check_System.md
+
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
+Audit Result: NEW SYSTEM / CONSOLIDATE COMPLETE
+
+Purpose:
+Downfall 전역의 1d12 기반 Check 요청, Source, Modifier,
+Requirement 비교, 성공/실패 및 Margin 반환 계약을 정의한다.
+
+Open Items:
+Opposed Check Formula remains UNDEFINED.
+
+Approved Balance Baseline:
+Difficulty Requirement = 7 / 9 / 11 / 13 / 15 / 17
+Final Modifier Clamp = -3 ~ +3
+Standard Check probability boundary = 2% ~ 98%
+Natural Critical = None
 
 ---
 
@@ -450,6 +542,29 @@ Combat 및 다른 WIP 시스템과 연결된 세부 수치와 규칙은 재검�
 
 ---
 
+## Monster Action Catalog
+
+ID:
+DATA_Monster_Action_Catalog
+
+Path:
+Wiki/03_Entities/Monsters/DATA_Monster_Action_Catalog.md
+
+Authority: CURRENT_CANDIDATE
+Status: REVIEW
+Version: 1.0.0
+
+Purpose:
+Monster가 사용하는 실행 가능한 Combat Action의 단일 데이터 출처. `MECH_Combat_Action_System`의 공통 계약을 따르며 Monster는 Action ID만 참조한다.
+
+Review Flag:
+Check: REBALANCE_REQUIRED. Existing values: LEGACY_BALANCE. Undefined fields: REVIEW_REQUIRED.
+
+Migration Note:
+MECH_Skill_Catalog v1.3.0 remains LEGACY ACTION ASSET SOURCE. Existing SK_* / effect_id references are preserved.
+
+---
+
 # 11. NPC Domain
 
 ## NPC Stats System
@@ -500,24 +615,22 @@ Do not extend directly before approved technical redesign.
 ## Resource System
 
 ID:
-
-`MECH_Resource_System`
+MECH_Resource_System
 
 Path:
+Wiki/01_Mechanics/MECH_Resource_System.md
 
-`Wiki/01_Mechanics/MECH_Resource_System.md`
+Authority: CURRENT
+Status: APPROVED
+Version: 2.0.0
+Audit Result: REFACTOR COMPLETE
 
-Authority:
+Purpose:
+Food, Parts, Gold, Fame 및 재검토 중인 Clue의
+Resource State와 획득·소비·전환 계약을 정의한다.
 
-UNKNOWN
-
-Status:
-
-UNREVIEWED
-
-Next Review:
-
-Core Gameplay Audit 대상.
+Review Flag:
+Clue Mechanics / Starvation Rule remain UNDEFINED.
 
 ---
 
@@ -526,28 +639,22 @@ Core Gameplay Audit 대상.
 ## Monster AI
 
 ID:
-
-`MECH_Monster_AI`
+MECH_Monster_AI
 
 Path:
+Wiki/01_Mechanics/MECH_Monster_AI.md
 
-`Wiki/01_Mechanics/MECH_Monster_AI.md`
-
-Authority:
-
-UNKNOWN
-
-Status:
-
-UNREVIEWED
+Authority: CURRENT
+Status: APPROVED
+Version: 2.0.0
+Audit Result: REFACTOR COMPLETE
 
 Purpose:
+Hostile Encounter에서 Monster가 사용 가능한 Combat Action을 Eligibility, Context, AI Profile 및 Weighted Random을 통해 선택하는 계약을 정의한다.
 
-Monster 행동 결정 규칙.
-
-Notes:
-
-Monster Definition과 AI Decision Logic의 Ownership 분리 여부를 검토해야 한다.
+Migration Note:
+Legacy mandatory 3-Gauge 구조와 R18 Arousal Core 의존을 제거한다.
+Rage / Intimidation은 Optional State 후보로 유지하고 Action-based selection으로 전환한다.
 
 ---
 
@@ -582,6 +689,49 @@ Combat과 중복 정의 여부.
 ---
 
 # 16. Status Effect Domain
+
+## Combat Status Effect System
+
+ID:
+MECH_Combat_Status_Effect_System
+
+Path:
+Wiki/01_Mechanics/MECH_Combat_Status_Effect_System.md
+
+Authority: CURRENT
+Status: APPROVED
+Version: 1.0.0
+
+Purpose:
+Combat Status Effect의 적용, 유지, 중첩, 해제, 만료 및 Action / Check / Quirk / Optional Module 경계를 정의한다.
+
+Migration Note:
+기존 `MECH_Status_Effect_DB v1.1.0`은 Core / Optional Status Migration 완료 전까지 `LEGACY STATUS ASSET SOURCE`로 유지한다.
+
+---
+
+## Combat Status Effect Catalog
+
+ID:
+DATA_Combat_Status_Effect_Catalog
+
+Path:
+Wiki/03_Entities/Combat/DATA_Combat_Status_Effect_Catalog.md
+
+Authority: CURRENT_CANDIDATE
+Status: REVIEW
+Version: 1.0.0
+
+Purpose:
+Core Combat에서 사용하는 개별 Combat Status Effect Definition의 단일 데이터 출처. `MECH_Combat_Status_Effect_System`을 따르며 Consumer는 Status ID만 참조한다.
+
+Review Flag:
+Four structural directions are approved; balance details and ST_Reinforce ownership / consumer migration remain unresolved.
+
+Migration Note:
+기존 `MECH_Status_Effect_DB v1.1.0`의 general Status 13개를 구조적으로 Migration한다. R18 / submission Status는 Optional Module로 분리 대상이다.
+
+---
 
 ## Status Effect Database
 
