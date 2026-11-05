@@ -4,26 +4,26 @@
 
 ## Repository summary
 
-- Total tracked candidates: 129
-- Text/config candidates: 115
+- Total tracked candidates: 142
+- Text/config candidates: 128
 - Binary/other candidates: 14
 
 ## Category summary
 
 | Category | Files |
 |---|---:|
-| Documentation | 11 |
+| Documentation | 15 |
 | GitHub automation | 2 |
-| Other | 38 |
+| Other | 39 |
 | Runtime code | 3 |
 | Tools | 5 |
-| Wiki | 70 |
+| Wiki | 78 |
 
 ## Extension summary
 
 | Extension | Files |
 |---|---:|
-| `.md` | 103 |
+| `.md` | 116 |
 | `(none)` | 16 |
 | `.py` | 5 |
 | `.cs` | 3 |
@@ -35,7 +35,9 @@
 
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
+| `docs/CONTEXT_CURRENT.md` | 13206 | text/config | `5cc0151ab00b` |
 | `docs/GITHUB_WORKFLOW.md` | 4804 | text/config | `347e6438da5e` |
+| `docs/PROJECT_INDEX.md` | 18887 | text/config | `0f06b697c30a` |
 | `docs/WIKI_MIGRATION_BACKLOG.md` | 3457 | text/config | `bc05ffab6f4f` |
 | `docs/ai/SOLO_DEV_AI_TOOLS_TUTORIAL.md` | 18126 | text/config | `6aca143c1b34` |
 | `docs/archive/ai/AI_EVENT_PIPELINE_ROADMAP_legacy.md` | 8376 | text/config | `6712e6a4b966` |
@@ -44,6 +46,8 @@
 | `docs/archive/planning/PROJECT_STATE_legacy.md` | 2235 | text/config | `8e2af42ac678` |
 | `docs/governance/CONFIGUREBOOK_IMPORT_POLICY.md` | 1880 | text/config | `63fcc354f8be` |
 | `docs/governance/DOCUMENTATION_MIGRATION_PLAN.md` | 3742 | text/config | `4ff569cfac75` |
+| `docs/governance/DOCUMENT_GOVERNANCE.md` | 19694 | text/config | `7461e4e84482` |
+| `docs/governance/PROJECT_CHARTER.md` | 14991 | text/config | `e32ac915b3e5` |
 | `docs/planning/CONFIGUREBOOK_IMPORT_TRACKER.md` | 4480 | text/config | `065d03f77b30` |
 | `docs/planning/PROJECT_STATE.md` | 2659 | text/config | `1be38f3c99ff` |
 
@@ -60,6 +64,7 @@
 |---|---:|---|---|
 | `.cursorrules` | 2387 | text/config | `e76bdf134f90` |
 | `.gitignore` | 2314 | text/config | `76655752c5df` |
+| `AGENTS.md` | 23099 | text/config | `d6499bb3bd45` |
 | `ConfigureBook/Events/N18/Morning/RandomEncount/NMR001_Rachel_Azit.md` | 5047 | text/config | `d43c192b26c5` |
 | `ConfigureBook/Events/N18/Morning/RandomEncount/NMR002_Rachel_Azit.md` | 4813 | text/config | `e22531f93803` |
 | `ConfigureBook/Events/N18/Morning/RandomEncount/NMR003_Rachel_Azit.md` | 4109 | text/config | `15f867f856b1` |
@@ -119,10 +124,10 @@
 
 | Path | Size | Kind | SHA-256 |
 |---|---:|---|---|
-| `Wiki/00_System/DESIGN_PILLARS.md` | 1764 | text/config | `cec8f86bd2b1` |
+| `Wiki/00_System/DESIGN_PILLARS.md` | 8784 | text/config | `d09e09e583cf` |
 | `Wiki/00_System/DOCUMENT_RULES.md` | 2706 | text/config | `d1087cbac9a9` |
-| `Wiki/00_System/PROJECT_CANON.md` | 3070 | text/config | `ddce8c4938ea` |
-| `Wiki/00_System/Wiki_Index.md` | 36507 | text/config | `e6967ab9a6d7` |
+| `Wiki/00_System/PROJECT_CANON.md` | 6441 | text/config | `1875eab247bc` |
+| `Wiki/00_System/Wiki_Index.md` | 38169 | text/config | `1640561f398f` |
 | `Wiki/00_Templates/EVT_Conveyor_Belt_Master_Prompt.md` | 10003 | text/config | `28c8d951b3c8` |
 | `Wiki/00_Templates/EVT_Interactive.md` | 12053 | text/config | `326da972ccfb` |
 | `Wiki/00_Templates/EVT_Notification.md` | 15413 | text/config | `0fe965526be4` |
@@ -130,20 +135,26 @@
 | `Wiki/00_Templates/EVT_Template_v2_Spec.md` | 12291 | text/config | `7329919648d7` |
 | `Wiki/00_Templates/QA_Refactoring_Anchor_Protocol.md` | 5046 | text/config | `2aef4a4f3fde` |
 | `Wiki/00_Templates/Survivor_Lore_Bible_Template.md` | 19288 | text/config | `39469294a693` |
-| `Wiki/01_Mechanics/MECH_Combat_System.md` | 27569 | text/config | `2faab0aacbc1` |
+| `Wiki/01_Mechanics/MECH_Check_System.md` | 19570 | text/config | `8352dfb6a722` |
+| `Wiki/01_Mechanics/MECH_Combat_Action_Runtime_System.md` | 22949 | text/config | `7941849da3ab` |
+| `Wiki/01_Mechanics/MECH_Combat_Action_System.md` | 19504 | text/config | `f8769f30893b` |
+| `Wiki/01_Mechanics/MECH_Combat_Positioning_System.md` | 14532 | text/config | `ad7c5cb670ef` |
+| `Wiki/01_Mechanics/MECH_Combat_Status_Effect_System.md` | 15037 | text/config | `a5e1a6e9edec` |
+| `Wiki/01_Mechanics/MECH_Combat_System.md` | 17925 | text/config | `0cd763ebd83a` |
+| `Wiki/01_Mechanics/MECH_Encounter_Resolution_System.md` | 17725 | text/config | `16059f716e80` |
 | `Wiki/01_Mechanics/MECH_Event_Reward_Appraisal.md` | 15514 | text/config | `4113d2e438fe` |
-| `Wiki/01_Mechanics/MECH_Monster_AI.md` | 7761 | text/config | `1d1e935aa64b` |
-| `Wiki/01_Mechanics/MECH_NPC_Stats_System.md` | 13921 | text/config | `54834f0a2507` |
+| `Wiki/01_Mechanics/MECH_Monster_AI.md` | 18527 | text/config | `2ff996044717` |
+| `Wiki/01_Mechanics/MECH_NPC_Stats_System.md` | 14441 | text/config | `9b4c34e8a345` |
 | `Wiki/01_Mechanics/MECH_Quirk_Mental_DB.md` | 13473 | text/config | `c61d31f1c196` |
 | `Wiki/01_Mechanics/MECH_Quirk_Physical_DB.md` | 8299 | text/config | `bf8cf994ea10` |
 | `Wiki/01_Mechanics/MECH_Quirk_R18.md` | 15669 | text/config | `e31eb7ae3c85` |
 | `Wiki/01_Mechanics/MECH_R18_Disposition_System.md` | 8835 | text/config | `b3da63b15963` |
 | `Wiki/01_Mechanics/MECH_R18_Memory_Log.md` | 10862 | text/config | `16f597f41383` |
 | `Wiki/01_Mechanics/MECH_R18_Skill_Catalog.md` | 24100 | text/config | `b8aae3b63355` |
-| `Wiki/01_Mechanics/MECH_Resource_System.md` | 9105 | text/config | `227fca4c3047` |
+| `Wiki/01_Mechanics/MECH_Resource_System.md` | 18227 | text/config | `732118bc4cd9` |
 | `Wiki/01_Mechanics/MECH_Skill_Catalog.md` | 14640 | text/config | `5c41173d0542` |
 | `Wiki/01_Mechanics/MECH_Status_Effect_DB.md` | 8113 | text/config | `83fff9caf51f` |
-| `Wiki/01_Mechanics/Time_System.md` | 5339 | text/config | `9f3b21ed1631` |
+| `Wiki/01_Mechanics/Time_System.md` | 14219 | text/config | `66b5cbfc735e` |
 | `Wiki/02_World/Locations/Abandoned_Cabins.md` | 4703 | text/config | `53474f737f8a` |
 | `Wiki/02_World/Locations/Cathedral.md` | 6397 | text/config | `b4aa23fbecd9` |
 | `Wiki/02_World/Locations/Department_Store.md` | 4402 | text/config | `d7b589217219` |
@@ -165,7 +176,9 @@
 | `Wiki/02_World/RITUAL_OF_25_DAYS.md` | 2771 | text/config | `f3ab97a68034` |
 | `Wiki/02_World/WORLD_OVERVIEW.md` | 2807 | text/config | `aa4d20a80116` |
 | `Wiki/02_World/World_Concept.md` | 1244 | text/config | `1cb1a3822af3` |
+| `Wiki/03_Entities/Combat/DATA_Combat_Status_Effect_Catalog.md` | 23747 | text/config | `7c42b6407f6e` |
 | `Wiki/03_Entities/Entities.md` | 2428 | text/config | `dad02dfb8580` |
+| `Wiki/03_Entities/Monsters/DATA_Monster_Action_Catalog.md` | 92082 | text/config | `ea4a3b68c634` |
 | `Wiki/03_Entities/Monsters/MONSTER_DB.md` | 21460 | text/config | `c6a8b5af1c82` |
 | `Wiki/03_Entities/Survivors/Guide_Gavin_Jackson.md` | 18406 | text/config | `188e9e4692a3` |
 | `Wiki/03_Entities/Survivors/Guide_Rachel_Lopez.md` | 4399 | text/config | `a109a4f46e4f` |
