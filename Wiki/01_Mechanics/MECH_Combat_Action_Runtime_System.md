@@ -18,7 +18,7 @@ references:
 
 summary: >
   Combat Action의 전투 중 Runtime State, Round 기반 Cooldown,
-  Prepared Action, Telegraph 연계, Fizzle, 사용 이력 및 Runtime Cleanup을 정의한다.
+  Prepared Action, Reactive State, Telegraph 연계, Fizzle, 사용 이력 및 Runtime Cleanup을 정의한다.
 
 tags:
   - mechanic
@@ -35,7 +35,7 @@ keywords:
   - Last Used Round
   - Activation
 
-last_updated: 2026-10-28
+last_updated: 2026-11-05
 ---
 
 # Downfall Combat Action Runtime System
@@ -43,7 +43,7 @@ last_updated: 2026-10-28
 ## 1. Purpose
 
 본 문서는 Combat Action Definition과 전투 중 Runtime State를 분리하고,
-Cooldown, Prepared Action, Telegraph 연계, Fizzle, Action History와 Runtime Cleanup의 공통 계약을 정의한다.
+Cooldown, Prepared Action, Reactive State, Telegraph 연계, Fizzle, Action History와 Runtime Cleanup의 공통 계약을 정의한다.
 
 개별 Action의 Damage, Check Requirement, Positioning 규칙, AI Profile 수치와 Telegraph 문장은 확정하지 않는다.
 
@@ -63,6 +63,8 @@ Prepared Requirement Revalidation
 Fizzle
 Runtime Action Lock
 Cooldown Fallback
+Reactive State creation / lifecycle / trigger count / consumption
+Reactive expiration / resolution eligibility revalidation / cleanup
 Combat End Cleanup
 Combat Log Event Boundary
 ```
@@ -73,6 +75,7 @@ Combat Log Event Boundary
 Action Definition / Action Effect
 Damage Formula / Check Formula
 Monster AI Weight / AI Profile
+개별 Reactive Trigger 조건 / Counter Effect
 Position Rules / Status Definition
 Encounter Resolution
 R18-specific Rules
@@ -86,8 +89,9 @@ Save Schema
 Action Definition은 Action ID, Role, Tier, Threat, Requirements, Cooldown Value,
 Telegraph Metadata, Prepared Trigger Metadata와 Effects 같은 정적 정보를 제공할 수 있다.
 
-Runtime은 Cooldown Remaining, Last Used Round, Usage Count, Prepared State,
-Prepared Target과 Temporary Lock 같은 전투 중 상태다.
+Runtime은 Cooldown Remaining, Last Used Round, Usage Count, Prepared State / Prepared Target,
+필요한 Reactive State / Trigger Reservation과 Temporary Lock 같은 전투 중 상태다.
+Reactive와 Prepared는 별도 상태이며 Reactive 개념은 §23.1과 §26을 따른다.
 
 Definition에 현재 Cooldown이나 Prepared 상태를 저장하지 않는다.
 개별 정의와 값은 Action Definition / Data Owner가 소유한다.
@@ -381,6 +385,56 @@ Forced encounter termination = may override
 
 ---
 
+## 23.1 Reactive State — Director Approved Minimum Contract
+
+Reactive State는 상대 Action 중 특정 Trigger가 발생했을 때 Reactive Resolution을 수행할 수 있는 Combat Runtime 임시 상태다. `Reactive State ≠ Prepared Action`: Prepared는 Owner의 다음 Activation에서 Execute / Fizzle하지만 Reactive는 외부 Action Trigger를 따른다. 상태, 생성, Trigger 횟수 / 소비, 만료, Resolution 직전 Eligibility 재검증 및 Cleanup은 Action Runtime이 소유한다.
+
+개별 Action Definition은 Trigger / Effect 의미를 제공한다. Damage / Check 공식, Position 규칙, Status 의미, AI Weight와 Action별 Counter Effect는 각 Owner가 소유하며 Runtime은 각 Owner의 Eligibility 결과를 소비한다. Reactive는 Prepared Trigger / Execute / Fizzle이 아니며 Prepared Target Lock, Capacity, Fizzle Cooldown, Transition Lock을 자동 상속하지 않는다.
+
+개념적 Reactive State는 Source Action ID, Owner Participant, Trigger Type, Remaining Trigger Count, Created Round / Activation Context와 Expire Boundary를 가질 수 있다. 이는 Prepared와 별도 상태이며 C# DTO, enum, 직렬화 / Save Schema가 아니다. 정확한 표현은 TECH_SPEC가 정의한다.
+
+## 23.2 Creation / Valid Attempt / Resolution Order
+
+Reactive State는 Source Action Resolution이 성공적으로 완료된 뒤 생성할 수 있다. 첫 Consumer `SK_WaryStep`은 Setup Check 없이 정상 Activation에서 해결된 뒤 Counter Ready를 생성한다. WaryStep의 Trigger는 해당 Monster에 대한 Survivor의 유효한 Hostile Attack Attempt이며 공격 시점 Attacker가 Close여야 한다.
+
+```text
+상대가 Hostile Attack 선언
+→ Target / Action / 기본 Eligibility 검증
+→ 유효한 Attack Attempt 성립
+→ Reactive Trigger 검사 및 해당 시도에 Trigger 소비 / Resolution 예약
+→ 원 Action Resolution 완료
+→ Reactive Eligibility 재검증
+→ Counter Resolution 또는 취소
+```
+
+기본 Eligibility가 실패하여 원 Action이 invalid이면 Attack Attempt가 성립하지 않아 Reactive Trigger도 발생하지 않는다. 원 Action이 먼저 해결되고 Counter가 그 뒤에 해결된다. Counter는 원 Action을 선제 취소하는 Interrupt가 아니다. Trigger는 Hit가 아닌 Attempt 기준이므로 원 공격이 Miss해도 재검증을 통과하면 Counter를 해결할 수 있다.
+
+## 23.3 Revalidation / Consumption
+
+원 Action 해결 후 Counter 직전에 Reactive Owner가 여전히 유효하고 반격 가능하며 Triggering Attacker가 유효한지, Action별 Position 조건 및 다른 필수 Owner 제공 Eligibility가 유지되는지 재검증한다. Owner Death / Removal, Combat 종료, Owner가 반격 불가능한 상태 또는 필수 조건 실패 시 Counter를 취소한다. Status ID를 Runtime에 하드코딩하지 않는다.
+
+WaryStep의 Attacker Close 조건은 Trigger 시점과 Counter 직전에 각각 확인한다. 예를 들어 Trigger 시 Close였더라도 원 Action 해결 후 Mid가 되어 조건이 실패하면 Counter를 취소한다. Position Owner의 결과를 소비한다.
+
+WaryStep은 Trigger Count 1을 가진다. 첫 유효 Trigger에서 해당 Counter 시도에 소비되며, 이후 재검증 취소 또는 Counter Check Failure / Miss / Effect Failure가 발생해도 다시 사용할 수 없다. Count 1이면 먼저 해결 순서에 도달한 유효 Attacker만 Trigger하고 이후 Attacker는 같은 상태로 Counter하지 않는다. 별도 Priority System을 추가하지 않는다. 기본적으로 한 Action Attempt는 한 Trigger 기회이며 Multi-hit의 각 Hit마다 재발동하지 않는다. Action-specific override는 별도 승인한다.
+
+## 23.4 Expiration / Activation / Cooldown
+
+WaryStep Counter Ready는 Setup Resolution 후 시작하여 Owner의 다음 정상 Activation이 시작하기 직전에 미사용 상태가 만료된다. Counter는 다음 정상 Activation을 소비하지 않는다. Reactive Resolution은 Weighted Random, AI Profile, 일반 후보 선택이나 Fallback 선택을 수행하지 않고 Source Action이 정의한 Reactive Effect를 해결한다.
+
+Source Action의 Cooldown은 정상 사용 / Resolution 시 기존 계약에 따라 등록한다. 이후 Counter Trigger만으로 같은 Source Action의 Cooldown을 다시 등록하지 않는다. Counter Resolution이 별도 Action ID를 가지지 않으면 별도 Cooldown도 만들지 않는다. Counter Damage, Check Source / Requirement, Status, Accuracy와 Bite 사용 여부는 이 Contract가 정하지 않는다.
+
+## 23.5 Cleanup / Log / Host Authority
+
+Combat 종료 시 Reactive State, Trigger Reservation과 전투 전용 Reactive Context를 폐기하고 다음 Encounter로 넘기지 않는다. 강제 Encounter 종료, Owner Death 또는 Participant Removal 등으로 유효하지 않은 상태는 제거할 수 있으며 Reactive State는 Combat 종료를 막지 않는다.
+
+Combat Log는 Reactive State Created, Trigger Matched / Consumed, Resolution Started / Cancelled / Completed 및 State Expired 사건을 기록할 수 있다. Log는 Runtime State의 Source of Truth가 아니며 Event Schema는 TECH_SPEC가 정한다. 향후 Multiplayer에서 Trigger Confirm, Consumption, Cancellation을 포함한 Reactive Runtime은 Host Authoritative이고 Network Sync 상세는 TECH_SPEC 범위다.
+
+## 23.6 ClawLunge Boundary
+
+`SK_ClawLunge`는 Reactive Action이 아니다. 직전 Player Action Context를 이용해 정상 Monster Activation에서 일반 AI 선택을 수행한다. 최근 유효 Close 교전 대상과 직전 Player Action의 Close → Mid 이동 History에 관한 Source of Truth / Lifecycle / Schema는 별도 후속 검토이며 이 Reactive Contract에서 정의하지 않는다.
+
+---
+
 # 24. Combat End Cleanup
 
 Combat 종료 후 전투 전용 Action Runtime은 기본적으로 폐기한다.
@@ -390,6 +444,7 @@ Cooldown Remaining
 Prepared Action / Prepared Target
 Temporary Lock
 Combat Usage Count if combat-scoped
+Reactive State / Reactive Trigger Reservation / Reactive Temporary Context
 ```
 
 Cooldown을 다음 Encounter까지 유지하지 않는다.
@@ -407,6 +462,8 @@ Action Used / Action Result
 Cooldown Started / Cooldown Overridden
 Telegraph Triggered / Prepared Action Created
 Prepared Requirement Failed / Prepared Action Fizzled / Prepared Action Executed
+Reactive State Created / Trigger Matched / Trigger Consumed
+Reactive Resolution Started / Cancelled / Completed / State Expired
 ```
 
 로그는 플레이어 전투 기록, QA, 재현, AI 결정 조사와 밸런스 분석에 활용할 수 있다.
@@ -435,6 +492,9 @@ Prepared Target
 Prepared Trigger Source
 Prepared Created Round
 ```
+
+별도 Reactive Runtime 개념은 §23.1의 Source Action ID, Owner, Trigger Type,
+Remaining Trigger Count, Created Context와 Expire Boundary를 따른다.
 
 이는 Data Contract의 개념이며 정확한 C# Schema는 TECH_SPEC가 정의한다.
 
@@ -465,11 +525,11 @@ Encounter State / Intent / Escalation은 `MECH_Encounter_Resolution_System`이 �
 
 # 29. Save / Multiplayer / Optional Boundary
 
-Action Runtime의 Save 방식은 Save System이 소유한다. Encounter 중 Save를 지원한다면 필요한 Cooldown / Prepared State를 직렬화할 수 있다.
+Action Runtime의 Save 방식은 Save System이 소유한다. Encounter 중 Save가 Combat Runtime 복원을 지원한다면 필요한 Cooldown, Prepared State와 Reactive State / Trigger Reservation도 저장 대상 후보에 포함할 수 있다. Reactive State를 모든 Save에서 항상 저장해야 한다는 규칙은 아니다.
 본 Contract는 Save Schema를 정의하지 않는다.
 
 향후 Multiplayer에서 Action Runtime State는 Host Authoritative다.
-Client는 Cooldown Override, Prepared Creation 또는 Prepared Fizzle을 최종 확정하지 않는다.
+Client는 Cooldown Override, Prepared Creation / Fizzle 또는 Reactive Trigger Confirm / Consumption / Cancellation을 최종 확정하지 않는다.
 정확한 Sync 방식은 TECH_SPEC가 소유한다.
 
 Core Runtime은 R18 전용 규칙이나 문서에 의존하지 않는다. Optional Module은 Core 계약을 사용할 수 있다.
@@ -485,6 +545,7 @@ Core Runtime은 R18 전용 규칙이나 문서에 의존하지 않는다. Option
 - 특정 Strong Action 추가
 - Prepared Requirement 변경
 - Action-specific Fizzle Cooldown override
+- 승인된 Action별 Reactive Trigger 조건, Trigger Count, Counter Effect 또는 Expire Boundary 변경
 
 다음은 Core Contract 검토가 필요하다.
 
@@ -494,13 +555,16 @@ Core Runtime은 R18 전용 규칙이나 문서에 의존하지 않는다. Option
 - Prepared Target Lock 제거
 - Telegraph ↔ Prepared 1:1 기본 규칙 변경
 - Prepared Transition Lock 또는 Runtime Ownership 변경
+- Reactive Resolution의 원 Action 이후 기본 순서 변경 또는 Reactive를 정상 Activation으로 취급
+- Reactive와 Prepared 통합, Trigger 소비 기본 의미 변경 또는 Combat 종료 후 Reactive 유지
 
 ---
 
 # 31. Open Items / Documentation Impact
 
 정확한 Runtime Schema, Action별 Cooldown 값, Fallback Tie-break와
-Advanced multiple-prepared 예외는 후속 작업이다.
+Advanced multiple-prepared 예외는 후속 작업이다. WaryStep Counter Damage / Check / Status와 개별 효과,
+ClawLunge의 최근 교전 / 이동 Context Source of Truth와 Schema도 후속 검토다.
 
 ---
 
@@ -509,6 +573,6 @@ Advanced multiple-prepared 예외는 후속 작업이다.
 Action Runtime System의 목적은 개별 Action의 효과나 AI 선택을 소유하는 것이 아니다.
 
 > 전투 중 Action 상태를 일관되게 관리하고, 플레이어가 Telegraph에 대응한 결과와
-> Cooldown·Prepared Action의 약속을 신뢰할 수 있도록 하는 것
+> Cooldown·Prepared Action·Reactive State의 약속을 신뢰할 수 있도록 하는 것
 
 이다.

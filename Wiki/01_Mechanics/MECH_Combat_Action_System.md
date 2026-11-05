@@ -38,7 +38,7 @@ keywords:
   - Check
   - Effect
 
-last_updated: 2026-10-23
+last_updated: 2026-10-30
 ---
 
 # Downfall Combat Action System
@@ -293,7 +293,8 @@ Role이 반드시 UI 버튼 분류와 일치할 필요는 없다.
 
 # 10. Action Tier
 
-필요한 경우 Action은 강도 또는 AI용 Tier를 가질 수 있다.
+필요한 경우 Action은 희소성 / 특수성을 나타내는 Tier를 가질 수 있다.
+Tier는 강도, 피해량 또는 플레이어가 대응해야 하는 위험 수준과 동일하지 않다.
 
 예:
 
@@ -303,7 +304,9 @@ Advanced
 Signature
 ```
 
-Tier는 Role과 별개의 개념이다.
+Role은 Action의 기능, Tier는 희소성 / 특수성, Threat는 플레이어 대응이 요구되는 위험 수준이다.
+세 개념은 독립적이며 Tier나 Role만으로 Threat 또는 Damage를 결정하지 않는다.
+Basic이 반드시 약하거나 Signature가 반드시 Strong인 것은 아니다.
 
 예:
 
@@ -440,8 +443,8 @@ Action은 하나의 Check Source를 요구할 수 있다.
 
 ```text id="ca22"
 Combat
-Search
-Knowledge
+Exploration
+Technique
 Care
 Dialogue
 ```
@@ -457,8 +460,8 @@ Action은 필요에 따라 복합 Source Check를 사용할 수 있다.
 예:
 
 ```text id="ca23"
-Combat + Knowledge
-Search + Intelligence
+Combat + Technique
+Exploration + Intelligence
 ```
 
 복합 Check의 실제 계산은 `MECH_Check_System`이 소유한다.
