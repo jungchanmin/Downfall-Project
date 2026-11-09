@@ -1,11 +1,12 @@
 # STEP 5 — ClawLunge 읽기 전용 운영 시험
 
 Version: 0.1.0  
-Status: REVIEW (시험 명세)  
-시험 상태: NOT EXECUTED  
+Status: REVIEW (시험 명세의 문서 상태; 운영 시험 종료와 별개)  
+시험 작업 상태: CLOSED  
+최종 검수: PASS_WITH_NOTES  
 Authority: REFERENCE / 시험 명세; Gameplay 정본 아님
 
-목적은 초기화 → 제출 → 비서 검수 → 인수인계의 복구 가능성과 증거 경계를 시험하는 것이다. 아래는 **향후 실행용** 지시문이며 지금 설계 검토가 완료되었다는 뜻이 아니다. 적용 전 명세의 승인·저장소 반영 상태와 최신 Director 지시를 확인한다. 저장소 기본 브랜치의 상태 및 Owner를 재확인하고 기준 SHA를 고정한다. 작업 세션이 접근 불가 자료를 발견하면 영향을 보고하고 추측하지 않는다.
+목적은 초기화 → 제출 → 비서 검수 → 인수인계의 복구 가능성과 증거 경계를 시험하는 것이다. 아래 초기화 명세와 시나리오는 최초 작성 당시의 시험 계획을 보존한다. 원래 상태는 NOT EXECUTED였으며 이후의 결과는 문서 끝의 종료 기록을 따른다. 적용 전 명세의 승인·저장소 반영 상태와 최신 Director 지시를 확인한다. 저장소 기본 브랜치의 상태 및 Owner를 재확인하고 기준 SHA를 고정한다. 작업 세션이 접근 불가 자료를 발견하면 영향을 보고하고 추측하지 않는다.
 
 ## 작업 초기화 명세
 
@@ -158,4 +159,28 @@ CONTEXT_CURRENT에 기록된 다음 의미를 검증 기준으로 사용한다.
 
 ## 결과 제출 / 인수인계
 
-[Task Handoff](templates/TASK_HANDOFF.md)를 사용해 Task ID, 현재 상태·판정, Base / Head 및 Owner 확인값, 확인된 결정과 제안, 산출물, 실행·미실행 검증, 미정·충돌·Blocker, 필요한 승인, 다음 행동을 남긴다. 시험은 실제 결과가 제출되고 검수·복구 가능성이 확인되기 전까지 미실행이다. 후속 Batch 3 상세 검토는 필요한 Director 결정 및 Owner 반영 여부를 확인한 뒤 별도 명세로 착수한다.
+[Task Handoff](templates/TASK_HANDOFF.md)를 사용해 Task ID, 현재 상태·판정, Base / Head 및 Owner 확인값, 확인된 결정과 제안, 산출물, 실행·미실행 검증, 미정·충돌·Blocker, 필요한 승인, 다음 행동을 남긴다. 시험 종료 결과와 증거 한계는 아래 종료 기록을 확인한다. 후속 Batch 3 상세 검토는 필요한 Director 결정 및 Owner 반영 여부를 확인한 뒤 별도 명세로 착수한다.
+
+## STEP 5 시험 결과 / 종료 기록
+
+- Final Review: **PASS_WITH_NOTES**; Task Status: **CLOSED**. Director가 Secretary Session에서 운영 시험 종료를 승인했다.
+- V001 — ClawLunge Recent Action Context Review: **PASS_WITH_NOTES / VERIFIED**. 기존 의미와 미정 Context 계약을 검토하고 Runtime Ownership 및 Lifecycle 최소안을 제안했다. Gameplay Owner는 수정하지 않았으며 제안은 미승인이다.
+- V002 — Independent Handoff Recovery Audit: **PASS_WITH_NOTES / VERIFIED**. V001의 핵심 상태를 복구하고 가상 실패 시나리오 7개를 평가했으며 Authority / Approval의 구분과 인수인계·증거 개선점을 확인했다. Gameplay Owner 수정 없음은 제출 보고 기준이다. 가상 시나리오 평가는 실제 장애를 발생시킨 통합 시험이 아니다.
+- 위 종료 승인은 비서 운영 시험에 한정된다. ClawLunge Gameplay Contract, V001 Runtime Schema 제안 및 Monster Action Catalog의 승인·승격을 뜻하지 않는다. 최근 Context의 Source of Truth와 Runtime Schema는 후속 Director 결정이 필요하다.
+
+근거: [Secretary Session의 V002 검수 및 Director 종료 결정](https://chatgpt.com/c/6aecbc86-a9a0-83ee-9e55-e4c92c4a7c11). 이 기록은 세션의 검수 보고와 Director 지시에 근거한 요약이다. 이 문서 정리 작업에서는 V001 / V002 첨부 원본 보고서와 원본 실행 로그를 직접 확인하지 못했다. Unity 빌드, 자동 테스트 및 Gameplay 시뮬레이션의 통과를 주장하지 않는다.
+
+## v0.2 후속 개선 후보
+
+다음은 별도 작업을 위한 후보 목록이며, v0.1에 신규 정책을 추가하거나 자동으로 작업을 생성하지 않는다. 별도 범위 설정과 필요한 승인을 거친다.
+
+| 후보 | 개선 이유 | 예상 영향 범위 |
+|---|---|---|
+| Director 승인 원문 추적 | 승인 출처와 대상을 독립 확인하기 어려움 | 결정 기록·인수인계 |
+| 작업 전후 Git 증거 보존 | 작업 범위 준수의 사후 검증 보강 | 작업자 보고·검수 |
+| Gate별 필수 증거 기준 | 증거 부족과 비차단 사항의 판단 일관성 | 검수·종료 절차 |
+| Commit SHA 기반 영구 링크 | 브랜치 이동이나 환경 차이에도 근거 복구 | 보고서·인수인계 |
+| 문서 발견 경로 / PROJECT_INDEX | 새 세션의 운영 자료 탐색성 | 문서 탐색·Governance 검토 |
+| 운영 현황 대시보드 / Task 추적 | 분야별 상태와 개별 작업의 추적 보강 | GitHub 작업 추적·보고 |
+
+이 후보들은 v0.2에서 우선순위와 정책을 별도로 정해야 하며, Governance 변경이나 Issue 생성은 이 기록만으로 승인되지 않는다.
