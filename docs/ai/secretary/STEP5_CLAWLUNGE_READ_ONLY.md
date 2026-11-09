@@ -1,7 +1,7 @@
 # STEP 5 — ClawLunge 읽기 전용 운영 시험
 
 Version: 0.1.0  
-Status: REVIEW (시험 명세)
+Status: REVIEW (시험 명세)  
 시험 상태: NOT EXECUTED  
 Authority: REFERENCE / 시험 명세; Gameplay 정본 아님
 
