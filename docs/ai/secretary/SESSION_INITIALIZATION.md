@@ -1,4 +1,4 @@
-> 운영 문서 v0.1 제안 · 이 PR에서 검토 중. STEP 1–3은 이전 대화에서 운영 기준으로 승인되었고, STEP 4와 GitHub 중심 정리는 이번 지시에 따라 반영한다. 저장소 기본 브랜치에 통합되기 전이며 Gameplay 정본, Owner 지정 또는 문서 승격이 아니다. 상위 Governance 및 최신 명시적 Director 지시가 우선한다.
+> 운영 문서 v0.1.0 · STEP 1–3은 이전 대화에서 운영 기준으로 Director 승인을 받았다. STEP 4의 Director 승인 여부는 별도 근거로 확인한다. 이 문서는 운영 보조 자료이며 Gameplay 정본이나 Owner 지정이 아니다. 상위 Governance와 최신 명시적 Director 지시가 우선한다. GitHub의 PR 상태와 대상 브랜치 반영 여부는 별도로 확인한다.
 
 # DOWNFALL — SESSION INITIALIZATION
 
