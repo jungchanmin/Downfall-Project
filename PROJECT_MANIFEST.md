@@ -4,15 +4,15 @@
 
 ## Repository summary
 
-- Total tracked candidates: 142
-- Text/config candidates: 128
+- Total tracked candidates: 149
+- Text/config candidates: 135
 - Binary/other candidates: 14
 
 ## Category summary
 
 | Category | Files |
 |---|---:|
-| Documentation | 15 |
+| Documentation | 22 |
 | GitHub automation | 2 |
 | Other | 39 |
 | Runtime code | 3 |
@@ -23,7 +23,7 @@
 
 | Extension | Files |
 |---|---:|
-| `.md` | 116 |
+| `.md` | 123 |
 | `(none)` | 16 |
 | `.py` | 5 |
 | `.cs` | 3 |
@@ -40,6 +40,13 @@
 | `docs/PROJECT_INDEX.md` | 18887 | text/config | `0f06b697c30a` |
 | `docs/WIKI_MIGRATION_BACKLOG.md` | 3457 | text/config | `bc05ffab6f4f` |
 | `docs/ai/SOLO_DEV_AI_TOOLS_TUTORIAL.md` | 18126 | text/config | `6aca143c1b34` |
+| `docs/ai/secretary/REVIEW_HANDOFF.md` | 7661 | text/config | `82267152c762` |
+| `docs/ai/secretary/SECRETARY_PROTOCOL.md` | 8418 | text/config | `3c11c0d8f098` |
+| `docs/ai/secretary/SESSION_INITIALIZATION.md` | 4732 | text/config | `31ca506a62ed` |
+| `docs/ai/secretary/STEP5_CLAWLUNGE_READ_ONLY.md` | 11423 | text/config | `3903bef5f2d3` |
+| `docs/ai/secretary/TASK_ORCHESTRATION.md` | 7470 | text/config | `5925d7d9874d` |
+| `docs/ai/secretary/templates/TASK_CONTRACT.md` | 1272 | text/config | `f039ffe718f3` |
+| `docs/ai/secretary/templates/TASK_HANDOFF.md` | 2557 | text/config | `8d56d46431fb` |
 | `docs/archive/ai/AI_EVENT_PIPELINE_ROADMAP_legacy.md` | 8376 | text/config | `6712e6a4b966` |
 | `docs/archive/development/EVENT_QA_PROTOCOL_legacy.md` | 10315 | text/config | `5e3f32273869` |
 | `docs/archive/planning/DOWNFALL_PRD_legacy.md` | 12604 | text/config | `39b6f90844a2` |
