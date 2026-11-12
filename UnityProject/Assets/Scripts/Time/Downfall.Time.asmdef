@@ -1,4 +1,5 @@
 {
   "name": "Downfall.Time",
-  "rootNamespace": "Downfall.Time"
+  "rootNamespace": "Downfall.Time",
+  "references": ["UnityEngine.UI"]
 }
