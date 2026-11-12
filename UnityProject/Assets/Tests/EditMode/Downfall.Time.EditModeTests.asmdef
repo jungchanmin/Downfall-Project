@@ -1,0 +1,7 @@
+{
+  "name": "Downfall.Time.EditModeTests",
+  "rootNamespace": "Downfall.Time.Tests",
+  "references": ["Downfall.Time"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}
