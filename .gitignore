@@ -1,4 +1,14 @@
 # This .gitignore file should be placed at the root of your Unity project directory
+# Downfall's Unity project lives beneath the repository root.
+/UnityProject/[Ll]ibrary/
+/UnityProject/[Tt]emp/
+/UnityProject/[Oo]bj/
+/UnityProject/[Ll]ogs/
+/UnityProject/[Uu]ser[Ss]ettings/
+/UnityProject/[Bb]uild/
+/UnityProject/[Bb]uilds/
+/UnityProject/[Mm]emoryCaptures/
+/UnityProject/[Rr]ecordings/
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
