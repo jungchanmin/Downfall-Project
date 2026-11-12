@@ -608,6 +608,18 @@ Implementation Note:
 Existing Scripts/Core/DayCycle* implementation is LEGACY_PROTOTYPE.
 Do not extend directly before approved technical redesign.
 
+## DayCycle Prototype Technical Specification
+
+ID: `TECH_SPEC_DayCycle_Prototype`
+
+Path: `docs/planning/TECH_SPEC_DayCycle_Prototype.md`
+
+Authority: CURRENT
+
+Status: APPROVED
+
+Scope: Approved prototype runtime, notification handling, scene-lifetime ownership and uGUI boundary. `MECH_Time_System` remains the Gameplay Owner.
+
 ---
 
 # 13. Resource Domain

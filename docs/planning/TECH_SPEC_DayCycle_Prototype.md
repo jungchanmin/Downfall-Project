@@ -2,14 +2,14 @@
 id: TECH_SPEC_DayCycle_Prototype
 title: DayCycle Prototype Technical Specification
 type: technical_specification
-authority: CURRENT_CANDIDATE
-status: REVIEW
+authority: CURRENT
+status: APPROVED
 version: 0.1.0
 ---
 
 # DayCycle Prototype Technical Specification
 
-This document records the Director-approved task direction and the current prototype implementation for review. It does not supersede `Wiki/01_Mechanics/Time_System.md` and is not an approval of additional gameplay rules.
+The Director approved this prototype scope and its technical choices on 2026-11-12, including no initialization events, isolated subscriber failures with continued transition, scene-lifetime ownership by `DayCycleHost`, and exclusion of save and cross-scene persistence. This specification does not supersede `Wiki/01_Mechanics/Time_System.md` or approve additional gameplay rules.
 
 ## Scope and state
 

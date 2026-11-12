@@ -8,6 +8,8 @@ Last reviewed: 2026-11-05
 
 ## Current Phase
 
+Director approval on 2026-11-12: `TECH_SPEC_DayCycle_Prototype` is APPROVED for the existing prototype scope, including no initialization events, isolated subscriber failures, scene-lifetime `DayCycleHost`, and no save or cross-scene persistence. `DownfallExternalRefresh` is approved as a shared development tool. Unity Assistant, Inference, Pipeline and other uncommitted environment settings remain outside that approval and require separate review. See `PROJECT_INDEX` for the specification path; `MECH_Time_System` remains the Gameplay Owner.
+
 Combat System Refactor → Core Contract 정리 완료 단계 → Monster Action vNext Migration 준비. 다음 단계는 밸런스보다 구조 / 의미 Migration을 우선한다.
 
 다음 Owner는 로컬에서 `CURRENT / APPROVED`다: `MECH_Combat_System`, `MECH_Check_System`, `MECH_Combat_Action_System`, `MECH_Combat_Action_Runtime_System`, `MECH_Combat_Positioning_System`, `MECH_Combat_Status_Effect_System`, `MECH_Monster_AI`, `MECH_Encounter_Resolution_System`. 경로와 최신 상태는 `PROJECT_INDEX` 및 각 문서에서 재확인한다.
