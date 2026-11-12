@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -69,6 +70,71 @@ namespace Downfall.Time.Tests
             Assert.IsTrue(cycle.CompletePhase());
             Assert.AreEqual(1, calls);
             Assert.AreEqual(DayPhase.Morning, cycle.CurrentPhase);
+        }
+
+        [Test]
+        public void PhaseEndedFailureDoesNotStopOtherSubscribersOrAdvanceTwice()
+        {
+            var cycle = new DayCycle();
+            var error = new InvalidOperationException("expected phase end failure");
+            var observed = new List<DayPhase>();
+            cycle.PhaseEnded += _ => throw error;
+            cycle.PhaseEnded += observed.Add;
+            Assert.IsTrue(cycle.CompletePhase());
+            Assert.AreEqual(DayPhase.Morning, cycle.CurrentPhase);
+            CollectionAssert.AreEqual(new[] { DayPhase.Dawn }, observed);
+            Assert.AreEqual(1, cycle.LastNotificationFailures.Count);
+            Assert.AreEqual("PhaseEnded", cycle.LastNotificationFailures[0].EventName);
+            Assert.AreSame(error, cycle.LastNotificationFailures[0].Exception);
+            Assert.IsTrue(cycle.CompletePhase());
+            CollectionAssert.AreEqual(new[] { DayPhase.Dawn, DayPhase.Morning }, observed);
+        }
+
+        [Test]
+        public void DayEndedFailureStillCompletesTransitionOnce()
+        {
+            var cycle = new DayCycle();
+            for (var i = 0; i < 4; i++) cycle.CompletePhase();
+            var ends = new List<int>();
+            cycle.DayEnded += _ => throw new InvalidOperationException("expected day end failure");
+            cycle.DayEnded += ends.Add;
+            Assert.IsTrue(cycle.CompletePhase());
+            Assert.AreEqual(2, cycle.CurrentDay);
+            Assert.AreEqual(DayPhase.Dawn, cycle.CurrentPhase);
+            CollectionAssert.AreEqual(new[] { 1 }, ends);
+            Assert.AreEqual("DayEnded", cycle.LastNotificationFailures[0].EventName);
+            Assert.IsTrue(cycle.CompletePhase());
+            CollectionAssert.AreEqual(new[] { 1 }, ends);
+            Assert.AreEqual(0, cycle.LastNotificationFailures.Count);
+        }
+
+        [Test]
+        public void PhaseStartedFailureIsReportedAndOtherSubscribersRun()
+        {
+            var cycle = new DayCycle();
+            var observed = new List<DayPhase>();
+            cycle.PhaseStarted += _ => throw new InvalidOperationException("expected phase start failure");
+            cycle.PhaseStarted += observed.Add;
+            Assert.IsTrue(cycle.CompletePhase());
+            CollectionAssert.AreEqual(new[] { DayPhase.Morning }, observed);
+            Assert.AreEqual("PhaseStarted", cycle.LastNotificationFailures[0].EventName);
+        }
+
+        [Test]
+        public void FinalBoundarySurvivesSubscriberFailuresAndRejectsRepeatedCompletion()
+        {
+            var cycle = new DayCycle();
+            for (var i = 0; i < 124; i++) cycle.CompletePhase();
+            var ends = 0;
+            cycle.DayEnded += _ => throw new InvalidOperationException("expected end failure");
+            cycle.CampaignTimeEnded += () => throw new InvalidOperationException("expected campaign failure");
+            cycle.CampaignTimeEnded += () => ends++;
+            Assert.IsTrue(cycle.CompletePhase());
+            Assert.IsFalse(cycle.CompletePhase());
+            Assert.AreEqual(1, ends);
+            Assert.IsTrue(cycle.IsCampaignTimeEnded);
+            Assert.AreEqual(25, cycle.CurrentDay);
+            Assert.AreEqual(2, cycle.LastNotificationFailures.Count);
         }
     }
 }
