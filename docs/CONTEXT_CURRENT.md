@@ -1,6 +1,6 @@
 # Downfall — Current Context Recovery
 
-Last reviewed: 2026-11-05
+Last reviewed: 2026-11-13
 
 이 문서는 세션 복구용 현재 상태 요약이다. **Gameplay Rule의 Authoritative Owner가 아니다.** 최신 Director 지시와 `PROJECT_INDEX`가 가리키는 실제 Owner를 확인하고 충돌은 보고한다. 이 요약으로 Candidate를 승인하거나 구현 요구사항을 새로 만들지 않는다.
 
@@ -42,7 +42,7 @@ Catalog 자체는 `CURRENT_CANDIDATE / REVIEW`다. vNext Schema 방향은 Direct
 
 `DATA_Monster_Action_Catalog`의 Version은 `1.0.0`이며 기존 Action 18개를 보존한다. Batch 1 / 2 / 3의 Check 방향은 승인됐고 필요한 Check의 미확정 설정은 `REBALANCE_REQUIRED`, Legacy Damage는 `LEGACY_BALANCE`다.
 
-**BATCH 3 CORE ACTION DIRECTIONS AND COUNTER / REACTIVE RUNTIME MINIMUM CONTRACT APPROVED AND DOCUMENTED → READY FOR CLAWLUNGE RECENT ACTION CONTEXT REVIEW.** 18개 기록의 필수 개념과 미확정 상태를 명시하고 Migration Metadata와 원문을 보존했다. Balance Pass는 아직 시작하지 않았으며 각 기록은 미완료이고 Catalog는 승격되지 않았다.
+**BATCH 3 CORE ACTION DIRECTIONS AND COUNTER / REACTIVE RUNTIME MINIMUM CONTRACT APPROVED AND DOCUMENTED → CLAWLUNGE REVIEW / DECISION / APPROVAL REPORTED COMPLETE; DECISION DETAILS AND OWNER INTEGRATION TO VERIFY.** Director 지시에 따라 ClawLunge 결정안의 검수·결정·승인은 완료된 것으로 보고 진행한다. 다만 승인된 개별 선택과 승인 원문은 이 저장소에서 확인되지 않았으며 관련 Owner에 아직 반영되지 않았다. 18개 기록의 Migration Metadata와 원문은 보존한다. Balance Pass는 시작하지 않았고 Catalog는 승격되지 않았다.
 
 - Batch 1: Strike는 Single Enemy / Target Close / Damage / Check Required, Source Combat이다. Threaten은 Single Enemy / Target Close + Mid / Check Required, 단일 Source Dialogue이며 성공 시 ST_Cower 적용을 요청한다. 둘 다 무기가 필요 없으며 추가 Actor Band 제한 없이 일반 Eligibility를 따른다.
 - Brace는 Self / Position Not Applicable / Defensive Mitigation / Check Not Applicable이다. 첫 유효 피격 시 완화를 적용하고 소비하며, 피격이 먼저 없으면 사용자 다음 Activation 시작 시 만료한다. 중첩하지 않으며 재사용 시 처리와 Runtime 저장 방식은 미정이다.
@@ -85,11 +85,11 @@ Owner와 최신 Director 지시를 확인하며 다음 승인 결정을 새 제�
 - Opposed Check Formula, Weighted Composite, Universal Great Success / Failure Threshold, Fractional Modifier.
 - Action Runtime Schema와 Fallback Tie-break.
 - WaryStep Counter Damage / Check / Status 및 개별 Effect, Reactive Runtime 정확한 DTO / Event / Sync Schema와 Action별 상세 Eligibility.
-- ClawLunge의 최근 유효 Close 교전 대상 및 직전 Player Action의 이동 Context: Source of Truth와 Runtime Schema 미정.
+- ClawLunge 결정안의 검수·결정·승인은 Director 지시에 따라 완료로 간주한다. 승인된 구체 선택과 근거를 확인하고, 현재 Owner에 미반영인 최근 유효 Close 교전 대상 / 직전 Player Action 이동 Context의 Source of Truth·Lifecycle·Runtime Schema를 승인 내용과 대조해 정합화한다. 개별 선택은 확인 전 추정하지 않는다.
 
 ## Current Next Task
 
-READY FOR CLAWLUNGE RECENT ACTION CONTEXT REVIEW → 최근 유효 Close 교전 대상과 직전 Player Action의 이동 Context / Source of Truth를 검토한 뒤 Batch 3 Detail Review를 진행한다. 수치 Balance는 아직 시작하지 않았다.
+CLAWLUNGE DECISION / APPROVAL REPORTED COMPLETE → 승인된 구체 결정과 증거 확인 → 관련 Owner에 승인 내용 정합화 → Batch 3 Detail Review. 확인 전 구체 Runtime 규칙을 추정하지 않는다. 수치 Balance는 아직 시작하지 않았다.
 
 ## Update Rule / Handoff
 
